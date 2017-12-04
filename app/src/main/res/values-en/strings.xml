@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">InSight</string>
+    <string name="user_registration">User Registration</string>
+    <string name="signup">Signup</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_email">Enter email</string>
+    <string name="already_registered_signin_here">Already Registered? Signin Here</string>
+</resources>

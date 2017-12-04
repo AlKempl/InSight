@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="net.simplifiedcoding.firebaseauthdemo.MainActivity">
+    tools:context="com.pelicanus.insight.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="User Registration"
+            android:text="@string/user_registration"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter email"
+            android:hint="@string/enter_email"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter password"
+            android:hint="@string/enter_password"
             android:inputType="textPassword" />
 
         <Button
@@ -46,14 +46,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Signup" />
+            android:text="@string/signup" />
 
         <TextView
             android:id="@+id/textViewSignin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Already Registered? Signin Here"
+            android:text="@string/already_registered_signin_here"
             android:textAlignment="center" />
 
     </LinearLayout>
