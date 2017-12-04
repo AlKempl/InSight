@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1088329809692",
+    "firebase_url": "https://insight-a319c.firebaseio.com",
+    "project_id": "insight-a319c",
+    "storage_bucket": "insight-a319c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088329809692:android:2bd732af82394699",
+        "android_client_info": {
+          "package_name": "com.pelicanus.insight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1088329809692-kp9fbs6glfifo8pidq37d2min9mt3gl9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pelicanus.insight",
+            "certificate_hash": "f3e4d61dac0c1ecd4a67a408af959b35d01ca9ae"
+          }
+        },
+        {
+          "client_id": "1088329809692-5k8brc7n2abso7246l2g3l7hirl9mn7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2AQ6ZLK0KE-pSWaijO6OtYCiQh4q9JFM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1088329809692-5k8brc7n2abso7246l2g3l7hirl9mn7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
