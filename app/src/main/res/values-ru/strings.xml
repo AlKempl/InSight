@@ -2,11 +2,13 @@
 <resources>
     <string name="app_name">InSight</string>
     <string name="user_registration">Регистрация</string>
-    <string name="signup">ЭЭэ</string>
+    <string name="signup">Зарегистрироваться</string>
     <string name="enter_password">Введите пароль</string>
     <string name="enter_email">Введите e-mail</string>
     <string name="already_registered_signin_here">Уже зарегистрированы?</string>
     <string name="logout">Выход</string>
     <string name="user_login">Вход</string>
     <string name="not_have_an_account_signup_here">Не зарегистрированы?</string>
+    <string name="signin">Войти</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
