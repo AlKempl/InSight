@@ -123,5 +123,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
             startActivity(new Intent(this, MainActivity.class));
         }
+        //MEH
     }
 }
