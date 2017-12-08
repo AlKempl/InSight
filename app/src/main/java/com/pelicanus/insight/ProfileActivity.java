@@ -2,9 +2,11 @@ package com.pelicanus.insight;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,9 +18,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
 
     //view objects
-    private TextView textViewUserEmail;
+    //private TextViewUsername textViewStatusInfo;
     private Button buttonLogout;
-
+    private TextView textViewUsername;
+    private ImageView imageView;
+    private TextView textViewStatusInfo;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +46,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //initializing views
-        textViewUserEmail = findViewById(R.id.textViewUsername);
         buttonLogout = findViewById(R.id.buttonLogout);
+        textViewUsername = findViewById(R.id.textViewUsername);
+        textViewStatusInfo = findViewById(R.id.textViewStatusInfo);
+        imageView = findViewById(R.id.imageView2);
+        floatingActionButton = findViewById(R.id.floatingActionButton);
 
-        //displaying logged in user name
-        textViewUserEmail.setText("Welcome " + user.getEmail());
 
         //adding listener to button
         buttonLogout.setOnClickListener(this);
 
-        //displaying username in profile
-        textViewUserEmail.setText(user.getDisplayName());
+
     }
 
     @Override
