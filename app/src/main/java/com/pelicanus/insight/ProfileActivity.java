@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //initializing views
-        textViewUserEmail = findViewById(R.id.textViewUserEmail);
+        textViewUserEmail = findViewById(R.id.textViewUsername);
         buttonLogout = findViewById(R.id.buttonLogout);
 
         //displaying logged in user name

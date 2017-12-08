@@ -8,7 +8,7 @@
     <string name="already_registered_signin_here">Уже зарегистрированы?</string>
     <string name="logout">Выход</string>
     <string name="user_login">Вход</string>
-    <string name="not_have_an_account_signup_here">Не зарегистрированы?</string>
+    <string name="not_have_an_account_signup_here">Не зарегистрированы? Зарегистрируйтесь здесь!</string>
     <string name="signin">Войти</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="rating">Рейтинг</string>
