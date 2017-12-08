@@ -26,12 +26,25 @@
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <Button
-            android:id="@+id/buttonLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/logout" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/buttonLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/logout" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="13dp"
+                android:layout_toEndOf="@+id/buttonLogout"
+                android:text="@string/settings" />
+        </RelativeLayout>
 
     </LinearLayout>
 </RelativeLayout>
