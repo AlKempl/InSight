@@ -69,5 +69,4 @@
         app:backgroundTint="@android:color/holo_blue_bright"
         app:rippleColor="@android:color/holo_blue_dark"
         app:srcCompat="@android:drawable/ic_menu_add" />
-
 </RelativeLayout>
