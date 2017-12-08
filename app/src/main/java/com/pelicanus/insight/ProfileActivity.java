@@ -49,6 +49,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //adding listener to button
         buttonLogout.setOnClickListener(this);
+
+        //displaying username in profile
+        textViewUserEmail.setText(user.getDisplayName());
     }
 
     @Override
