@@ -11,4 +11,5 @@
     <string name="not_have_an_account_signup_here">Не зарегистрированы?</string>
     <string name="signin">Войти</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="rating">Рейтинг</string>
 </resources>
