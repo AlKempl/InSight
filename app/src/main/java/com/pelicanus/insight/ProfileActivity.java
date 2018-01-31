@@ -46,17 +46,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //initializing views
-        buttonLogout = findViewById(R.id.buttonLogout);
-        textViewUsername = findViewById(R.id.textViewUsername);
-        textViewStatusInfo = findViewById(R.id.textViewStatusInfo);
-        imageView = findViewById(R.id.imageView2);
-        floatingActionButton = findViewById(R.id.floatingActionButton);
+        //buttonLogout = findViewById(R.id.buttonLogout);
+        //textViewUsername = findViewById(R.id.textViewUsername);
+        //textViewStatusInfo = findViewById(R.id.textViewStatusInfo);
+        //imageView = findViewById(R.id.imageView2);
+        //floatingActionButton = findViewById(R.id.floatingActionButton);
 
 
         //adding listener to button
         buttonLogout.setOnClickListener(this);
 
-
+        //showing username
+        textViewUsername.setText(user.getDisplayName());
+        imageView.setImageURI(user.getPhotoUrl());
     }
 
     @Override
