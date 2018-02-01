@@ -45,37 +45,8 @@ public class ProfileActivity extends AppCompatActivity {
         //getting current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        //initializing views
-        //buttonLogout = findViewById(R.id.buttonLogout);
-        //textViewUsername = findViewById(R.id.textViewUsername);
-        //textViewStatusInfo = findViewById(R.id.textViewStatusInfo);
-        //imageView = findViewById(R.id.imageView2);
-        //floatingActionButton = findViewById(R.id.floatingActionButton);
 
-
-        //adding listener to button
-        //buttonLogout.setOnClickListener(this);
-
-        //showing username
-        //textViewUsername.setText(user.getDisplayName());
-        //imageView.setImageURI(user.getPhotoUrl());
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        //if logout is pressed
-//        if (view == buttonLogout) {
-//            //logging out the user
-//            firebaseAuth.signOut();
-//            //closing activity
-//            finish();
-//            //starting login activity
-//            startActivity(new Intent(this, LoginActivity.class));
-//        }
-//    }
-//
-//    public void myFunc(View view) {
-//        Intent intent = new Intent(this, SettingsActivity.class);
-//        startActivity(intent);
-//    }
+
 }
