@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/db" android:title="dashboard "/>
-    <item android:id="@+id/dm_my_exc" android:title="My Excursions "/>
-    <item android:id="@+id/dm_search" android:title="Search "/>
-    <item android:id="@+id/dm_settings" android:title="Settings "/>
-    <item android:id="@+id/dm_about" android:title="About "/>
-    <item android:id="@+id/dm_logout" android:title="Log out "/>
+    <item android:id="@+id/db" android:title="@string/dashboard"/>
+    <item android:id="@+id/dm_my_exc" android:title="@string/my_excursions"/>
+    <item android:id="@+id/dm_search" android:title="@string/search"/>
+    <item android:id="@+id/dm_settings" android:title="@string/settings"/>
+    <item android:id="@+id/dm_about" android:title="@string/about"/>
+    <item android:id="@+id/dm_logout" android:title="@string/log_out"/>
 </menu>

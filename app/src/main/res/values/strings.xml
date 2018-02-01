@@ -94,4 +94,10 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="radiobutton">RadioButton</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="dashboard">dashboard</string>
+    <string name="my_excursions">My Excursions</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <string name="log_out">Log out</string>
+    <string name="about">About</string>
 </resources>
