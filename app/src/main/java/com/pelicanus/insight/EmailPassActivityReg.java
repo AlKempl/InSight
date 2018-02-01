@@ -12,72 +12,64 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class EmailPassActivityLogin extends AppCompatActivity implements View.OnClickListener {
 
+public class EmailPassActivityReg extends AppCompatActivity implements View.OnClickListener {
 
-    //defining views
-    private Button buttonSignIn;
+    //defining view objects
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private TextView textViewSignup;
+    private Button buttonSignup;
 
-    //firebase auth object
-    private FirebaseAuth firebaseAuth;
+    private TextView textViewSignin;
 
-    //progress dialog
     private ProgressDialog progressDialog;
 
+
+    //defining firebaseauth object
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_email_pass);
+        setContentView(R.layout.activity_reg_email_pass);
 
-
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-
-        // mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-
-
-        //getting firebase auth object
+        //initializing firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //if the objects getcurrentuser method is not null
-        //means user is already logged in
+        //if getCurrentUser does not returns null
         if (firebaseAuth.getCurrentUser() != null) {
-            //close this activity
+            //that means user is already logged in
+            //so close this activity
             finish();
-            //opening profile activity
+
+            //and open profile activity
             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
         }
 
         //initializing views
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        buttonSignIn = findViewById(R.id.buttonSignin);
-        textViewSignup = findViewById(R.id.textViewSignUp);
+        textViewSignin = findViewById(R.id.textViewSignin);
+
+        buttonSignup = findViewById(R.id.buttonSignup);
 
         progressDialog = new ProgressDialog(this);
 
-        //attaching click listener
-        buttonSignIn.setOnClickListener(this);
-        textViewSignup.setOnClickListener(this);
+        //attaching listener to button
+        buttonSignup.setOnClickListener(this);
+        textViewSignin.setOnClickListener(this);
     }
 
-    //method for user login
-    private void userLogin() {
+    private void registerUser() {
+
+        //getting email and password from edit texts
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-
 
         //checking if email and passwords are empty
         if (TextUtils.isEmpty(email)) {
@@ -96,21 +88,20 @@ public class EmailPassActivityLogin extends AppCompatActivity implements View.On
         progressDialog.setMessage("Registering Please Wait...");
         progressDialog.show();
 
-        //logging in the user
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        //creating a new user
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-                        //if the task is successfull
+                        //checking if success
                         if (task.isSuccessful()) {
-                            //start the profile activity
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
-                            Toast.makeText(getApplicationContext(), "Incorrect input", Toast.LENGTH_LONG).show();
-                            return;
+                            //display some message here
+                            Toast.makeText(EmailPassActivityReg.this, "Registration Error", Toast.LENGTH_LONG).show();
                         }
+                        progressDialog.dismiss();
                     }
                 });
 
@@ -118,14 +109,15 @@ public class EmailPassActivityLogin extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {
-        if (view == buttonSignIn) {
-            userLogin();
+
+        if (view == buttonSignup) {
+            registerUser();
         }
 
-        if (view == textViewSignup) {
-            finish();
-            startActivity(new Intent(this, EmailPassActivityReg.class));
+        if (view == textViewSignin) {
+            //open login activity when user taps on the already registered textview
+            startActivity(new Intent(this, EmailPassActivityLogin.class));
         }
-        //MEH
+
     }
 }

@@ -65,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void logOut() {
         firebaseAuth.signOut();
         finish();
-        startActivity(new Intent(this, EmailPassActivityLogin.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     public void openSettings(){
