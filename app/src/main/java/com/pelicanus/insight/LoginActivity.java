@@ -107,6 +107,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             //start the profile activity
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Incorrect input", Toast.LENGTH_LONG).show();
+                            return;
                         }
                     }
                 });
