@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".ProfileActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".EmailPassActivityLogin"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
