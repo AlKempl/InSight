@@ -12,18 +12,18 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity {
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
 
     //view objects
     //private TextViewUsername textViewStatusInfo;
-    private Button buttonLogout;
-    private TextView textViewUsername;
-    private ImageView imageView;
-    private TextView textViewStatusInfo;
-    private FloatingActionButton floatingActionButton;
+//    private Button buttonLogout;
+//    private TextView textViewUsername;
+//    private ImageView imageView;
+//    private TextView textViewStatusInfo;
+//    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,34 +46,36 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //initializing views
-        buttonLogout = findViewById(R.id.buttonLogout);
-        textViewUsername = findViewById(R.id.textViewUsername);
-        textViewStatusInfo = findViewById(R.id.textViewStatusInfo);
-        imageView = findViewById(R.id.imageView2);
-        floatingActionButton = findViewById(R.id.floatingActionButton);
+        //buttonLogout = findViewById(R.id.buttonLogout);
+        //textViewUsername = findViewById(R.id.textViewUsername);
+        //textViewStatusInfo = findViewById(R.id.textViewStatusInfo);
+        //imageView = findViewById(R.id.imageView2);
+        //floatingActionButton = findViewById(R.id.floatingActionButton);
 
 
         //adding listener to button
-        buttonLogout.setOnClickListener(this);
+        //buttonLogout.setOnClickListener(this);
 
-
+        //showing username
+        //textViewUsername.setText(user.getDisplayName());
+        //imageView.setImageURI(user.getPhotoUrl());
     }
 
-    @Override
-    public void onClick(View view) {
-        //if logout is pressed
-        if (view == buttonLogout) {
-            //logging out the user
-            firebaseAuth.signOut();
-            //closing activity
-            finish();
-            //starting login activity
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-    }
-
-    public void myFunc(View view) {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
+//    @Override
+//    public void onClick(View view) {
+//        //if logout is pressed
+//        if (view == buttonLogout) {
+//            //logging out the user
+//            firebaseAuth.signOut();
+//            //closing activity
+//            finish();
+//            //starting login activity
+//            startActivity(new Intent(this, LoginActivity.class));
+//        }
+//    }
+//
+//    public void myFunc(View view) {
+//        Intent intent = new Intent(this, SettingsActivity.class);
+//        startActivity(intent);
+//    }
 }
