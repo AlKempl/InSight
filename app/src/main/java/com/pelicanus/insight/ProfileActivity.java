@@ -58,6 +58,9 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.dm_logout:
                         logOut();
                         break;
+                    case R.id.dm_settings:
+                        openSettings();
+                        break;
                 }
                 return false;
             }
@@ -71,4 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(new Intent(this, LoginActivity.class));
     }
 
+    public void openSettings(){
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
 }
