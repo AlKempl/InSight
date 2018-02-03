@@ -60,11 +60,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
         }
 
-        //initializing views
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        buttonSignIn = findViewById(R.id.buttonSignin);
-        textViewSignup = findViewById(R.id.textViewSignUp);
 
         progressDialog = new ProgressDialog(this);
 

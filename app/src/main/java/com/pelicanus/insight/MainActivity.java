@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView textViewSignin;
 
-    private ProgressDialog progressDialog;
+   // private ProgressDialog progressDialog;
 
 
     //defining firebaseauth object
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         buttonSignup = findViewById(R.id.buttonSignup);
 
-        progressDialog = new ProgressDialog(this);
+       // progressDialog = new ProgressDialog(this);
 
         //attaching listener to button
         buttonSignup.setOnClickListener(this);
@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //if the email and password are not empty
         //displaying a progress dialog
 
-        progressDialog.setMessage("Registering Please Wait...");
-        progressDialog.show();
+        /*progressDialog.setMessage("Registering Please Wait...");
+        progressDialog.show();*/
 
         //creating a new user
         firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             //display some message here
                             Toast.makeText(MainActivity.this, "Registration Error", Toast.LENGTH_LONG).show();
                         }
-                        progressDialog.dismiss();
+                       // progressDialog.dismiss();
                     }
                 });
 
