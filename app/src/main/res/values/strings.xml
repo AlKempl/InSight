@@ -99,4 +99,6 @@
     <string name="search">Search</string>
     <string name="log_out">Log out</string>
     <string name="about">About</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
 </resources>

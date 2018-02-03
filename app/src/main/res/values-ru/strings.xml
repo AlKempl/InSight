@@ -17,4 +17,6 @@
     <string name="my_excursions">My Excursions</string>
     <string name="log_out">Log out</string>
     <string name="about">About</string>
+    <string name="email">E-mail</string>
+    <string name="password">Пароль</string>
 </resources>
