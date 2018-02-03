@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewSignin = findViewById(R.id.textViewSignin);
         textViewSignup = findViewById(R.id.textViewSignup);
 
-        buttonSignup = findViewById(R.id.buttonSignup);
+        buttonSignup = findViewById(R.id.buttonSignin);
 
        // progressDialog = new ProgressDialog(this);
 
