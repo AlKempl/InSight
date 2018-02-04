@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
             //closing this activity
             finish();
             //starting login activity
-            startActivity(new Intent(this, EmailPassActivityLogin.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
 
         //getting current user

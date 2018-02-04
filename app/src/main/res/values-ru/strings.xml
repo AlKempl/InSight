@@ -10,13 +10,12 @@
     <string name="user_login">Вход</string>
     <string name="not_have_an_account_signup_here">Не зарегистрированы?</string>
     <string name="signin">Войти</string>
-    <string name="title_activity_login">Вход в InSight</string>
     <string name="rating">Рейтинг</string>
     <string name="settings">Настройки</string>
-    <string name="dashboard">Главная</string>
-    <string name="my_excursions">Мои экскурсии</string>
-    <string name="log_out">Выход</string>
-    <string name="about">InSight (с)</string>
-    <string name="search">Поиск</string>
-    <string name="title_activity_settings">Настройки</string>
+    <string name="dashboard">dashboard</string>
+    <string name="my_excursions">My Excursions</string>
+    <string name="log_out">Log out</string>
+    <string name="about">About</string>
+    <string name="email">E-mail</string>
+    <string name="password">Пароль</string>
 </resources>
