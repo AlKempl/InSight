@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonSignup;
+    private Button buttonGoogle;
+    private Button buttonFacebook;
+    private Button buttonTwitter;
 
     private TextView textViewSignin;
     private TextView textViewSignup;
@@ -59,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewSignup = findViewById(R.id.textViewSignup);
 
         buttonSignup = findViewById(R.id.buttonSignin);
+        buttonGoogle = findViewById(R.id.buttonGoogle);
+        buttonFacebook = findViewById(R.id.buttonFacebook);
+        buttonTwitter = findViewById(R.id.buttonTwitter);
 
        // progressDialog = new ProgressDialog(this);
 
