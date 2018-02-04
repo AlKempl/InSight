@@ -61,13 +61,16 @@
 
 </RelativeLayout>-->
 
-
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.pelicanus.insight.LoginActivity"
     android:background = "@drawable/background_login"
     android:theme="@style/AppTheme.NoActionBar">
@@ -112,7 +115,7 @@
                 android:inputType="textEmailAddress"
                 android:textSize="14sp"
                 android:hint="@string/email"
-                android:drawableLeft="@drawable/ic_perm_identity_black_36dp"
+                android:drawableStart="@drawable/ic_perm_identity_black_36dp"
                 android:drawablePadding="7dp"/>
 
             <EditText
@@ -124,7 +127,7 @@
                 android:inputType="textPassword"
                 android:textSize="14sp"
                 android:hint="@string/password"
-                android:drawableLeft="@drawable/ic_lock_outline_black_36dp"
+                android:drawableStart="@drawable/ic_lock_outline_black_36dp"
                 android:drawablePadding="7dp"
                 />
 
@@ -149,3 +152,4 @@
 
 
 </LinearLayout>
+</ScrollView>
