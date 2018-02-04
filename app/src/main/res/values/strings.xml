@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">InSight</string>
-    <string name="title_activity_login">LoginActivity</string>
     <string name="user_registration">User Registration</string>
     <string name="already_registered_signin_here">Already Registered? Signin Here</string>
     <string name="logout">Logout</string>

@@ -21,25 +21,13 @@
         </activity>
         <activity android:name=".ProfileActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pelicanus.insight.MainActivity" />
-        </activity>
+        <activity android:name=".EmailPassActivityReg"></activity>
     </application>
 
 </manifest>
