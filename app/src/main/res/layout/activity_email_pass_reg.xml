@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="25dp"
-                    android:text="@string/signin"
+                    android:text="EmailPassReg"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textSize="20sp"
