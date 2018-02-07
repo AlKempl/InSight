@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import model.FBUser;
+import service.FirebasePelicanusService;
 
 public class EmailPassActivityReg extends AppCompatActivity implements View.OnClickListener {
 
@@ -103,6 +108,7 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
                         //checking if success
                         if (task.isSuccessful()) {
                             finish();
+                            processUserInternalReg();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
                             //display some message here
@@ -112,6 +118,19 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
                     }
                 });
 
+    }
+
+    private void processUserInternalReg() {
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+
+        // Creating new user node, which returns the unique key value
+        // new user node would be /users/$userid/
+        FirebasePelicanusService fbserv = new FirebasePelicanusService();
+        // creating user object
+        FBUser user = fbserv.getFBUserData();
+        // pushing user to 'users' node using the userId
+        mDatabase.child(user.id).setValue(user);
     }
 
     @Override

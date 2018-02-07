@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -93,14 +92,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
     }
+
 
     public void OpenEmailPassRegActivity(View view) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, EmailPassActivityReg.class));
     }
 
-    public void MyFancyMethod(View view) {
-        Log.d("DEBUG", "Here we go!");
-    }
 }
