@@ -55,6 +55,12 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.dm_settings:
                         openSettings();
                         break;
+                    case R.id.dm_my_exc:
+                        openTripList();
+                        break;
+                    case R.id.dm_search:
+                        openCreateTrip();
+                        break;
                 }
                 return false;
             }
@@ -67,7 +73,8 @@ public class ProfileActivity extends AppCompatActivity {
         finish();
         startActivity(new Intent(this, MainActivity.class));
     }
-
+    public void openCreateTrip(){startActivity(new Intent(this,CreateTrip.class));}
+    public void openTripList(){startActivity(new Intent(this,TripList.class));}
     public void openSettings(){
         startActivity(new Intent(this, SettingsActivity.class));
     }
