@@ -3,15 +3,9 @@ package com.pelicanus.insight;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
             //closing this activity
             finish();
             //starting login activity
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
 
         //getting current user
@@ -61,6 +55,12 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.dm_settings:
                         openSettings();
                         break;
+                    case R.id.dm_my_exc:
+                        openTripList();
+                        break;
+                    case R.id.dm_search:
+                        openCreateTrip();
+                        break;
                 }
                 return false;
             }
@@ -71,9 +71,10 @@ public class ProfileActivity extends AppCompatActivity {
     public void logOut() {
         firebaseAuth.signOut();
         finish();
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
-
+    public void openCreateTrip(){startActivity(new Intent(this,CreateTrip.class));}
+    public void openTripList(){startActivity(new Intent(this,TripList.class));}
     public void openSettings(){
         startActivity(new Intent(this, SettingsActivity.class));
     }

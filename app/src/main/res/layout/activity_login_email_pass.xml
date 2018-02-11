@@ -8,7 +8,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="com.pelicanus.insight.LoginActivity">
+                tools:context="com.pelicanus.insight.EmailPassActivityLogin">
 
 
     <LinearLayout
@@ -56,6 +56,12 @@
             android:text="@string/not_have_an_account_signup_here"
             android:textAlignment="center"
             android:textAllCaps="false"/>
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radiobutton" />
 
     </LinearLayout>
 

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:theme="@style/AppTheme.NoActionBar"
-    tools:context="com.pelicanus.insight.MainActivity">
+        tools:context="com.pelicanus.insight.EmailPassActivityReg">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -38,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="25dp"
-                    android:text="@string/signin"
+                    android:text="EmailPassReg"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textSize="20sp"
@@ -69,16 +68,12 @@
                     android:inputType="textPassword"
                     android:textSize="14sp" />
 
-
                 <Button
                     android:id="@+id/buttonSignin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="SignInFirebaseLoginPass"
                     android:text="@string/signin" />
 
                 <TextView
@@ -86,9 +81,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="OpenEmailPassRegActivity"
                     android:text="@string/not_have_an_account_signup_here"
                     android:textAlignment="center" />
 
