@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,26 +53,52 @@ public class FirebaseAuthService {
 
     public FBUser getFbUserByID(final String id){
 
+
         final ArrayList<String> dbUserID = new ArrayList<>();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        final FBUser[] fbUser = {new FBUser()};
+        final ArrayList<String> userData = new ArrayList<>();
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String userIDfromDB = dataSnapshot.getKey();
                 dbUserID.add(userIDfromDB);
 
-                fbUser[0] = dbUserID.contains(id) ? (FBUser) dataSnapshot.child(id).getValue() : null;
+                if (dbUserID.contains(id))
+                    userData.add(dataSnapshot.child(id).getValue().toString());
+
+
+
             }
 
             @Override
-            public void onCancelled(DatabaseError firebaseError) {
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
 
-        return fbUser[0];
+        String name = userData.get(2);
+        String email = userData.get(0);
+        Boolean verifiedEmail = userData.get(4) =="true"?true:false;
+        Uri photoUrl = Uri.parse(userData.get(3));
+
+
+        return new FBUser(id,name,email,verifiedEmail,photoUrl);
     }
 
     public boolean checkFBUserExistenceInDB() {
