@@ -137,8 +137,17 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
     public void writeUserData (String id, String email ,String name, Uri photoUri,Boolean verifiedEmail){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        FBUser newuser = new FBUser(FirebaseAuth.getInstance().getCurrentUser().getUid(),email,name,verifiedEmail,photoUri);
-        myRef.child(id).setValue(newuser);
+        if (photoUri == null) {
+            FBUser newuser = new FBUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), email, name, verifiedEmail, photoUri);
+            myRef.child(id).setValue(newuser);
+            myRef.child(id).child("photoUri").setValue("null");
+
+        }
+        else {
+            FBUser newuser = new FBUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), email, name, verifiedEmail, photoUri);
+            myRef.child(id).setValue(newuser);
+
+        }
 
 
        /* myRef.child(id).child("Email").setValue(email);
