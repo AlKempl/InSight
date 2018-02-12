@@ -16,6 +16,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,8 +29,8 @@
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EmailPassActivityReg" />
-        <activity android:name=".CreateTrip"/>
-        <activity android:name=".TripList"/>
+        <activity android:name=".CreateTrip" />
+        <activity android:name=".TripList" />
     </application>
 
 </manifest>
