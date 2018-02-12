@@ -55,6 +55,7 @@ public class FirebaseAuthService {
     }
     public FBUser getFbUserByID(final String id){
 
+
         final ArrayList<String> dbUserID = new ArrayList<>();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users");
         final ArrayList<String> userData = new ArrayList<>();
@@ -67,6 +68,7 @@ public class FirebaseAuthService {
 
                 if (dbUserID.contains(id))
                     userData.add(dataSnapshot.child(id).getValue().toString());
+
 
 
             }
@@ -99,7 +101,7 @@ public class FirebaseAuthService {
 
 
         return new FBUser(id,name,email,verifiedEmail,photoUrl);
-    };
+    }
     public boolean checkFBUserExistenceInDB() {
 
         return true;
