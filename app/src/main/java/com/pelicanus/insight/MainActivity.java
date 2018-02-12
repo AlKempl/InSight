@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OpenEmailPassRegActivity(View view) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, EmailPassActivityReg.class));
     }
 
     public void MyFancyMethod(View view) {

@@ -135,11 +135,13 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
 
     public void writeUserData (String id, String email ,String name, Uri photoUri,Boolean verifiedEmail){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        myRef.setValue(id);
-        myRef.child(id).setValue("Email",email);
-        myRef.child(id).setValue("Name",name);
-        myRef.child(id).setValue("photoUri",photoUri);
-        myRef.child(id).setValue("verifiedEmail",verifiedEmail);
+
+        myRef.child(id).child("Email").setValue(email);
+        myRef.child(id).child("Name").setValue(name);
+        if (photoUri== null)
+            myRef.child(id).child("photoUri").setValue("");
+        else myRef.child(id).child("photoUri").setValue(photoUri.toString());
+        myRef.child(id).child("verifiedEmail").setValue(verifiedEmail.toString());
     }
 
 }
