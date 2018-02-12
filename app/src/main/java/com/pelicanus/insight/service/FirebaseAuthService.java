@@ -1,19 +1,15 @@
 package com.pelicanus.insight.service;
 
-import android.app.Activity;
-import android.content.ContextWrapper;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.pelicanus.insight.CreateTrip;
+import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.FBUser;
 
 import java.util.ArrayList;
@@ -53,53 +49,31 @@ public class FirebaseAuthService {
             return new FBUser("no-id", "No user", "no-email@dot.com", false, null);
         }
     }
+
     public FBUser getFbUserByID(final String id){
 
         final ArrayList<String> dbUserID = new ArrayList<>();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        final ArrayList<String> userData = new ArrayList<>();
+        final FBUser[] fbUser = {new FBUser()};
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 String userIDfromDB = dataSnapshot.getKey();
                 dbUserID.add(userIDfromDB);
 
-                if (dbUserID.contains(id))
-                    userData.add(dataSnapshot.child(id).getValue().toString());
-
-
+                fbUser[0] = dbUserID.contains(id) ? (FBUser) dataSnapshot.child(id).getValue() : null;
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(DatabaseError firebaseError) {
 
             }
         });
 
-        String name = userData.get(1);
-        String email = userData.get(0);
-        Boolean verifiedEmail = userData.get(3) =="true"?true:false;
-        Uri photoUrl = Uri.parse(userData.get(2));
+        return fbUser[0];
+    }
 
-
-        return new FBUser(id,name,email,verifiedEmail,photoUrl);
-    };
     public boolean checkFBUserExistenceInDB() {
 
         return true;
