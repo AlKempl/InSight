@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pelicanus.insight.model.FBUser;
+import com.pelicanus.insight.model.User;
+
+import java.util.HashMap;
 
 public class EmailPassActivityReg extends AppCompatActivity implements View.OnClickListener {
 
@@ -107,7 +110,7 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            writeUserData(FirebaseAuth.getInstance().getUid(),email," ",null,false);
+                            writeUserData(FirebaseAuth.getInstance().getUid(),email," ",0.0,"rookie",false);
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
@@ -134,28 +137,11 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
 
     }
 
-    public void writeUserData (String id, String email ,String name, Uri photoUri,Boolean verifiedEmail){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
-        if (photoUri == null) {
-            FBUser newuser = new FBUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), email, name, verifiedEmail, photoUri);
-            myRef.child(id).setValue(newuser);
-            myRef.child(id).child("photoUri").setValue("null");
-
-        }
-        else {
-            FBUser newuser = new FBUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), email, name, verifiedEmail, photoUri);
-            myRef.child(id).setValue(newuser);
-
-        }
+    public void writeUserData (String id, String email ,String name,Double rating, String status,Boolean verifiedEmail){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
+        myRef.setValue(new User(email,id,name,rating,status,verifiedEmail));
 
 
-       /* myRef.child(id).child("Email").setValue(email);
-        myRef.child(id).child("Name").setValue(name);
-        if (photoUri== null)
-            myRef.child(id).child("photoUri").setValue("");
-        else myRef.child(id).child("photoUri").setValue(photoUri.toString());
-        myRef.child(id).child("verifiedEmail").setValue(verifiedEmail.toString());*/
     }
 
 }

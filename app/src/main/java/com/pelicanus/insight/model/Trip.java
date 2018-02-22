@@ -16,18 +16,23 @@ public class Trip {
     String name;
 
     @NonNull
-    Integer id;
+    String description;
 
     @NonNull
-    Integer guide_id;
+    String data;
 
     @NonNull
-    LocalDateTime data;
+    String address;
 
-    Trip(String name, Integer id, Integer guide_id, LocalDateTime date) {
+    @NonNull
+    String guide_id;
+
+
+
+    public Trip(String name, String description, String data, String address, String guide_id) {
         this.name = name;
-        this.id = id;
+        this.description = description;
         this.guide_id = guide_id;
-        this.data = date;
+        this.data = data;
     }
 }
