@@ -40,7 +40,10 @@ public class CreateTrip extends AppCompatActivity {
 
                 String name = nameField.getText().toString().trim();
                 String time = timeField.getText().toString().trim();
-
+                if (name.length()==0 || time.length() == 0) {
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_emptydata,Toast.LENGTH_LONG).show();
+                    return;
+                }
                 HashMap<String,String> datamap = new HashMap<String, String>();
                 datamap.put("Name",name);
                 datamap.put("Time",time);
@@ -50,9 +53,9 @@ public class CreateTrip extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isComplete())
-                            Toast.makeText(CreateTrip.this,"good",Toast.LENGTH_LONG).show();
+                            Toast.makeText(CreateTrip.this, R.string.trip_create_success,Toast.LENGTH_LONG).show();
                         else
-                            Toast.makeText(CreateTrip.this,"FUUUUUUUUck",Toast.LENGTH_LONG).show();
+                            Toast.makeText(CreateTrip.this, R.string.trip_create_error,Toast.LENGTH_LONG).show();
                     }
                 });
             }

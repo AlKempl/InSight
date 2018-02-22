@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/db" android:title="@string/dashboard"/>
     <item android:id="@+id/dm_my_exc" android:title="@string/my_excursions"/>
+    <item
+        android:id="@+id/dm_create_trip"
+        android:title="@string/trip_create" />
     <item android:id="@+id/dm_search" android:title="@string/search"/>
     <item android:id="@+id/dm_settings" android:title="@string/settings"/>
     <item android:id="@+id/dm_about" android:title="@string/about"/>

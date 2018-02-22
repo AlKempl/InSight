@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.dm_my_exc:
                         openTripList();
                         break;
-                    case R.id.dm_search:
+                    case R.id.dm_create_trip:
                         openCreateTrip();
                         break;
                 }

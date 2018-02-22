@@ -13,9 +13,13 @@
     <string name="rating">Рейтинг</string>
     <string name="settings">Настройки</string>
     <string name="dashboard">dashboard</string>
-    <string name="my_excursions">My Excursions</string>
+    <string name="my_excursions">Мои экскурсии</string>
     <string name="log_out">Log out</string>
     <string name="about">About</string>
     <string name="email">E-mail</string>
     <string name="password">Пароль</string>
+    <string name="trip_create_error">При создании экскурсии возникли проблемы</string>
+    <string name="trip_create_success">Экскурсия успешно создана</string>
+    <string name="trip_create_emptydata">Пожалуйста, заполните все поля</string>
+    <string name="create_trip">Создать экскурсию</string>
 </resources>

@@ -100,4 +100,8 @@
     <string name="about">About</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
+    <string name="trip_create_error">Error</string>
+    <string name="trip_create_success">The trip has been created</string>
+    <string name="trip_create_emptydata">Please,  fill all of the fields</string>
+    <string name="trip_create">Create trip</string>
 </resources>
