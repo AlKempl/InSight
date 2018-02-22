@@ -33,7 +33,7 @@ public class CreateTrip extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
 
-        nameField = findViewById(R.id.tripname_field);
+        nameField = findViewById(R.id.text_nametrip);
         dataField = findViewById(R.id.data_field);
         addressField = findViewById(R.id.address_field);
         descriptionField = findViewById(R.id.description_fileld);
