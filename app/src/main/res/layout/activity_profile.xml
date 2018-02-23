@@ -23,5 +23,10 @@
         android:layout_gravity="start"
         app:menu="@menu/drawer_menu" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="XUI"/>
+
 
 </android.support.v4.widget.DrawerLayout>

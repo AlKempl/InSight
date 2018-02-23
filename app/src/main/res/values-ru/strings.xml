@@ -18,4 +18,12 @@
     <string name="about">About</string>
     <string name="email">E-mail</string>
     <string name="password">Пароль</string>
+    <string name="drawer_my_excursions">Мои экскурсии</string>
+    <string name="drawer_search">Поиск</string>
+    <string name="darawer_create_excursion">Создать экскурсию</string>
+    <string name="drawer_settings">Настройки</string>
+    <string name="drawer_info">О программе</string>
+    <string name="drawer_log_out">Выход</string>
+    <string name="action_settings">Настройки</string>
+    <string name="service">Служебное</string>
 </resources>
