@@ -1,17 +1,15 @@
-package model;
+package com.pelicanus.insight.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
-import lombok.Setter;
 
 /**
  * Created by Olga on 10.02.2018.
  */
 
-@Getter
-@Setter
+@Data
 public class Trip {
 
     @NonNull
@@ -24,9 +22,9 @@ public class Trip {
     Integer guide_id;
 
     @NonNull
-    Date data;
+    LocalDateTime data;
 
-    Trip(String name, Integer id, Integer guide_id, Date date){
+    Trip(String name, Integer id, Integer guide_id, LocalDateTime date) {
         this.name = name;
         this.id = id;
         this.guide_id = guide_id;

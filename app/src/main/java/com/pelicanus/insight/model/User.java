@@ -1,4 +1,4 @@
-package model;
+package com.pelicanus.insight.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
