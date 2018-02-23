@@ -27,7 +27,10 @@
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EmailPassActivityReg" />
+        <activity
+            android:name=".EmailPassActivityReg"
+            android:label="@string/user_registration"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".CreateTrip"/>
         <activity android:name=".TripList"/>
     </application>

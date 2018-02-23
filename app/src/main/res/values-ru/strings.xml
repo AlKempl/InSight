@@ -20,4 +20,5 @@
     <string name="password">Пароль</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="search">Поиск</string>
+    <string name="login">Логин</string>
 </resources>

@@ -16,19 +16,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class EmailPassActivityReg extends AppCompatActivity implements View.OnClickListener {
+public class EmailPassActivityReg extends AppCompatActivity {
 
 
     //defining view objects
+    private EditText editTextLogin;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private EditText editTextPasswordRepeat;
     private Button buttonSignup;
-    private Button buttonGoogle;
-    private Button buttonFacebook;
-    private Button buttonTwitter;
 
     private TextView textViewSignin;
-    private TextView textViewSignup;
 
     // private ProgressDialog progressDialog;
 
@@ -55,28 +53,25 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
         }
 
         //initializing views
+        editTextLogin = findViewById(R.id.editTextLogin);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
+        editTextPasswordRepeat = findViewById(R.id.editTextPasswordRepeat);
         textViewSignin = findViewById(R.id.textViewSignin);
-        textViewSignup = findViewById(R.id.textViewSignup);
 
         buttonSignup = findViewById(R.id.buttonSignin);
-        buttonGoogle = findViewById(R.id.buttonGoogle);
-        buttonFacebook = findViewById(R.id.buttonFacebook);
-        buttonTwitter = findViewById(R.id.buttonTwitter);
 
         // progressDialog = new ProgressDialog(this);
 
-        //attaching listener to button
-        buttonSignup.setOnClickListener(this);
-        textViewSignin.setOnClickListener(this);
     }
 
     private void registerUser() {
 
         //getting email and password from edit texts
+        String login = editTextLogin.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String password_repeated = editTextPasswordRepeat.getText().toString().trim();
 
         //checking if email and passwords are empty
         if (TextUtils.isEmpty(email)) {
@@ -86,6 +81,17 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
 
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(login)){
+            Toast.makeText(this, "Please enter login", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!password.equals(password_repeated))
+        {
+            Toast.makeText(this, "Passwords don't match", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -114,17 +120,10 @@ public class EmailPassActivityReg extends AppCompatActivity implements View.OnCl
 
     }
 
-    @Override
-    public void onClick(View view) {
-
-        if (view == buttonSignup) {
-            registerUser();
-        }
-
-        if (view == textViewSignin) {
-            //open login activity when user taps on the already registered textview
-            startActivity(new Intent(this, MainActivity.class));
-        }
-
+    public void OpenMainActivity(View view)
+    {
+        startActivity(new Intent(this, MainActivity.class));
     }
+
+
 }
