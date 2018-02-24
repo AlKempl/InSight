@@ -100,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, EmailPassActivityReg.class));
     }
 
+    public void OpenMainMenu(View view)
+    {
+        startActivity(new Intent(this, MenuMainActivity.class));
+    }
+
     public void MyFancyMethod(View view) {
         Log.d("DEBUG", "Here we go!");
     }
