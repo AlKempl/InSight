@@ -78,6 +78,15 @@ public class CreateTrip extends AppCompatActivity {
     }
     public void tripCreator(String name,String description,String data, String address,String id){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").child(name);
-        myRef.setValue(new Trip(name,description,data,address,id));
+        myRef.setValue(new Trip(name,description,data,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isComplete())
+                    Toast.makeText(CreateTrip.this, "Trip creation is succeed",Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(CreateTrip.this, "Trip creation is failed.For more information call +79185166379 ",Toast.LENGTH_LONG).show();
+            }
+            }
+        );
     }
 }
