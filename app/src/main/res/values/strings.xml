@@ -100,8 +100,13 @@
     <string name="about">About</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
-    <string name="trip_create_error">Error</string>
-    <string name="trip_create_success">The trip has been created</string>
+    <string name="trip_create_error">Trip creation is failed.For more information call +79185166379</string>
+    <string name="trip_create_success">Trip creation is succeed</string>
     <string name="trip_create_emptydata">Please,  fill all of the fields</string>
     <string name="trip_create">Create trip</string>
+    <string name="create_trip">Create trip</string>
+    <string name="trip_create_ET_name">Enter name of the trip</string>
+    <string name="trip_create_ET_date">Enter date of trip</string>
+    <string name="trip_create_ET_address">Enter address of meeting</string>
+    <string name="trip_create_ET_description">Tell about your trip</string>
 </resources>

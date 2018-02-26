@@ -15,8 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pelicanus.insight.model.Trip;
 
-import java.util.HashMap;
-
 public class CreateTrip extends AppCompatActivity {
 
 
@@ -34,7 +32,7 @@ public class CreateTrip extends AppCompatActivity {
         setContentView(R.layout.activity_create_trip);
 
         nameField = findViewById(R.id.text_nametrip);
-        dataField = findViewById(R.id.data_field);
+        dataField = findViewById(R.id.date_field);
         addressField = findViewById(R.id.address_field);
         descriptionField = findViewById(R.id.description_fileld);
         mCreateTrip = findViewById(R.id.btn_create);
@@ -46,16 +44,27 @@ public class CreateTrip extends AppCompatActivity {
             public void onClick(View view) {
 
                 String name = nameField.getText().toString().trim();
-                String data = dataField.getText().toString().trim();
+                String date = dataField.getText().toString().trim();
                 String address = addressField.getText().toString().trim();
                 String description = descriptionField.getText().toString().trim();
-
-                tripCreator(name,description,data,address, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                //Проверка данных на пустоту
+                //При добавлении новых полей нужно не забыть добавить сюда!
+                if (name.length() == 0||
+                    date.length() == 0||
+                    address.length() == 0||
+                    description.length() == 0) {
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_emptydata,Toast.LENGTH_LONG).show();
+                    return;
+                }
+                //Тут должно быть преобразование строк и проверка на корректность ввода
+                //Но нужно знать, какие типы должны получиться в итоге
+                //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
+                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
                /* HashMap<String,String> datamap = new HashMap<String, String>();
                 datamap.put("Name",name);
-                datamap.put("Time",data);
+                datamap.put("Time",date);
 
 
 
@@ -76,15 +85,15 @@ public class CreateTrip extends AppCompatActivity {
 
 
     }
-    public void tripCreator(String name,String description,String data, String address,String id){
+    public void tripCreator(String name,String description,String date, String address,String id){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").child(name);
-        myRef.setValue(new Trip(name,description,data,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isComplete())
-                    Toast.makeText(CreateTrip.this, "Trip creation is succeed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_success,Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(CreateTrip.this, "Trip creation is failed.For more information call +79185166379 ",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_error,Toast.LENGTH_LONG).show();
             }
             }
         );

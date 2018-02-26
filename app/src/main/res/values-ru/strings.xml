@@ -22,4 +22,9 @@
     <string name="trip_create_success">Экскурсия успешно создана</string>
     <string name="trip_create_emptydata">Пожалуйста, заполните все поля</string>
     <string name="create_trip">Создать экскурсию</string>
+    <string name="trip_create">Создать экскурсию</string>
+    <string name="trip_create_ET_address">Введите место встречи</string>
+    <string name="trip_create_ET_date">Введите дату и время экскурсии</string>
+    <string name="trip_create_ET_description">Введите описание экскурсии</string>
+    <string name="trip_create_ET_name">Введите название экскурсии</string>
 </resources>
