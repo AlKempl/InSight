@@ -79,7 +79,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="SignInFirebaseLoginPass"
-                    android:text="@string/signin" />
+                    android:text="@string/signin"
+                    />
 
                 <TextView
                     android:id="@+id/textViewSignup"
