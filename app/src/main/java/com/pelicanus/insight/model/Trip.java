@@ -32,6 +32,7 @@ public class Trip {
     public Trip(String name, String description, String data, String address, String guide_id) {
         this.name = name;
         this.description = description;
+        this.address = address;
         this.guide_id = guide_id;
         this.data = data;
     }
