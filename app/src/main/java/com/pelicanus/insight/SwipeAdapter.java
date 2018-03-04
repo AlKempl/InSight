@@ -1,4 +1,4 @@
-package com.pelicanus.insight.service;
+package com.pelicanus.insight;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -25,6 +25,7 @@ public class SwipeAdapter extends PagerAdapter {
 
     public SwipeAdapter(Context context){
         this.context = context;
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -34,14 +35,14 @@ public class SwipeAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == (LinearLayout)object;
+        return view == object;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.menu_main_swipe_element, null);
+        //layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.menu_main_swipe_element, container, false);
 
         ImageView imageView = view.findViewById(R.id.swipe_icon);
         TextView textView1 = view.findViewById(R.id.swipe_header);
@@ -49,7 +50,7 @@ public class SwipeAdapter extends PagerAdapter {
 
         imageView.setImageResource(images[position]);
         textView1.setText(headers[position]);
-        textView2.setText(headers[position]);
+        //textView2.setText();
 
         container.addView(view, 0);
 
