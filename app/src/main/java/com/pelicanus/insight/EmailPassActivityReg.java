@@ -1,5 +1,6 @@
 package com.pelicanus.insight;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +29,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
     private TextView textViewSignin;
 
-    // private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
 
     //defining firebaseauth object
@@ -65,7 +66,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
     }
 
-    private void registerUser() {
+    public void registerUser(View view) {
 
         //getting email and password from edit texts
         String login = editTextLogin.getText().toString().trim();
@@ -98,8 +99,10 @@ public class EmailPassActivityReg extends AppCompatActivity {
         //if the email and password are not empty
         //displaying a progress dialog
 
-        /*progressDialog.setMessage("Registering Please Wait...");
-        progressDialog.show();*/
+        progressDialog = new ProgressDialog(this);
+
+        progressDialog.setMessage("Registering Please Wait...");
+        progressDialog.show();
 
         //creating a new user
         firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -114,7 +117,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
                             //display some message here
                             Toast.makeText(EmailPassActivityReg.this, "Registration Error", Toast.LENGTH_LONG).show();
                         }
-                        // progressDialog.dismiss();
+                        progressDialog.dismiss();
                     }
                 });
 
