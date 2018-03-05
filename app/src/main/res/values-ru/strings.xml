@@ -28,4 +28,13 @@
     <string name="service">Служебное</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="search">Поиск</string>
+    <string name="create">Создавайте</string>
+    <string name="share_your_experience">Делитесь опытом</string>
+    <string name="organize">Организатор</string>
+    <string name="more_info">Подробнее</string>
+    <string name="participate_in">Участник</string>
+    <string name="friendly_reminder">Напоминание о ваших экскурсиях</string>
+    <string name="recently_added">Недавно добавленные</string>
+    <string name="find_your_way">Найдите свой путь</string>
+    <string name="explore">Исследуйте</string>
 </resources>

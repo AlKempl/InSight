@@ -134,7 +134,8 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:onClick="OpenCreateTripActivity">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -147,7 +148,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/main_menu_excursions_search"/>
+                        android:src="@drawable/main_menu_excursions_create"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,7 +181,8 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:onClick="OpenTripList">
 
                 <LinearLayout
                     android:layout_width="match_parent"
