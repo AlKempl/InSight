@@ -10,7 +10,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.FBUser;
 
 import java.util.ArrayList;
@@ -67,8 +66,6 @@ public class FirebaseAuthService {
                 if (dbUserID.contains(id))
                     userData.add(dataSnapshot.child(id).getValue().toString());
 
-
-
             }
 
             @Override
@@ -94,7 +91,7 @@ public class FirebaseAuthService {
 
         String name = userData.get(2);
         String email = userData.get(0);
-        Boolean verifiedEmail = userData.get(4) =="true"?true:false;
+        Boolean verifiedEmail = userData.get(4) == "true";
         Uri photoUrl = Uri.parse(userData.get(3));
 
 

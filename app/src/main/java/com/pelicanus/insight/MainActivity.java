@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pelicanus.insight.service.UserImplService;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +30,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        UserImplService usrv = new UserImplService();
+
+//        APIService apiService = new APIService();
+//        try {
+//            apiService.getCredentials(new RegistrationBody("user@dot.at", "GI8KZzyEw7TyXJ%8h#zf"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            usrv.createRandomUser();
+//            usrv.createRandomUser();
+//            usrv.createRandomUser();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -86,6 +104,15 @@ public class MainActivity extends AppCompatActivity {
                             //start the profile activity
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+
+                            UserImplService usrv = new UserImplService();
+                            try {
+                                usrv.getAllUsers();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect login and/or password. Please, try again.", Toast.LENGTH_LONG).show();
                             return;
