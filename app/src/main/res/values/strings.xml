@@ -100,6 +100,7 @@
     <string name="about">About</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
+    <string name="login">Login</string>
     <string name="title_activity_menu_main">MenuMainActivity</string>
     <string name="drawer_my_excursions">My Excursions</string>
     <string name="drawer_search">Search</string>

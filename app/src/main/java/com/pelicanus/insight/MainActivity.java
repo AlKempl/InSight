@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,9 +18,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private TextView textViewSignup;
 
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
+        textViewSignup = findViewById(R.id.textViewSignup);
 
         //initializing firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -100,10 +103,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, EmailPassActivityReg.class));
     }
 
-    public void OpenMainMenu(View view)
-    {
-        startActivity(new Intent(this, MenuMainActivity.class));
-    }
 
     public void MyFancyMethod(View view) {
         Log.d("DEBUG", "Here we go!");
