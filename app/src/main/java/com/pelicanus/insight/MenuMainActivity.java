@@ -126,6 +126,7 @@ public class MenuMainActivity extends AppCompatActivity
 
     public void OpenTripList(View view)
     {
+
         startActivity(new Intent(this, TripList.class));
     }
 
