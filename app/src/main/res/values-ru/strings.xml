@@ -10,6 +10,7 @@
     <string name="user_login">Вход</string>
     <string name="not_have_an_account_signup_here">Не зарегистрированы?</string>
     <string name="signin">Войти</string>
+    <string name="login">Логин</string>
     <string name="rating">Рейтинг</string>
     <string name="settings">Настройки</string>
     <string name="dashboard">dashboard</string>

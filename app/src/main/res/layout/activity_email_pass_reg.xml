@@ -100,7 +100,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:onClick="registerUser"
-                    android:text="@string/signup" />
+                    android:text="@string/signup"
+                    android:visibility="visible" />
+
 
                 <TextView
                     android:id="@+id/textViewSignup"
@@ -110,7 +112,6 @@
                     android:text="@string/already_registered_signin_here"
                     android:onClick="OpenMainActivity"
                     android:textAlignment="center" />
-
 
 
             </LinearLayout>
