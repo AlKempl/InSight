@@ -20,7 +20,7 @@ public class CreateTrip extends AppCompatActivity {
 
     private EditText nameField;
     private EditText dataField;
-    private EditText addressField;
+    //private EditText addressField;
     private EditText descriptionField;
     private Button mCreateTrip;
     private DatabaseReference myRef;
@@ -32,9 +32,9 @@ public class CreateTrip extends AppCompatActivity {
         setContentView(R.layout.activity_create_trip);
 
         nameField = findViewById(R.id.text_nametrip);
-        dataField = findViewById(R.id.date_field);
-        addressField = findViewById(R.id.address_field);
-        descriptionField = findViewById(R.id.description_fileld);
+        dataField = findViewById(R.id.text_time);
+        //addressField = findViewById(R.id.address_field);
+        descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
 
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -45,7 +45,7 @@ public class CreateTrip extends AppCompatActivity {
 
                 String name = nameField.getText().toString().trim();
                 String date = dataField.getText().toString().trim();
-                String address = addressField.getText().toString().trim();
+                String address = "Заглушка, потому что в дезигне отсутствует поле";//addressField.getText().toString().trim();
                 String description = descriptionField.getText().toString().trim();
                 //Проверка данных на пустоту
                 //При добавлении новых полей нужно не забыть добавить сюда!
@@ -86,7 +86,7 @@ public class CreateTrip extends AppCompatActivity {
 
     }
     public void tripCreator(String name,String description,String date, String address,String id){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").child(name);
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
         myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

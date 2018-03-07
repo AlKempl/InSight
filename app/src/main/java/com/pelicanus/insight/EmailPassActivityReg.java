@@ -119,9 +119,10 @@ public class EmailPassActivityReg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            writeUserData(FirebaseAuth.getInstance().getUid(),email," ",0.0,"rookie",false);
+                            //writeUserData(FirebaseAuth.getInstance().getUid(),email," ",0.0,"rookie",false);
                             finish();
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
                             //display some message here
                             Toast.makeText(EmailPassActivityReg.this, "Registration Error", Toast.LENGTH_LONG).show();
@@ -139,11 +140,11 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
 
 
-    public void writeUserData (String id, String email ,String name,Double rating, String status,Boolean verifiedEmail){
+/*    public void writeUserData (String id, String email ,String name,Double rating, String status,Boolean verifiedEmail){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
         myRef.setValue(new User(email,id,name,rating,status,verifiedEmail));
 
 
     }
-
+*/
 }
