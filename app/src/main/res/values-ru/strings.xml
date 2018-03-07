@@ -27,4 +27,24 @@
     <string name="trip_create_ET_date">Введите дату и время экскурсии</string>
     <string name="trip_create_ET_description">Введите описание экскурсии</string>
     <string name="trip_create_ET_name">Введите название экскурсии</string>
+    <string name="drawer_my_excursions">Мои экскурсии</string>
+    <string name="drawer_search">Поиск</string>
+    <string name="darawer_create_excursion">Создать экскурсию</string>
+    <string name="drawer_settings">Настройки</string>
+    <string name="drawer_info">О программе</string>
+    <string name="drawer_log_out">Выход</string>
+    <string name="action_settings">Настройки</string>
+    <string name="service">Служебное</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="search">Поиск</string>
+    <string name="login">Логин</string>
+    <string name="create">Создавайте</string>
+    <string name="share_your_experience">Делитесь опытом</string>
+    <string name="organize">Организатор</string>
+    <string name="more_info">Подробнее</string>
+    <string name="participate_in">Участник</string>
+    <string name="friendly_reminder">Напоминание о ваших экскурсиях</string>
+    <string name="recently_added">Недавно добавленные</string>
+    <string name="find_your_way">Найдите свой путь</string>
+    <string name="explore">Исследуйте</string>
 </resources>

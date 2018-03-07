@@ -79,7 +79,8 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="SignInFirebaseLoginPass"
-                    android:text="@string/signin" />
+                    android:text="@string/signin"
+                    />
 
                 <TextView
                     android:id="@+id/textViewSignup"
@@ -91,6 +92,12 @@
                     android:onClick="OpenEmailPassRegActivity"
                     android:text="@string/not_have_an_account_signup_here"
                     android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To main menu"
+                    android:onClick="OpenMenuMain"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_myexc"
+            android:icon="@drawable/ic_date_range_black_48dp"
+            android:title="@string/drawer_my_excursions" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_black_48dp"
+            android:title="@string/drawer_search" />
+
+        <item
+            android:id="@+id/nav_create"
+            android:icon="@drawable/ic_add_circle_outline_black_48dp"
+            android:title="@string/darawer_create_excursion" />
+    </group>
+
+    <item android:title="@string/service">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/drawer_settings" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="@string/drawer_info" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_exit_to_app_black_48dp"
+                android:title="@string/drawer_log_out" />
+        </menu>
+    </item>
+
+</menu>
