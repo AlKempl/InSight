@@ -58,7 +58,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
             finish();
 
             //and open profile activity
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), MenuMainActivity.class));//ProfileActivity.class));
         }
 
         //initializing views
