@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class CreateTrip extends AppCompatActivity {
     private EditText descriptionField;
     private Button mCreateTrip;
     private DatabaseReference myRef;
+    private DatePicker datePicker;
 
 
     @Override
@@ -36,6 +38,7 @@ public class CreateTrip extends AppCompatActivity {
         //addressField = findViewById(R.id.address_field);
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
+        datePicker=findViewById(R.id.DatePicker);
 
         myRef = FirebaseDatabase.getInstance().getReference();
 
@@ -44,7 +47,8 @@ public class CreateTrip extends AppCompatActivity {
             public void onClick(View view) {
 
                 String name = nameField.getText().toString().trim();
-                String date = dataField.getText().toString().trim();
+
+                String date = datePicker.getDayOfMonth()+"."+datePicker.getMonth()+"."+datePicker.getYear();
                 String address = "Заглушка, потому что в дезигне отсутствует поле";//addressField.getText().toString().trim();
                 String description = descriptionField.getText().toString().trim();
                 //Проверка данных на пустоту

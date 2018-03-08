@@ -110,6 +110,7 @@
                 android:layout_weight="1"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
+                android:id="@+id/DatePicker"
                 android:spinnersShown="true" />
 
             <EditText
