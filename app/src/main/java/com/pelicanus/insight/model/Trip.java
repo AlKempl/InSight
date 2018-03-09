@@ -3,6 +3,7 @@ package com.pelicanus.insight.model;
 import java.time.LocalDateTime;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -12,15 +13,19 @@ import lombok.NonNull;
 @Data
 public class Trip {
 
+    @Getter
     @NonNull
     String name;
 
+    @Getter
     @NonNull
     Integer id;
 
+    @Getter
     @NonNull
     Integer guide_id;
 
+    @Getter
     @NonNull
     LocalDateTime data;
 
@@ -30,4 +35,6 @@ public class Trip {
         this.guide_id = guide_id;
         this.data = date;
     }
+
+
 }

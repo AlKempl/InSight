@@ -10,6 +10,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pelicanus.insight.model.Trip;
+import com.pelicanus.insight.service.TripListAdapter;
 
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 public class TripList extends AppCompatActivity {
 
     private DatabaseReference myRef;
-    private ArrayList<String> Triplst = new ArrayList<>();
+    private ArrayList<Trip> Triplst = new ArrayList<>();
     private ListView TripsList;
 
     @Override
@@ -30,7 +32,7 @@ public class TripList extends AppCompatActivity {
         TripsList = findViewById(R.id.trip_list);
 
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Triplst);
+        final TripListAdapter arrayAdapter = new TripListAdapter(this, R.layout.list_item, Triplst);
 
         TripsList.setAdapter(arrayAdapter);
 
@@ -40,7 +42,8 @@ public class TripList extends AppCompatActivity {
 
 
                 String value = dataSnapshot.getValue().toString();
-                Triplst.add(value);
+                //TODO Do smth with adding trip and viewing fields
+                //Triplst.add(value);
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -70,13 +73,13 @@ public class TripList extends AppCompatActivity {
 
 
 
-       /* firebaseListAdapter = new FirebaseListAdapter<String>(this,String.class,android.R.layout.simple_list_item_1) {
-            @Override
-            protected void populateView(View view, String com.pelicanus.insight.model, int position) {
-                TextView textView = (TextView) view.findViewById(R.id.text1);
-                textView.setText(com.pelicanus.insight.model);
-            }
-        }*/
+//        firebaseListAdapter = new FirebaseListAdapter<String>(this,String.class,android.R.layout.simple_list_item_1) {
+//            @Override
+//            protected void populateView(View view, String com.pelicanus.insight.model, int position) {
+//                TextView textView = (TextView) view.findViewById(R.id.text1);
+//                textView.setText(com.pelicanus.insight.model);
+//            }
+//        }
     }
 }
 
