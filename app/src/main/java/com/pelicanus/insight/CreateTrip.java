@@ -20,7 +20,6 @@ public class CreateTrip extends AppCompatActivity {
 
 
     private EditText nameField;
-    private EditText dataField;
     //private EditText addressField;
     private EditText descriptionField;
     private Button mCreateTrip;
@@ -34,7 +33,6 @@ public class CreateTrip extends AppCompatActivity {
         setContentView(R.layout.activity_create_trip);
 
         nameField = findViewById(R.id.text_nametrip);
-        dataField = findViewById(R.id.text_time);
         //addressField = findViewById(R.id.address_field);
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
@@ -64,7 +62,8 @@ public class CreateTrip extends AppCompatActivity {
                 //Но нужно знать, какие типы должны получиться в итоге
                 //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
                 tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+                nameField.setText("");
+                descriptionField.setText("");
 
                /* HashMap<String,String> datamap = new HashMap<String, String>();
                 datamap.put("Name",name);
@@ -90,8 +89,8 @@ public class CreateTrip extends AppCompatActivity {
 
     }
     public void tripCreator(String name,String description,String date, String address,String id){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
-        myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
+        myRef.push().setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isComplete())

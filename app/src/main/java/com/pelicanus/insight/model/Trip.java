@@ -19,7 +19,7 @@ public class Trip {
     String description;
 
     @NonNull
-    String data;
+    String date;
 
     @NonNull
     String address;
@@ -29,11 +29,11 @@ public class Trip {
 
 
 
-    public Trip(String name, String description, String data, String address, String guide_id) {
+    public Trip(String name, String description, String date, String address, String guide_id) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.guide_id = guide_id;
-        this.data = data;
+        this.date = date;
     }
 }

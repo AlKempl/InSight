@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pelicanus.insight.model.Trip;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class TripList extends AppCompatActivity {
 
     private DatabaseReference myRef;
-    private ArrayList<String> Triplst = new ArrayList<>();
+    private ArrayList<String> tripName = new ArrayList<>();
     private ListView TripsList;
 
     @Override
@@ -26,11 +27,13 @@ public class TripList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_list);
 
-        myRef = FirebaseDatabase.getInstance().getReference();
+        myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
         TripsList = findViewById(R.id.trip_list);
 
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Triplst);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tripName);
+
+
 
         TripsList.setAdapter(arrayAdapter);
 
@@ -39,24 +42,31 @@ public class TripList extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
 
-                String value = dataSnapshot.getValue().toString();
-                Triplst.add(value);
+                String value =dataSnapshot.child("description").getValue().toString();
+                tripName.add(value);
                 arrayAdapter.notifyDataSetChanged();
+                /**/
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                String value =dataSnapshot.child("description").getValue().toString();
+                tripName.add(value);
+                arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                String value =dataSnapshot.child("description").getValue().toString();
+                tripName.add(value);
+                arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                String value =dataSnapshot.child("description").getValue().toString();
+                tripName.add(value);
+                arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -70,13 +80,8 @@ public class TripList extends AppCompatActivity {
 
 
 
-       /* firebaseListAdapter = new FirebaseListAdapter<String>(this,String.class,android.R.layout.simple_list_item_1) {
-            @Override
-            protected void populateView(View view, String com.pelicanus.insight.model, int position) {
-                TextView textView = (TextView) view.findViewById(R.id.text1);
-                textView.setText(com.pelicanus.insight.model);
-            }
-        }*/
+
     }
+
 }
 
