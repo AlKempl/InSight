@@ -23,6 +23,7 @@
                 android:background="@drawable/background_login" />
 
             <ImageView
+                android:id="@+id/trip_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
@@ -38,10 +39,11 @@
             android:layout_gravity="center"
             android:background="@color/white"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/ic_edit_black_24dp"
+
             android:text="Edit picture"
             android:textAllCaps="false"
             android:textColor="@android:color/darker_gray" />
+        <!--android:drawableStart="@drawable/ic_edit_black_24dp"-->
 
         <LinearLayout
             android:layout_width="match_parent"

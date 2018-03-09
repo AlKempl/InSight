@@ -1,5 +1,6 @@
 package com.pelicanus.insight;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,14 +8,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.FirebaseStorage;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
+
+import java.io.ByteArrayOutputStream;
 
 public class CreateTrip extends AppCompatActivity {
 
@@ -25,6 +36,7 @@ public class CreateTrip extends AppCompatActivity {
     private Button mCreateTrip;
     private DatabaseReference myRef;
     private DatePicker datePicker;
+    private ImageView imageView;
 
 
     @Override
@@ -37,7 +49,12 @@ public class CreateTrip extends AppCompatActivity {
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
         datePicker=findViewById(R.id.DatePicker);
-
+        //тест загрузки изображений
+        //позволяем кэшировать аватарку
+        imageView = findViewById(R.id.trip_avatar);
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        //---
         myRef = FirebaseDatabase.getInstance().getReference();
 
         mCreateTrip.setOnClickListener(new View.OnClickListener() {
@@ -58,10 +75,20 @@ public class CreateTrip extends AppCompatActivity {
                     Toast.makeText(CreateTrip.this, R.string.trip_create_emptydata,Toast.LENGTH_LONG).show();
                     return;
                 }
+                Bitmap bitmap = imageView.getDrawingCache();
+
+                // создаем ByteArrayOutputStream, необходимый для создания массива байтов для метод putBytes()
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                // делаем компрессию данных для экономии
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                // создаем массив байтов
+                byte[] avatar_data = baos.toByteArray();
                 //Тут должно быть преобразование строк и проверка на корректность ввода
                 //Но нужно знать, какие типы должны получиться в итоге
                 //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
-                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), avatar_data);
                 nameField.setText("");
                 descriptionField.setText("");
 
@@ -88,9 +115,9 @@ public class CreateTrip extends AppCompatActivity {
 
 
     }
-    public void tripCreator(String name,String description,String date, String address,String id){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
-        myRef.push().setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void tripCreator(String name, String description, String date, String address, String id, byte[] pic_data){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
+        myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isComplete())
@@ -100,5 +127,19 @@ public class CreateTrip extends AppCompatActivity {
             }
             }
         );
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child("Trips_pic/"+myRef.getKey());
+        UploadTask uploadTask = storage.putBytes(pic_data);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+            // Ошибка
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            // Успешно
+            }
+        });
     }
 }
