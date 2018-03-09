@@ -41,7 +41,7 @@ public class CreateTrip extends AppCompatActivity {
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
         datePicker=findViewById(R.id.DatePicker);
-        trip_avatar = new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.PictureType.Trip_avatar);
+        trip_avatar = new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.Type.Trip_avatar);
         myRef = FirebaseDatabase.getInstance().getReference();
 
         mCreateTrip.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,8 @@ public class CreateTrip extends AppCompatActivity {
                 tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), trip_avatar);
                 nameField.setText("");
                 descriptionField.setText("");
-                new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.PictureType.Trip_avatar, "NeEV6LBLiqo.jpg").Load();
+                //Для тестирования
+                new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.Type.Trip_avatar).Load("NeEV6LBLiqo.jpg");
                /* HashMap<String,String> datamap = new HashMap<String, String>();
                 datamap.put("Name",name);
                 datamap.put("Time",date);
