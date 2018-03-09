@@ -40,6 +40,7 @@
             android:background="@color/white"
             android:drawablePadding="5dp"
 
+            android:onClick="setTrip_avatar"
             android:text="Edit picture"
             android:textAllCaps="false"
             android:textColor="@android:color/darker_gray" />

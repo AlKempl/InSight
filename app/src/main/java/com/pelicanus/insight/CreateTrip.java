@@ -1,6 +1,5 @@
 package com.pelicanus.insight;
 
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,20 +11,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 //import com.google.firebase.database.FirebaseStorage;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
-
-import java.io.ByteArrayOutputStream;
 
 public class CreateTrip extends AppCompatActivity {
 
@@ -36,7 +28,7 @@ public class CreateTrip extends AppCompatActivity {
     private Button mCreateTrip;
     private DatabaseReference myRef;
     private DatePicker datePicker;
-    private ImageView imageView;
+    private Picture trip_avatar;
 
 
     @Override
@@ -49,9 +41,7 @@ public class CreateTrip extends AppCompatActivity {
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
         datePicker=findViewById(R.id.DatePicker);
-        imageView = findViewById(R.id.trip_avatar);
-        final Picture avatar_data = new Picture(imageView, Picture.PictureType.Trip_avatar);
-        //---
+        trip_avatar = new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.PictureType.Trip_avatar);
         myRef = FirebaseDatabase.getInstance().getReference();
 
         mCreateTrip.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +66,10 @@ public class CreateTrip extends AppCompatActivity {
                 //Тут должно быть преобразование строк и проверка на корректность ввода
                 //Но нужно знать, какие типы должны получиться в итоге
                 //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
-                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), avatar_data);
+                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), trip_avatar);
                 nameField.setText("");
                 descriptionField.setText("");
-
+                new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.PictureType.Trip_avatar, "NeEV6LBLiqo.jpg").Load();
                /* HashMap<String,String> datamap = new HashMap<String, String>();
                 datamap.put("Name",name);
                 datamap.put("Time",date);
@@ -103,7 +93,7 @@ public class CreateTrip extends AppCompatActivity {
 
 
     }
-    public void tripCreator(String name, String description, String date, String address, String id, Picture pic_data){
+    public void tripCreator(String name, String description, String date, String address, String id, Picture avatar){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
         myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -115,6 +105,10 @@ public class CreateTrip extends AppCompatActivity {
             }
             }
         );
-       pic_data.Upload(myRef.getKey());
+       avatar.Upload(myRef.getKey());
+    }
+    public void setTrip_avatar(View view) {
+        trip_avatar.Set();
+        Toast.makeText(CreateTrip.this, "вы попытались сменить аватарку",Toast.LENGTH_LONG).show();
     }
 }
