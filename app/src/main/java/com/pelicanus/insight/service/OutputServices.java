@@ -1,5 +1,8 @@
 package com.pelicanus.insight.service;
 
+import android.nfc.Tag;
+import android.util.Log;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,19 +25,17 @@ public class OutputServices {
     }
 
 
-    private void fetchData(DataSnapshot dataSnapshot){
+    private void fetchData(DataSnapshot dataSnapshot) {
 
         trips.clear();
-        for(DataSnapshot ds:dataSnapshot.getChildren()){
-            String name =ds.child("name").getValue().toString();
-            String description =ds.child("description").getValue().toString();
-            String address =ds.child("address").getValue().toString();
-            String date =ds.child("data").getValue().toString();//Не забыть поменять имя child-а на date!!!!!!
-            String guide_id =ds.child("guide_id").getValue().toString();
-            trips.add(new Trip(name,description,date,address,guide_id));
-        }
-
+        String name = dataSnapshot.child("name").getValue().toString();
+        String date = dataSnapshot.child("data").getValue().toString();
+        String address = dataSnapshot.child("address").getValue().toString();
+        String description = dataSnapshot.child("description").getValue().toString();
+        String guide_id = dataSnapshot.child("guide_id").getValue().toString();
+        trips.add(new Trip(name,description,date,address,guide_id));
     }
+
 
     public ArrayList<Trip> retrieve(){
 

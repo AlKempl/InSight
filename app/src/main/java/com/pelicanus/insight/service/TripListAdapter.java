@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.pelicanus.insight.R;
+import com.pelicanus.insight.TripList;
 import com.pelicanus.insight.model.Trip;
 
 import java.util.ArrayList;
@@ -18,36 +20,52 @@ import java.util.ArrayList;
  * Created by acer on 09.03.2018.
  */
 
-public class TripListAdapter extends ArrayAdapter<Trip> {
+public class TripListAdapter extends BaseAdapter {
 
-    private static final String TAG = "TripListAdapter";
+    //private static final String TAG = "TripListAdapter";
+    Context c;
+    ArrayList<Trip> trips;
 
-    private Context mContext;
+    public TripListAdapter(Context c, ArrayList<Trip> trips) {
+        this.c=c;
+        this.trips=trips;
+    }
 
-    int mResourse;
 
-    public TripListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Trip> objects) {
-        super(context, resource, objects);
-        mContext = context;
-        mResourse = resource;
+    @Override
+    public int getCount() {
+        return trips.size();
+    }
+
+    @Override
+    public Trip getItem(int position) {
+        return trips.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //Excursion information
-        String e_name = getItem(position).getName();
-        String e_date = getItem(position).getData().toString();
-
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResourse, parent, false);
+        if(convertView==null)
+            convertView = LayoutInflater.from(c).inflate(R.layout.list_item,parent,false);
 
         TextView exc_name = (TextView) convertView.findViewById(R.id.exc_name);
         TextView exc_date = (TextView) convertView.findViewById(R.id.exc_date);
+        TextView exc_description= convertView.findViewById(R.id.exc_description);
+
+        //Excursion information
+        String e_name = getItem(position).getName();
+        String e_date = getItem(position).getDate();
+        String e_description =getItem(position).getDescription();
 
         //Putting data on textView
         exc_name.setText(e_name);
         exc_date.setText(e_date);
+        exc_description.setText(e_description);
 
         return convertView;
     }

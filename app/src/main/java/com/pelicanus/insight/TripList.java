@@ -2,6 +2,7 @@ package com.pelicanus.insight;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -11,6 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pelicanus.insight.model.Trip;
+import com.pelicanus.insight.service.OutputServices;
 import com.pelicanus.insight.service.TripListAdapter;
 
 import java.util.ArrayList;
@@ -31,27 +33,31 @@ public class TripList extends AppCompatActivity {
         myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
         TripsList = findViewById(R.id.trip_list);
 
+        OutputServices helper =new OutputServices(myRef);
 
-        final TripListAdapter arrayAdapter = new TripListAdapter(this, R.layout.list_item, Triplst);
+        Triplst = helper.retrieve();
+
+        final TripListAdapter arrayAdapter = new TripListAdapter(this,helper.retrieve());
+
 
         TripsList.setAdapter(arrayAdapter);
 
-        myRef.addChildEventListener(new ChildEventListener() {
+       /* myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
 
                 String value = dataSnapshot.getValue().toString();
                 //TODO Do smth with adding trip and viewing fields
-                //Triplst.add(value);
-                arrayAdapter.notifyDataSetChanged();
+                Triplst.add(value);
+               // arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                String value =dataSnapshot.child("description").getValue().toString();
-                tripName.add(value);
-                arrayAdapter.notifyDataSetChanged();
+              //  String value =dataSnapshot.child("description").getValue().toString();
+             //  triplst.add(value);
+              //  arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -68,7 +74,7 @@ public class TripList extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
 
 

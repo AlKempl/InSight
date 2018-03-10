@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:padding="5dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:padding="5dp" />
 
 </LinearLayout>
