@@ -2,6 +2,7 @@ package com.pelicanus.insight.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import lombok.Setter;
  */
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class User {
@@ -27,9 +29,9 @@ public class User {
     Double rating;
 
     @NonNull
-    Integer id;
+    String id;
 
-    User(String name, String email, String status, Integer id, Double rating){
+    User(String name, String email, String status, String id, Double rating) {
         this.name = name;
         this.email = email;
         this.rating = rating;

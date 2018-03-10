@@ -17,10 +17,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MenuMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,20 @@ public class MenuMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        //if the user is not logged in
+        //that means current user will return null
+        if (firebaseAuth.getCurrentUser() == null) {
+            //closing this activity
+            finish();
+            //starting login activity
+            startActivity(new Intent(this, MainActivity.class));
+        }
+
+        //getting current user
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //Views for filling recently added part
         //TODO Add function to get names and images of 3 most recent excursions and assign them to views
@@ -110,6 +127,7 @@ public class MenuMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_logout) {
+            logOut();
 
         }
 
@@ -118,7 +136,11 @@ public class MenuMainActivity extends AppCompatActivity
         return true;
     }
 
-
+    public void logOut() {
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(this, MainActivity.class));
+    }
     public void OpenCreateTripActivity(View view)
     {
         startActivity(new Intent(this, CreateTrip.class));
@@ -126,6 +148,7 @@ public class MenuMainActivity extends AppCompatActivity
 
     public void OpenTripList(View view)
     {
+
         startActivity(new Intent(this, TripList.class));
     }
 

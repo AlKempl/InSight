@@ -5,23 +5,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
+import com.pelicanus.insight.model.Trip;
 
 public class CreateTrip extends AppCompatActivity {
 
 
     private EditText nameField;
-    private EditText timeField;
+    //private EditText addressField;
+    private EditText descriptionField;
     private Button mCreateTrip;
     private DatabaseReference myRef;
+    private DatePicker datePicker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,10 @@ public class CreateTrip extends AppCompatActivity {
         setContentView(R.layout.activity_create_trip);
 
         nameField = findViewById(R.id.text_nametrip);
-        timeField = findViewById(R.id.text_time);
+        //addressField = findViewById(R.id.address_field);
+        descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
+        datePicker=findViewById(R.id.DatePicker);
 
         myRef = FirebaseDatabase.getInstance().getReference();
 
@@ -39,24 +45,60 @@ public class CreateTrip extends AppCompatActivity {
             public void onClick(View view) {
 
                 String name = nameField.getText().toString().trim();
-                String time = timeField.getText().toString().trim();
 
-                HashMap<String,String> datamap = new HashMap<String, String>();
+                String date = datePicker.getDayOfMonth()+"."+datePicker.getMonth()+"."+datePicker.getYear();
+                String address = "Заглушка, потому что в дезигне отсутствует поле";//addressField.getText().toString().trim();
+                String description = descriptionField.getText().toString().trim();
+                //Проверка данных на пустоту
+                //При добавлении новых полей нужно не забыть добавить сюда!
+                if (name.length() == 0||
+                    date.length() == 0||
+                    address.length() == 0||
+                    description.length() == 0) {
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_emptydata,Toast.LENGTH_LONG).show();
+                    return;
+                }
+                //Тут должно быть преобразование строк и проверка на корректность ввода
+                //Но нужно знать, какие типы должны получиться в итоге
+                //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
+                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                nameField.setText("");
+                descriptionField.setText("");
+
+               /* HashMap<String,String> datamap = new HashMap<String, String>();
                 datamap.put("Name",name);
-                datamap.put("Time",time);
+                datamap.put("Time",date);
+
+
 
 
                 myRef.push().setValue(datamap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isComplete())
-                            Toast.makeText(CreateTrip.this,"good",Toast.LENGTH_LONG).show();
+                            Toast.makeText(CreateTrip.this, R.string.trip_create_success,Toast.LENGTH_LONG).show();
                         else
-                            Toast.makeText(CreateTrip.this,"FUUUUUUUUck",Toast.LENGTH_LONG).show();
+                            Toast.makeText(CreateTrip.this, R.string.trip_create_error,Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
             }
         });
 
+
+
+
+    }
+    public void tripCreator(String name,String description,String date, String address,String id){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
+        myRef.push().setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isComplete())
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_success,Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_error,Toast.LENGTH_LONG).show();
+            }
+            }
+        );
     }
 }

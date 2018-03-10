@@ -15,13 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
     //firebase auth object
     private FirebaseAuth firebaseAuth;
 
-    //view objects
-    //private TextViewUsername textViewStatusInfo;
-//    private Button buttonLogout;
-//    private TextView textViewUsername;
-//    private ImageView imageView;
-//    private TextView textViewStatusInfo;
-//    private FloatingActionButton floatingActionButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.dm_my_exc:
                         openTripList();
                         break;
-                    case R.id.dm_search:
+                    case R.id.dm_create_trip:
                         openCreateTrip();
                         break;
                 }

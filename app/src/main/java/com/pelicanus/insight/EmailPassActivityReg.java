@@ -2,6 +2,7 @@ package com.pelicanus.insight;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.pelicanus.insight.model.FBUser;
+import com.pelicanus.insight.model.User;
+
+import java.util.HashMap;
 
 public class EmailPassActivityReg extends AppCompatActivity {
 
@@ -34,6 +41,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
             finish();
 
             //and open profile activity
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), MenuMainActivity.class));//ProfileActivity.class));
         }
 
         //initializing views
@@ -70,7 +78,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
         //getting email and password from edit texts
         String login = editTextLogin.getText().toString().trim();
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String password_repeated = editTextPasswordRepeat.getText().toString().trim();
 
@@ -111,8 +119,10 @@ public class EmailPassActivityReg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
+                            //writeUserData(FirebaseAuth.getInstance().getUid(),email," ",0.0,"rookie",false);
                             finish();
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
                             //display some message here
                             Toast.makeText(EmailPassActivityReg.this, "Registration Error", Toast.LENGTH_LONG).show();
@@ -129,4 +139,12 @@ public class EmailPassActivityReg extends AppCompatActivity {
     }
 
 
+
+/*    public void writeUserData (String id, String email ,String name,Double rating, String status,Boolean verifiedEmail){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
+        myRef.setValue(new User(email,id,name,rating,status,verifiedEmail));
+
+
+    }
+*/
 }

@@ -28,4 +28,6 @@ public class FBUser {
         this.verifiedEmail = verifiedEmail;
         this.photoUri = photoUri;
     }
+
+
 }
