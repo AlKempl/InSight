@@ -30,9 +30,9 @@
             android:id="@+id/exc_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="2"
             android:paddingTop="5dp"
-            android:text="Description"
-            android:maxLines="2"/>
+            android:text="Description" />
 
         <LinearLayout
             android:id="@+id/ex_date"

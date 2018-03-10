@@ -27,9 +27,10 @@ public class OutputServices {
 
     private void fetchData(DataSnapshot dataSnapshot) {
 
-        trips.clear();
+        //trips.clear();//???????????
+
         String name = dataSnapshot.child("name").getValue().toString();
-        String date = dataSnapshot.child("data").getValue().toString();
+        String date = dataSnapshot.child("date").getValue().toString();
         String address = dataSnapshot.child("address").getValue().toString();
         String description = dataSnapshot.child("description").getValue().toString();
         String guide_id = dataSnapshot.child("guide_id").getValue().toString();
