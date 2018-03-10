@@ -1,15 +1,19 @@
 package com.pelicanus.insight.model;
 
-import java.time.LocalDateTime;
+
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 /**
  * Created by Olga on 10.02.2018.
  */
-
+@NoArgsConstructor
+@Setter
+@Getter
 @Data
 public class Trip {
 
@@ -31,7 +35,6 @@ public class Trip {
 
     @NonNull
     String guide_id;
-
 
 
     public Trip(String name, String description, String date, String address, String guide_id) {
