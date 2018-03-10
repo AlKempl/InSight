@@ -119,4 +119,6 @@
     <string name="organize">Organize</string>
     <string name="participate_in">Participate in</string>
     <string name="friendly_reminder">Friendly reminder of your excursions</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="user_photo">user_photo</string>
 </resources>
