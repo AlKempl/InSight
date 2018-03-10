@@ -79,8 +79,10 @@ public class Picture {
     }
     public boolean Load() {
         if (name == null) {
-            name = "default.jpeg";
+            SetDefault();
+            return false;
         }
+        final boolean[] check = {true};
         imageView.setImageDrawable(null);
         storage.child(type.toString()+"/"+name).getBytes(maxSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
@@ -90,17 +92,11 @@ public class Picture {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                switch (type) {
-                    case Trip_avatar:
-                        imageView.setImageResource(R.drawable.facebook_login_logo);
-                        break;
-                    case User_avatar:
-                        imageView.setImageResource(R.drawable.city_zaglushka);
-                        break;
-                }
+                SetDefault();
+                check[0] = false;
             }
         });
-        return true;
+        return check[0];
     }
     public boolean Load(String pic_name) {
         name = pic_name;
@@ -116,6 +112,16 @@ public class Picture {
         Load("default.jpg");
     }
 
+    public void SetDefault() {
+        switch (type) {
+            case Trip_avatar:
+                imageView.setImageResource(R.drawable.facebook_login_logo);
+                break;
+            case User_avatar:
+                imageView.setImageResource(R.drawable.city_zaglushka);
+                break;
+        }
+    }
 
 
 }

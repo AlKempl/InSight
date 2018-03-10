@@ -118,8 +118,8 @@ public class CreateTrip extends AppCompatActivity {
         startActivityForResult(imageReturnedIntent, q);
         //startActivityForResult(imageReturnedIntent, 1);
         Uri selectedImage = imageReturnedIntent.getData();*/
-        trip_avatar.Set();
+        trip_avatar.SetDefault();
         //trip_avatar.Load("default.jpg");
-        Toast.makeText(CreateTrip.this, "вы попытались сменить аватарку",Toast.LENGTH_LONG).show();
+        Toast.makeText(CreateTrip.this, "Вы попытались сменить аватарку",Toast.LENGTH_LONG).show();
     }
 }
