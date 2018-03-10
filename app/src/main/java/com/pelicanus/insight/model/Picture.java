@@ -1,5 +1,6 @@
 package com.pelicanus.insight.model;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,8 @@ import java.io.ByteArrayOutputStream;
 
 import lombok.NonNull;
 
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
+
 /**
  * Created by Slavik on 09.03.2018.
  */
@@ -31,6 +34,7 @@ public class Picture {
     long maxSize = 1024*1024;
 
     public Picture(ImageView imageView, Type type) {
+        imageView.setImageResource(R.drawable.city_zaglushka);
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
@@ -38,6 +42,7 @@ public class Picture {
     }
 
     public Picture(ImageView imageView, Type type, String name) {
+        imageView.setImageResource(R.drawable.city_zaglushka);
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
@@ -76,6 +81,7 @@ public class Picture {
         if (name == null) {
             name = "default.jpeg";
         }
+        imageView.setImageDrawable(null);
         storage.child(type.toString()+"/"+name).getBytes(maxSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] image_b) {
@@ -101,10 +107,11 @@ public class Picture {
         return Load();
     }
 
-    public void Set() {
-        Intent imageReturnedIntent = new Intent(Intent.ACTION_PICK);
-        Uri selectedImage = imageReturnedIntent.getData();
+    public void Set(Uri selectedImage) {
+        imageView.setImageDrawable(null);
         imageView.setImageURI(selectedImage);
     }
+
+
 
 }

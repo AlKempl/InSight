@@ -1,5 +1,7 @@
 package com.pelicanus.insight;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,7 +72,7 @@ public class CreateTrip extends AppCompatActivity {
                 nameField.setText("");
                 descriptionField.setText("");
                 //Для тестирования
-                new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.Type.Trip_avatar).Load("NeEV6LBLiqo.jpg");
+                trip_avatar.Load("NeEV6LBLiqo.jpg");
                /* HashMap<String,String> datamap = new HashMap<String, String>();
                 datamap.put("Name",name);
                 datamap.put("Time",date);
@@ -96,20 +98,30 @@ public class CreateTrip extends AppCompatActivity {
     }
     public void tripCreator(String name, String description, String date, String address, String id, Picture avatar){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
+        avatar.Upload(myRef.getKey());
         myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isComplete())
-                    Toast.makeText(CreateTrip.this, R.string.trip_create_success,Toast.LENGTH_LONG).show();
+                if (task.isComplete()) {
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_success, Toast.LENGTH_LONG).show();
+                    finish();
+                }
                 else
                     Toast.makeText(CreateTrip.this, R.string.trip_create_error,Toast.LENGTH_LONG).show();
             }
             }
         );
-       avatar.Upload(myRef.getKey());
     }
     public void setTrip_avatar(View view) {
-        trip_avatar.Set();
+
+        /*Intent imageReturnedIntent = new Intent(Intent.ACTION_PICK);
+        imageReturnedIntent.setType("image/*");
+        int q = 9;
+        startActivityForResult(imageReturnedIntent, q);
+        //startActivityForResult(imageReturnedIntent, 1);
+        Uri selectedImage = imageReturnedIntent.getData();
+        trip_avatar.Set(selectedImage);*/
+        trip_avatar.Load("default.jpg");
         Toast.makeText(CreateTrip.this, "вы попытались сменить аватарку",Toast.LENGTH_LONG).show();
     }
 }
