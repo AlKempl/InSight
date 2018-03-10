@@ -128,4 +128,6 @@
     <string name="organize">Organize</string>
     <string name="participate_in">Participate in</string>
     <string name="friendly_reminder">Friendly reminder of your excursions</string>
+    <string name="username_nav_placeholder">UserName</string>
+    <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
 </resources>
