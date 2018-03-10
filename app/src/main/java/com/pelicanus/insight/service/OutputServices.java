@@ -22,19 +22,10 @@ public class OutputServices {
     }
 
 
-    private void fetchData(DataSnapshot dataSnapshot){
-
-        trips.clear();
-        for(DataSnapshot ds:dataSnapshot.getChildren()){
-            String name =ds.child("name").getValue().toString();
-            String description =ds.child("description").getValue().toString();
-            String address =ds.child("address").getValue().toString();
-            String date =ds.child("data").getValue().toString();//Не забыть поменять имя child-а на date!!!!!!
-            String guide_id =ds.child("guide_id").getValue().toString();
-            trips.add(new Trip(name,description,date,address,guide_id));
-        }
-
+    private void fetchData(DataSnapshot dataSnapshot) {
+        trips.add(dataSnapshot.getValue(Trip.class));
     }
+
 
     public ArrayList<Trip> retrieve(){
 
