@@ -1,5 +1,6 @@
 package com.pelicanus.insight.model;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import lombok.NonNull;
 
 import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Created by Slavik on 09.03.2018.
@@ -105,9 +107,13 @@ public class Picture {
         return Load();
     }
 
-    public void Set(Uri selectedImage) {
-        imageView.setImageDrawable(null);
-        imageView.setImageURI(selectedImage);
+    public void Set(
+
+    ) {
+        //startActivity(this, new Intent());
+        //imageView.setImageDrawable(null);
+        //imageView.setImageURI(selectedImage);
+        Load("default.jpg");
     }
 
 
