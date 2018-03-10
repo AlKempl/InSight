@@ -119,4 +119,8 @@
     <string name="organize">Organize</string>
     <string name="participate_in">Participate in</string>
     <string name="friendly_reminder">Friendly reminder of your excursions</string>
+    <string name="description">Description</string>
+    <string name="date_and_time">Date and time</string>
+    <string name="meeting_point">Meeting point</string>
+    <string name="language">Language</string>
 </resources>

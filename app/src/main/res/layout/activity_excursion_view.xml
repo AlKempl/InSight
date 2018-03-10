@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pelicanus.insight.ExcursionViewActivity"
+    android:background="@drawable/background_login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <ImageView
+            android:layout_width="400dp"
+            android:layout_height="228dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/city_zaglushka_big"
+            android:layout_margin="10dp"
+            android:paddingHorizontal="30dp"/>
+
+        <TextView
+            android:id="@+id/view_excursion_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Excursion name"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/view_author_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/view_author_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Author name"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="@color/white"
+            android:layout_marginTop="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/description"/>
+    
+                <TextView
+                    android:id="@+id/view_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:text="Here goes the description of our excursion. Maybe even the long one."/>
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/date_and_time"/>
+
+                <TextView
+                    android:id="@+id/view_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:text="11.11.11 12:00"/>
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/meeting_point"/>
+
+                <TextView
+                    android:id="@+id/view_adress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:text="We meet there"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/language"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:text="I'm in"/>
+        
+    </LinearLayout>
+
+</ScrollView>
