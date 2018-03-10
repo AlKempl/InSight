@@ -115,11 +115,6 @@
                 android:id="@+id/DatePicker"
                 android:spinnersShown="true" />
 
-            <EditText
-                android:id="@+id/text_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
         </LinearLayout>
 
         <LinearLayout
