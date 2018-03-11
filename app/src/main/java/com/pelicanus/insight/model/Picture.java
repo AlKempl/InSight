@@ -33,7 +33,6 @@ public class Picture {
     long maxSize = 1024*1024;
 
     public Picture(ImageView imageView, Type type) {
-        imageView.setImageResource(R.drawable.city_zaglushka);
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
@@ -41,7 +40,6 @@ public class Picture {
     }
 
     public Picture(ImageView imageView, Type type, String name) {
-        imageView.setImageResource(R.drawable.city_zaglushka);
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
@@ -52,10 +50,10 @@ public class Picture {
     public void SetDefault() {
         switch (type) {
             case Trip_avatar:
-                imageView.setImageResource(R.drawable.facebook_login_logo);
+                imageView.setImageResource(R.drawable.city_zaglushka);
                 break;
             case User_avatar:
-                imageView.setImageResource(R.drawable.city_zaglushka);
+                imageView.setImageResource(R.mipmap.ic_launcher_round);
                 break;
         }
     }
@@ -107,7 +105,7 @@ public class Picture {
     }
 
     public void Set(Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
+        Intent intent = new Intent(Intent.ACTION_PICK).setType("image/*");
         activity.startActivityForResult(intent, 1);
     }
     public void Set(Uri uri) {
