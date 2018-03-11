@@ -14,7 +14,7 @@
         tools:context="com.pelicanus.insight.EmailPassActivityReg">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/user_photo"
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:paddingTop="30dp"
