@@ -23,10 +23,13 @@
                 android:background="@drawable/background_login" />
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/trip_avatar"
+                android:layout_width="400dp"
+                android:layout_height="228dp"
                 android:layout_marginTop="60dp"
+                android:layout_marginHorizontal="20dp"
                 android:foregroundGravity="center"
+                android:scaleType="centerCrop"
                 android:src="@drawable/excursion_zaglushka" />
 
         </RelativeLayout>
@@ -38,10 +41,12 @@
             android:layout_gravity="center"
             android:background="@color/white"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/ic_edit_black_24dp"
+
+            android:onClick="setTrip_avatar"
             android:text="Edit picture"
             android:textAllCaps="false"
             android:textColor="@android:color/darker_gray" />
+        <!--android:drawableStart="@drawable/ic_edit_black_24dp"-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,11 +117,6 @@
                 android:datePickerMode="spinner"
                 android:id="@+id/DatePicker"
                 android:spinnersShown="true" />
-
-            <EditText
-                android:id="@+id/text_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

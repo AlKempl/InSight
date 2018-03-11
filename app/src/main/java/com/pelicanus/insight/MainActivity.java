@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void OpenMenuMain(View view)
     {
-        startActivity(new Intent(this, MenuMainActivity.class));
+        startActivity(new Intent(this, CreateTrip.class));
     }
 
 
