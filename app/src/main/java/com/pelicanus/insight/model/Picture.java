@@ -1,5 +1,6 @@
 package com.pelicanus.insight.model;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,8 +17,6 @@ import java.io.ByteArrayOutputStream;
 
 import lombok.NonNull;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
-import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Created by Slavik on 09.03.2018.
@@ -50,25 +49,28 @@ public class Picture {
         this.name = name;
     }
 
+    public void SetDefault() {
+        switch (type) {
+            case Trip_avatar:
+                imageView.setImageResource(R.drawable.facebook_login_logo);
+                break;
+            case User_avatar:
+                imageView.setImageResource(R.drawable.city_zaglushka);
+                break;
+        }
+    }
 
     private byte[] ExtractData() {
         Bitmap bitmap = imageView.getDrawingCache();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        // делаем компрессию данных для экономии
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return baos.toByteArray();
     }
-    //логический тип - чтобы реализовать проверку на успешность загрузки
 
-    /** Отправка на сервер
-     *
-     * @return Успешность отправки
-     */
     public boolean Upload() {
-        String path = type.toString();
         boolean check = false;
         if (name != null) {
-            storage.child(path+"/"+name).putBytes(ExtractData());
+            storage.child(type.toString()+"/"+name).putBytes(ExtractData());
             check = true;
         }
         return check;
@@ -77,7 +79,8 @@ public class Picture {
         name = pic_name;
         return Upload();
     }
-    public boolean Load() {
+
+    public boolean Download() {
         if (name == null) {
             SetDefault();
             return false;
@@ -98,30 +101,28 @@ public class Picture {
         });
         return check[0];
     }
-    public boolean Load(String pic_name) {
+    public boolean Download(String pic_name) {
         name = pic_name;
-        return Load();
+        return Download();
     }
 
-    public void Set(
-
-    ) {
-        //startActivity(this, new Intent());
-        //imageView.setImageDrawable(null);
-        //imageView.setImageURI(selectedImage);
-        Load("default.jpg");
+    public void Set(Activity activity) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
+        activity.startActivityForResult(intent, 1);
     }
-
-    public void SetDefault() {
-        switch (type) {
-            case Trip_avatar:
-                imageView.setImageResource(R.drawable.facebook_login_logo);
-                break;
-            case User_avatar:
-                imageView.setImageResource(R.drawable.city_zaglushka);
-                break;
+    public void Set(Uri uri) {
+        imageView.setImageURI(uri);
+    }
+    /* Не удалять! Этот метод нужно скопировать в активити, чтобы работала загрузка из галереи
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        switch(requestCode) {
+            case 1:
+                if(resultCode == RESULT_OK){
+                    <объект класса Picture>.Set(imageReturnedIntent.getData());
+                }
         }
     }
-
-
+     */
 }
