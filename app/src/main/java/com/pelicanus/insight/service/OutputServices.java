@@ -23,7 +23,9 @@ public class OutputServices {
 
 
     private void fetchData(DataSnapshot dataSnapshot) {
-        trips.add(dataSnapshot.getValue(Trip.class));
+        Trip t = dataSnapshot.getValue(Trip.class);
+        t.setTrip_id(dataSnapshot.getKey());
+        trips.add(t);
     }
 
 

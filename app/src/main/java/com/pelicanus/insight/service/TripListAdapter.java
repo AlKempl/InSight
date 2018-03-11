@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pelicanus.insight.R;
 import com.pelicanus.insight.TripList;
+import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 
 import java.util.ArrayList;
@@ -66,6 +68,8 @@ public class TripListAdapter extends BaseAdapter {
         exc_name.setText(e_name);
         exc_date.setText(e_date);
         exc_description.setText(e_description);
+
+        new Picture((ImageView) convertView.findViewById(R.id.exc_image), Picture.Type.Trip_avatar, getItem(position).getTrip_id()).Download();
 
         return convertView;
     }
