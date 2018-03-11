@@ -48,4 +48,6 @@
     <string name="recently_added">Недавно добавленные</string>
     <string name="find_your_way">Найдите свой путь</string>
     <string name="explore">Исследуйте</string>
+    <string name="username_nav_placeholder">UserName</string>
+    <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
 </resources>

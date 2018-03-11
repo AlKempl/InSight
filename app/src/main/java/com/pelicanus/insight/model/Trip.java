@@ -36,6 +36,11 @@ public class Trip {
     @NonNull
     String guide_id;
 
+    @NonNull
+    @Setter
+    @Getter
+    String trip_id;
+
 
     public Trip(String name, String description, String date, String address, String guide_id) {
         this.name = name;

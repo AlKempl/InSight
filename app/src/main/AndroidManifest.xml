@@ -3,7 +3,7 @@
     package="com.pelicanus.insight">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +16,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,9 +28,16 @@
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EmailPassActivityReg" />
-        <activity android:name=".CreateTrip"/>
-        <activity android:name=".TripList"/>
+        <activity
+            android:name=".EmailPassActivityReg"
+            android:label="@string/user_registration"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CreateTrip" />
+        <activity android:name=".TripList" />
+        <activity
+            android:name=".MenuMainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ExcursionViewActivity"></activity>
     </application>
 
 </manifest>

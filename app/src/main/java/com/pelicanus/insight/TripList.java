@@ -2,31 +2,28 @@ package com.pelicanus.insight;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.pelicanus.insight.model.Trip;
+import com.pelicanus.insight.service.OutputServices;
+import com.pelicanus.insight.service.TripListAdapter;
 
 import java.util.ArrayList;
 
+//import com.firebase.ui.database.FirebaseListAdapter;
 
 public class TripList extends AppCompatActivity {
 
     private DatabaseReference myRef;
+    private ArrayList<Trip> Triplst = new ArrayList<>();
     private ListView TripsList;
-
-    private ArrayList<String> arrayList =new ArrayList<>();
-    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,46 +33,61 @@ public class TripList extends AppCompatActivity {
         myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
         TripsList = findViewById(R.id.trip_list);
 
-       adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
-       TripsList.setAdapter(adapter);
+        OutputServices helper =new OutputServices(myRef);
+
+        Triplst = helper.retrieve();
+
+        final TripListAdapter arrayAdapter = new TripListAdapter(this,helper.retrieve());
 
 
-           myRef.addChildEventListener(new ChildEventListener() {
-               @Override
-               public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                   String key = dataSnapshot.getKey();
-                   String value = dataSnapshot.child("description").getValue(String.class);
+        TripsList.setAdapter(arrayAdapter);
 
-                   arrayList.add(value);
-                   adapter.notifyDataSetChanged();
-               }
-
-               @Override
-               public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-               }
-
-               @Override
-               public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-               }
-
-               @Override
-               public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-               }
-
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-
-               }
-           });
+       /* myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
 
+                String value = dataSnapshot.getValue().toString();
+                //TODO Do smth with adding trip and viewing fields
+                Triplst.add(value);
+               // arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+              //  String value =dataSnapshot.child("description").getValue().toString();
+             //  triplst.add(value);
+              //  arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
 
 
 
-        }
+
+
+
+       /* firebaseListAdapter = new FirebaseListAdapter<String>(this,String.class,android.R.layout.simple_list_item_1) {
+            @Override
+            protected void populateView(View view, String com.pelicanus.insight.model, int position) {
+                TextView textView = (TextView) view.findViewById(R.id.text1);
+                textView.setText(com.pelicanus.insight.model);
+            }
+        }*/
     }
-
+}
 

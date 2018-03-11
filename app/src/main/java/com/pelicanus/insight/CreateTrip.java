@@ -1,5 +1,7 @@
 package com.pelicanus.insight;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -14,7 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
+
+import java.io.IOException;
 
 public class CreateTrip extends AppCompatActivity {
 
@@ -25,6 +32,7 @@ public class CreateTrip extends AppCompatActivity {
     private Button mCreateTrip;
     private DatabaseReference myRef;
     private DatePicker datePicker;
+    private Picture trip_avatar;
 
 
     @Override
@@ -37,7 +45,7 @@ public class CreateTrip extends AppCompatActivity {
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
         datePicker=findViewById(R.id.DatePicker);
-
+        trip_avatar = new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.Type.Trip_avatar);
         myRef = FirebaseDatabase.getInstance().getReference();
 
         mCreateTrip.setOnClickListener(new View.OnClickListener() {
@@ -58,29 +66,13 @@ public class CreateTrip extends AppCompatActivity {
                     Toast.makeText(CreateTrip.this, R.string.trip_create_emptydata,Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 //Тут должно быть преобразование строк и проверка на корректность ввода
                 //Но нужно знать, какие типы должны получиться в итоге
                 //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
-                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), trip_avatar);
                 nameField.setText("");
                 descriptionField.setText("");
-
-               /* HashMap<String,String> datamap = new HashMap<String, String>();
-                datamap.put("Name",name);
-                datamap.put("Time",date);
-
-
-
-
-                myRef.push().setValue(datamap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isComplete())
-                            Toast.makeText(CreateTrip.this, R.string.trip_create_success,Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(CreateTrip.this, R.string.trip_create_error,Toast.LENGTH_LONG).show();
-                    }
-                });*/
             }
         });
 
@@ -88,17 +80,33 @@ public class CreateTrip extends AppCompatActivity {
 
 
     }
-    public void tripCreator(String name,String description,String date, String address,String id){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
-        myRef.push().setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void tripCreator(String name, String description, String date, String address, String id, Picture avatar){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
+        avatar.Upload(myRef.getKey());
+        myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isComplete())
-                    Toast.makeText(CreateTrip.this, R.string.trip_create_success,Toast.LENGTH_LONG).show();
+                if (task.isComplete()) {
+                    Toast.makeText(CreateTrip.this, R.string.trip_create_success, Toast.LENGTH_LONG).show();
+                    finish();
+                }
                 else
                     Toast.makeText(CreateTrip.this, R.string.trip_create_error,Toast.LENGTH_LONG).show();
             }
             }
         );
+    }
+    public void setTrip_avatar(View view) {
+        trip_avatar.Set(this);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        switch(requestCode) {
+            case 1:
+                if(resultCode == RESULT_OK){
+                    trip_avatar.Set(imageReturnedIntent.getData());
+                }
+        }
     }
 }
