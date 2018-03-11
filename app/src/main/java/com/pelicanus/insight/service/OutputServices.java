@@ -39,17 +39,17 @@ public class OutputServices {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                fetchData(dataSnapshot);
+
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                fetchData(dataSnapshot);
+
             }
 
             @Override
