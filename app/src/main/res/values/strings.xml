@@ -134,4 +134,5 @@
     <string name="date_and_time">Date and time</string>
     <string name="meeting_point">Meeting point</string>
     <string name="language">Language</string>
+    <string name="Author_name_not_found">Author name not found</string>
 </resources>

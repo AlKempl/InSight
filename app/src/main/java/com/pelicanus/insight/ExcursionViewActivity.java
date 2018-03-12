@@ -3,6 +3,7 @@ package com.pelicanus.insight;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,28 +35,32 @@ public class ExcursionViewActivity extends AppCompatActivity {
         ex_date.setText(getIntent().getExtras().getString("date"));
         ex_address.setText(getIntent().getExtras().getString("address"));
         String author_id = getIntent().getExtras().getString("guide_id");
+        HashMap<String,User> users = getUserData();
+        if(users.containsKey(author_id))
+            ex_author.setText(users.get(author_id).getName());
+        else
+            Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
 
-        //ex_author.setText(getUserData(author_id).get("name"));
 
 
     }
-    private HashMap<String,String> getUserData(String id){
+    private HashMap<String,User> getUserData(){
 
-        final HashMap<String,String> userdata=new HashMap<>();
+        final HashMap<String,User> userdata=new HashMap<>();
 
-        reference.child(id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                userdata.put("name",user.getName());
-            }
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    userdata.put(dataSnapshot.getKey(),user);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
+                }
 
-        });
+            });
         return  userdata;
     }
 
