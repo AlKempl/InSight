@@ -13,6 +13,7 @@
         android:orientation="vertical">
         
         <ImageView
+            android:id="@+id/view_trip_image"
             android:layout_width="400dp"
             android:layout_height="228dp"
             android:layout_gravity="center_horizontal"
