@@ -89,7 +89,7 @@
                     android:drawablePadding="7dp"
                     android:drawableStart="@drawable/ic_lock_outline_black_36dp"
                     android:ems="10"
-                    android:hint="Repeat password"
+                    android:hint="@string/repeat_password"
                     android:inputType="textPassword"
                     android:textSize="14sp" />
 
