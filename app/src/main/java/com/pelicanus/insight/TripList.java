@@ -1,8 +1,11 @@
 package com.pelicanus.insight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -22,7 +25,6 @@ import java.util.ArrayList;
 public class TripList extends AppCompatActivity {
 
     private DatabaseReference myRef;
-    private ArrayList<Trip> Triplst = new ArrayList<>();
     private ListView TripsList;
 
     @Override
@@ -35,59 +37,29 @@ public class TripList extends AppCompatActivity {
 
         OutputServices helper =new OutputServices(myRef);
 
-        Triplst = helper.retrieve();
+        final ArrayList<Trip> listofTrips= helper.retrieve();
 
-        final TripListAdapter arrayAdapter = new TripListAdapter(this,helper.retrieve());
+        final TripListAdapter arrayAdapter = new TripListAdapter(this,listofTrips);
 
+
+        TripsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(TripList.this,ExcursionViewActivity.class);
+                Trip selectedTrip =listofTrips.get(position);
+                intent.putExtra("name",selectedTrip.getName());
+                intent.putExtra("date",selectedTrip.getDate());
+                intent.putExtra("address",selectedTrip.getAddress());
+                intent.putExtra("description",selectedTrip.getDescription());
+                intent.putExtra("guide_id",selectedTrip.getGuide_id());
+                intent.putExtra("Trip_id",selectedTrip.getTrip_id());
+                startActivity(intent);
+            }
+        });
 
         TripsList.setAdapter(arrayAdapter);
 
-       /* myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-
-                String value = dataSnapshot.getValue().toString();
-                //TODO Do smth with adding trip and viewing fields
-                Triplst.add(value);
-               // arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-              //  String value =dataSnapshot.child("description").getValue().toString();
-             //  triplst.add(value);
-              //  arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
-
-
-
-
-
-       /* firebaseListAdapter = new FirebaseListAdapter<String>(this,String.class,android.R.layout.simple_list_item_1) {
-            @Override
-            protected void populateView(View view, String com.pelicanus.insight.model, int position) {
-                TextView textView = (TextView) view.findViewById(R.id.text1);
-                textView.setText(com.pelicanus.insight.model);
-            }
-        }*/
     }
 }
 

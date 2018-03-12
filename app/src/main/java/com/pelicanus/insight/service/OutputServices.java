@@ -29,6 +29,7 @@ public class OutputServices {
     }
 
 
+
     public ArrayList<Trip> retrieve(){
 
         reference.addChildEventListener(new ChildEventListener() {
