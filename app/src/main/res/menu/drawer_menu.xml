@@ -7,7 +7,9 @@
         android:id="@+id/dm_create_trip"
         android:title="@string/trip_create" />
     <item android:id="@+id/dm_search" android:title="@string/search"/>
-    <item android:id="@+id/dm_settings" android:title="@string/settings"/>
+    <item
+        android:id="@+id/dm_settings"
+        android:title="@string/settings" />
     <item android:id="@+id/dm_about" android:title="@string/about"/>
     <item android:id="@+id/dm_logout" android:title="@string/log_out"/>
 </menu>

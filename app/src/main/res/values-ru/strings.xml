@@ -10,6 +10,7 @@
     <string name="user_login">Вход</string>
     <string name="not_have_an_account_signup_here">Не зарегистрированы?</string>
     <string name="signin">Войти</string>
+    <string name="login">Логин</string>
     <string name="rating">Рейтинг</string>
     <string name="settings">Настройки</string>
     <string name="dashboard">dashboard</string>
@@ -37,7 +38,6 @@
     <string name="service">Служебное</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="search">Поиск</string>
-    <string name="login">Логин</string>
     <string name="create">Создавайте</string>
     <string name="share_your_experience">Делитесь опытом</string>
     <string name="organize">Организатор</string>
@@ -49,4 +49,5 @@
     <string name="explore">Исследуйте</string>
     <string name="username_nav_placeholder">UserName</string>
     <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
+    <string name="repeat_password">Повторите пароль</string>
 </resources>
