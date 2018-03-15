@@ -60,16 +60,17 @@ public class TripList extends AppCompatActivity {
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                listofTrips.add(dataSnapshot.getValue(Trip.class));
+                Trip trip = dataSnapshot.getValue(Trip.class);
+                trip.setTrip_id(dataSnapshot.getKey());
+                listofTrips.add(trip);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Trip trip = dataSnapshot.getValue(Trip.class);
-
+                trip.setTrip_id(dataSnapshot.getKey());
                 int index =getItemIndex(trip);
-
                 listofTrips.set(index,trip);
 
                 adapter.notifyItemChanged(index);
@@ -79,7 +80,7 @@ public class TripList extends AppCompatActivity {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
                 Trip trip = dataSnapshot.getValue(Trip.class);
-
+                trip.setTrip_id(dataSnapshot.getKey());
                 int index =getItemIndex(trip);
 
                 listofTrips.remove(index);
