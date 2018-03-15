@@ -32,10 +32,12 @@ public class ExcursionViewActivity extends AppCompatActivity {
         TextView ex_address = findViewById(R.id.view_adress);
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
+
         ex_name.setText(getIntent().getExtras().getString("name"));
         ex_description.setText(getIntent().getExtras().getString("description"));
         ex_date.setText(getIntent().getExtras().getString("date"));
         ex_address.setText(getIntent().getExtras().getString("address"));
+        ex_language.setText(getIntent().getExtras().getString("language"));
         String author_id = getIntent().getExtras().getString("guide_id");
         String trip_id = getIntent().getStringExtra("Trip_id");
         HashMap<String,User> users = getUserData();

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +34,7 @@ public class CreateTrip extends AppCompatActivity {
     private DatabaseReference myRef;
     private DatePicker datePicker;
     private Picture trip_avatar;
+    private Spinner lang_spn;
 
 
     @Override
@@ -45,6 +47,7 @@ public class CreateTrip extends AppCompatActivity {
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
         datePicker=findViewById(R.id.DatePicker);
+        lang_spn=findViewById(R.id.select_language);
         trip_avatar = new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.Type.Trip_avatar);
         myRef = FirebaseDatabase.getInstance().getReference();
 
@@ -53,7 +56,7 @@ public class CreateTrip extends AppCompatActivity {
             public void onClick(View view) {
 
                 String name = nameField.getText().toString().trim();
-
+                String language = lang_spn.getSelectedItem().toString();
                 String date = datePicker.getDayOfMonth()+"."+datePicker.getMonth()+"."+datePicker.getYear();
                 String address = "Заглушка, потому что в дезигне отсутствует поле";//addressField.getText().toString().trim();
                 String description = descriptionField.getText().toString().trim();
@@ -70,7 +73,7 @@ public class CreateTrip extends AppCompatActivity {
                 //Тут должно быть преобразование строк и проверка на корректность ввода
                 //Но нужно знать, какие типы должны получиться в итоге
                 //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
-                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), trip_avatar);
+                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), trip_avatar,language);
                 nameField.setText("");
                 descriptionField.setText("");
             }
@@ -80,10 +83,10 @@ public class CreateTrip extends AppCompatActivity {
 
 
     }
-    public void tripCreator(String name, String description, String date, String address, String id, Picture avatar){
+    public void tripCreator(String name, String description, String date, String address, String id, Picture avatar,String language){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
         avatar.Upload(myRef.getKey());
-        myRef.setValue(new Trip(name,description,date,address,id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        myRef.setValue(new Trip(name,description,date,address,id,language)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isComplete()) {

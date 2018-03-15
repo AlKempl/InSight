@@ -52,6 +52,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                 intent.putExtra("description",trp.getDescription());
                 intent.putExtra("guide_id",trp.getGuide_id());
                 intent.putExtra("Trip_id",trp.getTrip_id());
+                intent.putExtra("language",trp.getLanguage());
                 c.startActivity(intent);
             }
         });
