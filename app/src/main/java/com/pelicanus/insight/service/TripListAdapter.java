@@ -69,7 +69,9 @@ public class TripListAdapter extends BaseAdapter {
         exc_date.setText(e_date);
         exc_description.setText(e_description);
 
-        new Picture((ImageView) convertView.findViewById(R.id.exc_image), Picture.Type.Trip_avatar, getItem(position).getTrip_id()).Download();
+        Picture avatar = new Picture((ImageView) convertView.findViewById(R.id.exc_image), Picture.Type.Trip_avatar, getItem(position).getTrip_id());
+        avatar.Download();
+        avatar.LoadToImageView();
 
         return convertView;
     }
