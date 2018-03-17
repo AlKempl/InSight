@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.pelicanus.insight.R;
@@ -24,7 +25,6 @@ import lombok.Setter;
 /**
  * Created by Slavik on 09.03.2018.
  */
-
 public class Picture {
     public enum Type {Trip_avatar, User_avatar, Test}
 
@@ -62,7 +62,7 @@ public class Picture {
 
     }
     public void SetDefault() {
-        Download("avatar_default.jpg");
+        Download("avatar_default.jpg"); //заменить на default, а то бред какой-то
     }
 
     private byte[] ExtractData() {
@@ -74,10 +74,7 @@ public class Picture {
 
     public void LoadToImageView() {
         if (imageView != null) {
-            /*while (bitmap == null) {
-                SetDefault();
-            }*/
-            imageView.setImageBitmap(bitmap);
+             imageView.setImageBitmap(bitmap);
         }
     }
 
@@ -94,31 +91,51 @@ public class Picture {
         return Upload();
     }
 
-    public boolean Download() {
+    public void Download() {
+        Download(false);
+    }
+
+    public void Download(boolean forcibly) {
         if (name == null) {
             SetDefault();
-            return false;
+            return;
         }
-        final boolean[] check = {true};
         //imageView.setImageDrawable(null);
-        storage.child(type.toString()+"/"+name).getBytes(maxSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] image_b) {
-                setBitmap(BitmapFactory.decodeByteArray(image_b, 0, image_b.length));
-                //LoadToImageView();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                SetDefault();
-                check[0] = false;
-            }
-        });
-        return check[0];
+        if (bitmap == null || forcibly) {
+            OnSuccessListener<byte[]> SucList = new OnSuccessListener<byte[]>() {
+                @Override
+                public synchronized void onSuccess(byte[] image_b) {
+                    bitmap = BitmapFactory.decodeByteArray(image_b, 0, image_b.length);
+                    //        notifyAll();
+                    LoadToImageView();
+                }
+            };
+            OnFailureListener fail = new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    SetDefault();
+                }
+            };
+            Task<byte[]> task = storage.child(type.toString() + "/" + name).getBytes(maxSize);
+            task.addOnSuccessListener(SucList).addOnFailureListener(fail);
+        }else {
+            LoadToImageView();
+        }
+       /* while (bitmap==null)try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+        //SucList.
     }
-    public boolean Download(String pic_name) {
+    public void Download(String pic_name, boolean forcibly) {
         name = pic_name;
-        return Download();
+        Download(forcibly);
+    }
+    public void Download(String pic_name) {
+        name = pic_name;
+        Download();
     }
 
     public void Set(Activity activity) {
@@ -132,14 +149,18 @@ public class Picture {
     }
     /* Не удалять! Этот метод нужно скопировать в активити, чтобы работала загрузка из галереи
         @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        protected void onActivityResult(int requestCode, int resultCode, Intent ReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, ReturnedIntent);
         switch(requestCode) {
             case 1:
                 if(resultCode == RESULT_OK){
-                    <объект класса Picture>.Set(imageReturnedIntent.getData());
+                    try {
+                        <Picture>.Set(ReturnedIntent.getData(), this);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+            }
         }
-    }
      */
 }

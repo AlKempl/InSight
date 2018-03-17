@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.service.OutputServices;
 import com.pelicanus.insight.service.TripAdapter;
@@ -50,7 +51,6 @@ public class TripList extends AppCompatActivity {
 
         adapter = new TripAdapter(this,listofTrips);
         updateList();
-
         recyclerView.setAdapter(adapter);
 
 
@@ -62,6 +62,7 @@ public class TripList extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 trip.setTrip_id(dataSnapshot.getKey());
+                trip.avatar = new Picture(Picture.Type.Trip_avatar, dataSnapshot.getKey());
                 listofTrips.add(trip);
                 adapter.notifyDataSetChanged();
             }
@@ -70,6 +71,7 @@ public class TripList extends AppCompatActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 trip.setTrip_id(dataSnapshot.getKey());
+                trip.avatar = new Picture(Picture.Type.Trip_avatar, dataSnapshot.getKey());
                 int index =getItemIndex(trip);
                 listofTrips.set(index,trip);
 

@@ -45,6 +45,7 @@ public class Trip {
     @Getter
     String language;
 
+    public Picture avatar;
 
     public Trip(String name, String description, String date, String address, String guide_id,String language) {
         this.name = name;

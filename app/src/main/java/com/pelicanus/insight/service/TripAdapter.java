@@ -58,7 +58,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
         });
 
 
-        new Picture(holder.exc_image,Picture.Type.Trip_avatar, trp.getTrip_id()).Download();
+        //new Picture(holder.exc_image,Picture.Type.Trip_avatar, trp.getTrip_id()).Download();
     }
 
     @Override

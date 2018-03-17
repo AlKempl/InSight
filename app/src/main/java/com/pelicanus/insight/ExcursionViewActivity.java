@@ -42,12 +42,12 @@ public class ExcursionViewActivity extends AppCompatActivity {
         String trip_id = getIntent().getStringExtra("Trip_id");
         HashMap<String,User> users = getUserData();
         if(users.containsKey(author_id)) {
-            new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, author_id).Download();
+            //new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, author_id).Download();
             ex_author.setText(users.get(author_id).getName());
         }
         else
             Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
-        new Picture((ImageView) findViewById(R.id.view_trip_image), Picture.Type.Trip_avatar, trip_id).Download();
+        //new Picture((ImageView) findViewById(R.id.view_trip_image), Picture.Type.Trip_avatar, trip_id).Download();
 
 
     }
