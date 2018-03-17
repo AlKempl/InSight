@@ -1,15 +1,10 @@
 package com.pelicanus.insight;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -19,9 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
-import com.pelicanus.insight.service.OutputServices;
 import com.pelicanus.insight.service.TripAdapter;
-import com.pelicanus.insight.service.TripListAdapter;
 
 import java.util.ArrayList;
 

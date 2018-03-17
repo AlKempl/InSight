@@ -57,7 +57,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
             }
         });
 
-
+        if(trp.avatar == null) {
+            throw new NullPointerException("Автарки нет, Нео. Аватарки нет. Есть только матрица");
+        }
+        trp.avatar.setImageView(holder.exc_image);//(ImageView) convertView.findViewById(R.id.exc_image));
+        trp.avatar.Download();
         //new Picture(holder.exc_image,Picture.Type.Trip_avatar, trp.getTrip_id()).Download();
     }
 
