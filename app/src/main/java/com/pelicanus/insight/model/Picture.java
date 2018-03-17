@@ -100,13 +100,11 @@ public class Picture {
             SetDefault();
             return;
         }
-        //imageView.setImageDrawable(null);
         if (bitmap == null || forcibly) {
             OnSuccessListener<byte[]> SucList = new OnSuccessListener<byte[]>() {
                 @Override
                 public synchronized void onSuccess(byte[] image_b) {
                     bitmap = BitmapFactory.decodeByteArray(image_b, 0, image_b.length);
-                    //        notifyAll();
                     LoadToImageView();
                 }
             };
@@ -121,13 +119,6 @@ public class Picture {
         }else {
             LoadToImageView();
         }
-       /* while (bitmap==null)try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-        //SucList.
     }
     public void Download(String pic_name, boolean forcibly) {
         name = pic_name;
@@ -145,7 +136,6 @@ public class Picture {
     public void Set(Uri uri, Activity activity) throws IOException {
         bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver() , uri);
         LoadToImageView();
-        //SetDefault();
     }
     /* Не удалять! Этот метод нужно скопировать в активити, чтобы работала загрузка из галереи
         @Override

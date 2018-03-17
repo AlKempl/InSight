@@ -58,7 +58,7 @@ public class CreateTrip extends AppCompatActivity {
                 String name = nameField.getText().toString().trim();
                 String language = lang_spn.getSelectedItem().toString();
                 String date = datePicker.getDayOfMonth()+"."+datePicker.getMonth()+"."+datePicker.getYear();
-                String address = "Заглушка, потому что в дезигне отсутствует поле";//addressField.getText().toString().trim();
+                String address = "Заглушка адрес";//addressField.getText().toString().trim();
                 String description = descriptionField.getText().toString().trim();
                 //Проверка данных на пустоту
                 //При добавлении новых полей нужно не забыть добавить сюда!

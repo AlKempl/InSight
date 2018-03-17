@@ -67,7 +67,6 @@ public class TripList extends AppCompatActivity {
                 trip.avatar = new Picture(Picture.Type.Trip_avatar, dataSnapshot.getKey());
                 int index =getItemIndex(trip);
                 listofTrips.set(index,trip);
-
                 adapter.notifyItemChanged(index);
             }
 
@@ -77,9 +76,7 @@ public class TripList extends AppCompatActivity {
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 trip.setTrip_id(dataSnapshot.getKey());
                 int index =getItemIndex(trip);
-
                 listofTrips.remove(index);
-
                 adapter.notifyItemRemoved(index);
             }
 

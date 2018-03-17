@@ -1,3 +1,4 @@
+///Используется для тестов, не трогать (Вячеслав)
 package com.pelicanus.insight;
 
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pelicanus.insight.model.Picture;
-
-import static android.os.SystemClock.sleep;
 
 public class TestActivity extends AppCompatActivity {
     TextView message;
@@ -27,12 +26,6 @@ public class TestActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         pic = new Picture(imageView, Picture.Type.Test);
         pic.Download("avatar_default.jpg");
-        /*try {
-            wait();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        sleep(5000);
         pic.LoadToImageView();
     }
     public void onClick(View view) {

@@ -58,11 +58,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
         });
 
         if(trp.avatar == null) {
-            throw new NullPointerException("Автарки нет, Нео. Аватарки нет. Есть только матрица");
+            throw new NullPointerException("avatar у экскурсии пуст!"); //Этого вообще не должно случаться
         }
-        trp.avatar.setImageView(holder.exc_image);//(ImageView) convertView.findViewById(R.id.exc_image));
+        trp.avatar.setImageView(holder.exc_image);
         trp.avatar.Download();
-        //new Picture(holder.exc_image,Picture.Type.Trip_avatar, trp.getTrip_id()).Download();
     }
 
     @Override
@@ -71,17 +70,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     }
 
     class TripViewHolder extends RecyclerView.ViewHolder{
-
         TextView  exc_name,exc_date,exc_description;
         ImageView exc_image;
-
         public TripViewHolder(View itemView) {
             super(itemView);
-             exc_name = (TextView) itemView.findViewById(R.id.exc_name);
-             exc_date = (TextView) itemView.findViewById(R.id.exc_date);
-             exc_description= itemView.findViewById(R.id.exc_description);
+             exc_name = itemView.findViewById(R.id.exc_name);
+             exc_date = itemView.findViewById(R.id.exc_date);
+             exc_description = itemView.findViewById(R.id.exc_description);
              exc_image = itemView.findViewById(R.id.exc_image);
-
         }
     }
 }
