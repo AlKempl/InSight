@@ -128,7 +128,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            // Show the Up button in the action bar.
+            // Show the Up button_bitmap in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }

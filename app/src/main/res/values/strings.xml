@@ -137,5 +137,11 @@
     <string name="meeting_point">Meeting point</string>
     <string name="language">Language</string>
     <string name="Author_name_not_found">Author name not found</string>
+    <string-array name="Languages">
+        <item>English</item>
+        <item>Русский</item>
+        <item>Ukraine</item>
+        <item>German</item>
+    </string-array>
     <string name="repeat_password">Repeat password</string>
 </resources>

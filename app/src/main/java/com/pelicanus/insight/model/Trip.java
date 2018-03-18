@@ -41,13 +41,19 @@ public class Trip {
     @Getter
     String trip_id;
 
+    @Setter
+    @Getter
+    String language;
 
-    public Trip(String name, String description, String date, String address, String guide_id) {
+    public Picture avatar;
+
+    public Trip(String name, String description, String date, String address, String guide_id,String language) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.guide_id = guide_id;
         this.date = date;
+        this.language=language;
     }
 
 
