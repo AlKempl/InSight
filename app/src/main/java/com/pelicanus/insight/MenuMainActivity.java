@@ -143,6 +143,11 @@ public class MenuMainActivity extends AppCompatActivity
 
         startActivity(new Intent(this, TripList.class));
     }
+    public void OpenProfile(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("User_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        startActivity(intent);
+    }
 
 }
 
