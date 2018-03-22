@@ -38,6 +38,7 @@
                 android:layout_marginTop="5dp"
                 android:text="John Snow"
                 android:textSize="20sp"
+                android:id="@+id/user_name"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
