@@ -42,7 +42,8 @@
                 android:layout_height="50dp"
                 android:src="@drawable/avatar_default"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:onClick="OpenProfile"/>
 
             <TextView
                 android:id="@+id/view_author_name"

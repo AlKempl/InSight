@@ -1,11 +1,14 @@
 package com.pelicanus.insight;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,7 +22,7 @@ import java.util.HashMap;
 public class ExcursionViewActivity extends AppCompatActivity {
 
     DatabaseReference reference;
-
+    String author_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,7 @@ public class ExcursionViewActivity extends AppCompatActivity {
         ex_date.setText(getIntent().getExtras().getString("date"));
         ex_address.setText(getIntent().getExtras().getString("address"));
         ex_language.setText(getIntent().getExtras().getString("language"));
-        String author_id = getIntent().getExtras().getString("guide_id");
+        author_id = getIntent().getExtras().getString("guide_id");
         String trip_id = getIntent().getStringExtra("Trip_id");
         HashMap<String,User> users = getUserData();
         if(users.containsKey(author_id)) {
@@ -69,5 +72,10 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
             });
         return  userdata;
+    }
+    public void OpenProfile(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("User_id", author_id);
+        startActivity(intent);
     }
 }
