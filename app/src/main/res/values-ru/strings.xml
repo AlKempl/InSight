@@ -49,5 +49,12 @@
     <string name="explore">Исследуйте</string>
     <string name="username_nav_placeholder">UserName</string>
     <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
+    <string name="date_and_time">Дата и время</string>
+    <string name="meeting_point">Место встречи</string>
+    <string name="language">Язык</string>
+    <string name="date">Дата</string>
+    <string name="description">Описание</string>
+    <string name="name">Название</string>
+    <string name="edit_picture">Редактировать фото</string>
     <string name="repeat_password">Повторите пароль</string>
 </resources>
