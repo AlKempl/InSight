@@ -28,7 +28,7 @@ public class CreateTrip extends AppCompatActivity {
 
 
     private EditText nameField;
-    //private EditText addressField;
+    private EditText addressField;
     private EditText descriptionField;
     private Button mCreateTrip;
     private DatabaseReference myRef;
@@ -43,7 +43,7 @@ public class CreateTrip extends AppCompatActivity {
         setContentView(R.layout.activity_create_trip);
 
         nameField = findViewById(R.id.text_nametrip);
-        //addressField = findViewById(R.id.address_field);
+        addressField = findViewById(R.id.text_location);
         descriptionField = findViewById(R.id.text_description);
         mCreateTrip = findViewById(R.id.btn_create);
         datePicker=findViewById(R.id.DatePicker);
@@ -58,7 +58,7 @@ public class CreateTrip extends AppCompatActivity {
                 String name = nameField.getText().toString().trim();
                 String language = lang_spn.getSelectedItem().toString();
                 String date = datePicker.getDayOfMonth()+"."+datePicker.getMonth()+"."+datePicker.getYear();
-                String address = "Заглушка адрес";//addressField.getText().toString().trim();
+                String address = addressField.getText().toString().trim();
                 String description = descriptionField.getText().toString().trim();
                 //Проверка данных на пустоту
                 //При добавлении новых полей нужно не забыть добавить сюда!
