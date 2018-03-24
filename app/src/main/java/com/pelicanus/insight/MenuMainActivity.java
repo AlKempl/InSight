@@ -69,12 +69,12 @@ public class MenuMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View headerLayout = navigationView.getHeaderView(0);//navigationView.inflateHeaderView(R.layout.nav_header_menu_main);
+        View headerLayout = navigationView.getHeaderView(0);
         new Picture((ImageView)headerLayout.findViewById(R.id.this_user_photo), Picture.Type.User_avatar, user.getUid()).Download();
         TextView userName = headerLayout.findViewById(R.id.navdr_username_label);
         TextView userEmail = headerLayout.findViewById(R.id.navdr_useremail_label);
         userName.setText(user.getUid());
-        userEmail.setText("TODO");//TODO e-mail и логин из базы
+        userEmail.setText("TODO");//TODO e-mail и логин из базы НЕ ЗАБЫТЬ СДЕЛАТЬ И В ProfileActivity
     }
 
     @Override
@@ -154,6 +154,8 @@ public class MenuMainActivity extends AppCompatActivity
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("User_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
         startActivity(intent);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
 }
