@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pelicanus.insight.model.Picture;
 
 public class MenuMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,6 +69,12 @@ public class MenuMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerLayout = navigationView.getHeaderView(0);//navigationView.inflateHeaderView(R.layout.nav_header_menu_main);
+        new Picture((ImageView)headerLayout.findViewById(R.id.this_user_photo), Picture.Type.User_avatar, user.getUid()).Download();
+        TextView userName = headerLayout.findViewById(R.id.navdr_username_label);
+        TextView userEmail = headerLayout.findViewById(R.id.navdr_useremail_label);
+        userName.setText(user.getUid());
+        userEmail.setText("TODO");//TODO e-mail и логин из базы
     }
 
     @Override
@@ -90,7 +97,7 @@ public class MenuMainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button_bitmap, so long
+        // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 

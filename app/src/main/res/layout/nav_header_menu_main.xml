@@ -32,7 +32,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/navdr_ueremail_label"
+        android:id="@+id/navdr_useremail_label"
         android:layout_width="wrap_content"
         android:textColor="@color/white"
         android:layout_height="wrap_content"
