@@ -41,6 +41,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
         holder.exc_date.setText(trp.getDate());
         holder.exc_description.setText(trp.getDescription());
         holder.exc_name.setText(trp.getName());
+        holder.exc_lang.setText(trp.getLanguage());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +71,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     }
 
     class TripViewHolder extends RecyclerView.ViewHolder{
-        TextView  exc_name,exc_date,exc_description;
+        TextView  exc_name,exc_date,exc_description, exc_lang;
         ImageView exc_image;
         public TripViewHolder(View itemView) {
             super(itemView);
@@ -78,6 +79,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
              exc_date = itemView.findViewById(R.id.exc_date);
              exc_description = itemView.findViewById(R.id.exc_description);
              exc_image = itemView.findViewById(R.id.exc_image);
+             exc_lang = itemView.findViewById(R.id.exc_lang);
         }
     }
 }
