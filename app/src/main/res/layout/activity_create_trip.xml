@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,7 +28,7 @@
                 android:layout_height="228dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="60dp"
-                android:foregroundGravity="center"
+                android:foregroundGravity="center_horizontal"
                 android:scaleType="centerCrop"
                 android:src="@drawable/excursion_zaglushka" />
 
@@ -39,28 +40,26 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/white"
-            android:drawablePadding="5dp"
-
             android:onClick="setTrip_avatar"
-            android:text="Edit picture"
+            android:layout_margin="8dp"
+            android:text="@string/edit_picture"
             android:textAllCaps="false"
             android:textColor="@android:color/darker_gray" />
-        <!--android:drawableStart="@drawable/ic_edit_black_24dp"-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Name"
-                android:textAllCaps="true" />
-
+                android:text="@string/name"
+                android:textAllCaps="true"
+                android:textSize="12sp"/>
             <EditText
                 android:id="@+id/text_nametrip"
                 android:layout_width="match_parent"
@@ -83,8 +82,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Description"
-                android:textAllCaps="true" />
+                android:text="@string/description"
+                android:textAllCaps="true"
+                android:textSize="12sp"/>
 
             <EditText
                 android:id="@+id/text_description"
@@ -102,14 +102,15 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Date"
-                android:textAllCaps="true" />
+                android:text="@string/date"
+                android:textAllCaps="true"
+                android:textSize="12sp"/>
 
             <DatePicker
                 android:id="@+id/DatePicker"
@@ -127,14 +128,15 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Language"
-                android:textAllCaps="true" />
+                android:text="@string/language"
+                android:textAllCaps="true"
+                android:textSize="12sp"/>
 
             <Spinner
                 android:id="@+id/select_language"
@@ -144,6 +146,32 @@
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"
                 android:entries="@array/Languages"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Meeting point"
+                android:textAllCaps="true"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/text_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Trip Location"
+                android:inputType="textCapSentences|textMultiLine" />
 
         </LinearLayout>
 
