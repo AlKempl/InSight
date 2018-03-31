@@ -108,14 +108,6 @@ public class MainActivity extends AppCompatActivity{
                             finish();
                             startActivity(new Intent(getApplicationContext(), MenuMainActivity.class));//ProfileActivity.class));
 
-                            UserImplService usrv = new UserImplService();
-                            try {
-                                usrv.getAllUsers();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect login and/or password. Please, try again.", Toast.LENGTH_LONG).show();
                             return;
