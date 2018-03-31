@@ -127,7 +127,8 @@ public class MenuMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
             logOut();
-
+        } else if (id == R.id.nav_how_to) {
+            startActivity(new Intent(this, HowToActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
