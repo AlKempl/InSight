@@ -115,7 +115,7 @@ public class MenuMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_create) {
             startActivity(new Intent(this, CreateTrip.class));
         } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            startActivity(new Intent(this, EditProfileActiity.class));
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_logout) {

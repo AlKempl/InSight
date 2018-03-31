@@ -15,16 +15,16 @@
       },
       "oauth_client": [
         {
-          "client_id": "1088329809692-kp9fbs6glfifo8pidq37d2min9mt3gl9.apps.googleusercontent.com",
+          "client_id": "1088329809692-mroni7qdul07en6evl7iukgc3jjkom8e.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1088329809692-kb6r8igkp5t2f1im8h0e50ekgddcrkm0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.pelicanus.insight",
-            "certificate_hash": "f3e4d61dac0c1ecd4a67a408af959b35d01ca9ae"
+            "certificate_hash": "eab95711dd9dfa87b675f97a4dadbefd2beee32f"
           }
-        },
-        {
-          "client_id": "1088329809692-5k8brc7n2abso7246l2g3l7hirl9mn7h.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1088329809692-5k8brc7n2abso7246l2g3l7hirl9mn7h.apps.googleusercontent.com",
+              "client_id": "1088329809692-mroni7qdul07en6evl7iukgc3jjkom8e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
