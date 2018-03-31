@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +30,7 @@ public class ExcursionViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excursion_view);
-        reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        reference = FirebaseDatabase.getInstance().getReference();
 
         TextView ex_name = findViewById(R.id.view_excursion_name);
         TextView ex_description = findViewById(R.id.view_description);
@@ -42,8 +45,8 @@ public class ExcursionViewActivity extends AppCompatActivity {
         ex_address.setText(getIntent().getExtras().getString("address"));
         ex_language.setText(getIntent().getExtras().getString("language"));
         author_id = getIntent().getExtras().getString("guide_id");
-        String trip_id = getIntent().getStringExtra("Trip_id");
-        HashMap<String,User> users = getUserData();
+        final String trip_id = getIntent().getStringExtra("Trip_id");
+        final HashMap<String,User> users = getUserData();
         if(users.containsKey(author_id)) {
             ex_author.setText(users.get(author_id).getName());
         }
@@ -51,6 +54,15 @@ public class ExcursionViewActivity extends AppCompatActivity {
             Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
         new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, author_id).Download();
         new Picture((ImageView) findViewById(R.id.view_trip_image), Picture.Type.Trip_avatar, trip_id).Download();
+        Button im_in=findViewById(R.id.im_in);
+        im_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reference.child("Visitors").child(trip_id).setValue(users.get(FirebaseAuth.getInstance().getCurrentUser().getUid()).getName());
+
+            }
+        });
+
 
 
     }
@@ -58,7 +70,7 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
         final HashMap<String,User> userdata=new HashMap<>();
 
-            reference.addValueEventListener(new ValueEventListener() {
+            reference.child("Users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
@@ -78,4 +90,9 @@ public class ExcursionViewActivity extends AppCompatActivity {
         intent.putExtra("User_id", author_id);
         startActivity(intent);
     }
+
+
+
+
+
 }

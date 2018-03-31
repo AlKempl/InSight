@@ -77,7 +77,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
     public void registerUser(View view) {
 
         //getting email and password from edit texts
-        String login = editTextLogin.getText().toString().trim();
+        final String login = editTextLogin.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String password_repeated = editTextPasswordRepeat.getText().toString().trim();
@@ -119,7 +119,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            //writeUserData(FirebaseAuth.getInstance().getUid(),email," ",0.0,"rookie",false);
+                            writeUserData(FirebaseAuth.getInstance().getUid(),email,login,"0.0","rookie",false);
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
@@ -140,11 +140,11 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
 
 
-/*    public void writeUserData (String id, String email ,String name,Double rating, String status,Boolean verifiedEmail){
+    public void writeUserData (String id, String email ,String name,String rating, String status,Boolean verifiedEmail){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        myRef.setValue(new User(email,id,name,rating,status,verifiedEmail));
+        //myRef.setValue(new User(name,email,status,rating,verifiedEmail);
 
 
     }
-*/
+
 }

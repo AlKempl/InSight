@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -73,8 +74,11 @@ public class CreateTrip extends AppCompatActivity {
                 //Тут должно быть преобразование строк и проверка на корректность ввода
                 //Но нужно знать, какие типы должны получиться в итоге
                 //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
-                tripCreator(name,description,date,address, FirebaseAuth.getInstance().getCurrentUser().getUid(), trip_avatar,language);
+                String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                tripCreator(name,description,date,address, userid, trip_avatar,language);
                 nameField.setText("");
+
+
                 descriptionField.setText("");
             }
         });
@@ -86,6 +90,8 @@ public class CreateTrip extends AppCompatActivity {
     public void tripCreator(String name, String description, String date, String address, String id, Picture avatar,String language){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
         avatar.Upload(myRef.getKey());
+        String trip_id =myRef.getKey();
+        FirebaseDatabase.getInstance().getReference().child("Visitors").child(trip_id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(name);
         myRef.setValue(new Trip(name,description,date,address,id,language)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
