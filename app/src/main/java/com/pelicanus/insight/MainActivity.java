@@ -22,6 +22,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
     private TextView textViewSignup;
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
+    private TwitterLoginButton twitterLoginButton;
 
     //progress dialog
     private ProgressDialog progressDialog;
@@ -53,19 +59,19 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         // Set the dimensions of the sign-in button.
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        SignInButton signInButton = findViewById(R.id.google_sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         textViewSignup = findViewById(R.id.textViewSignup);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(
+        findViewById(R.id.google_sign_in_button).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Log.d("DEBUG:", "Button pressed");
-                        signIn();
+                        googleSignIn();
                     }
                 });
 
@@ -73,6 +79,19 @@ public class MainActivity extends AppCompatActivity{
         firebaseAuth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(this);
+
+        twitterLoginButton = findViewById(R.id.twitter_login_button);
+        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                // Do something with result, which provides a TwitterSession for making API calls
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                // Do something on failure
+            }
+        });
     }
 
     @Override
@@ -154,7 +173,7 @@ public class MainActivity extends AppCompatActivity{
         Log.d("DEBUG", "Here we go!");
     }
 
-    private void signIn() {
+    private void googleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -169,6 +188,8 @@ public class MainActivity extends AppCompatActivity{
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+        } else {
+            twitterLoginButton.onActivityResult(requestCode, resultCode, data);
         }
     }
 
