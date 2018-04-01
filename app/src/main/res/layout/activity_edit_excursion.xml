@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             style="?android:listSeparatorTextViewStyle"
-            android:text="Edit excursion"/>
+            android:text="@string/edit_excursion"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textColor="@android:color/darker_gray"
-                    android:text="Edit image"/>
+                    android:text="@string/edit_image"/>
 
             </LinearLayout>
 
@@ -55,6 +55,7 @@
                 android:gravity="center_vertical">
 
                 <EditText
+                    android:id="@+id/exc_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
@@ -66,6 +67,7 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/exc_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -76,6 +78,7 @@
             android:inputType="textCapSentences|textMultiLine"/>
 
         <EditText
+            android:id="@+id/exc_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -99,9 +102,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Maximum visitors"/>
+                    android:text="@string/maximum_visitors"/>
 
                 <EditText
+                    android:id="@+id/exc_visitors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -111,6 +115,7 @@
             </LinearLayout>
 
             <DatePicker
+                android:id="@+id/exc_date"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:calendarViewShown="false"
@@ -122,7 +127,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Language"
+            android:text="@string/language"
             android:layout_margin="15dp"/>
 
         <Spinner
@@ -141,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="15dp"
-            android:text="Confirm changes"/>
+            android:text="@string/confirm_changes"/>
 
     </LinearLayout>
 
