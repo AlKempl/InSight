@@ -22,11 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -36,7 +31,6 @@ public class MainActivity extends AppCompatActivity{
     private TextView textViewSignup;
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
-    private TwitterLoginButton twitterLoginButton;
 
     //progress dialog
     private ProgressDialog progressDialog;
@@ -80,18 +74,6 @@ public class MainActivity extends AppCompatActivity{
 
         progressDialog = new ProgressDialog(this);
 
-        twitterLoginButton = findViewById(R.id.twitter_login_button);
-        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
-            @Override
-            public void success(Result<TwitterSession> result) {
-                // Do something with result, which provides a TwitterSession for making API calls
-            }
-
-            @Override
-            public void failure(TwitterException exception) {
-                // Do something on failure
-            }
-        });
     }
 
 
@@ -190,8 +172,6 @@ public class MainActivity extends AppCompatActivity{
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-        } else {
-            twitterLoginButton.onActivityResult(requestCode, resultCode, data);
         }
     }
 
