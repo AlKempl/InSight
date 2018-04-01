@@ -1,5 +1,7 @@
 package com.pelicanus.insight.model;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,6 @@ import lombok.Setter;
 public class User {
 
     @NonNull
-    String name;
-
-    @NonNull
     String email;
 
     @NonNull
@@ -31,13 +30,42 @@ public class User {
     @NonNull
     String id;
 
-    User(String name, String email, String status, String id, Double rating) {
-        this.name = name;
-        this.email = email;
-        this.rating = rating;
-        this.status = status;
-        this.id = id;
+    @NonNull
+    UserProvider provider;
+
+    @NonNull
+    String displayName;
+
+    @NonNull
+    String familyName;
+
+    @NonNull
+    String givenName;
+
+    User(String name, String email, String status, String id, Double rating, UserProvider provider) {
+        this.setName(name);
+        this.setEmail(email);
+        this.setStatus(status);
+        this.setId(id);
+        this.setRating(rating);
+        this.setProvider(provider);
     }
+
+
+    User(FirebaseUser user) {
+        this.setName(user.getDisplayName());
+        this.setEmail(user.getEmail());
+        this.setId(user.getUid());
+        this.setProvider(UserProvider.LOGINPASS);
+    }
+
+    public void setName(String newName) {
+
+    }
+
+//    User(GoogleSignInAccount user){
+//        this.setName(user.
+//    }
 
 
 }
