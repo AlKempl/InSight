@@ -118,7 +118,9 @@ public class EmailPassActivityReg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            writeUserData(FirebaseAuth.getInstance().getUid(),email,login,"0.0","rookie",false);
+
+                            new User(login,email,"rookie","0.0",firebaseAuth.getCurrentUser().getUid(),false).writeUserData();
+
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
@@ -139,12 +141,6 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
 
 
-    public void writeUserData (String id, String email ,String name,String rating, String status,Boolean verifiedEmail){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        User user = new User(name,email,status,rating,id,verifiedEmail);
-        myRef.setValue(user);
 
-
-    }
 
 }

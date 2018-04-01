@@ -16,6 +16,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.pelicanus.insight.model.User;
 import com.pelicanus.insight.service.UserImplService;
 
 
@@ -29,6 +36,10 @@ public class MainActivity extends AppCompatActivity{
 
     //progress dialog
     private ProgressDialog progressDialog;
+
+    Intent intent;
+    private User current_user;
+    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void SignInFirebaseLoginPass(View view) {
 
-        String email = editTextEmail.getText().toString().trim();
+       final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
 
@@ -105,8 +116,14 @@ public class MainActivity extends AppCompatActivity{
                         //if the task is successfull
                         if (task.isSuccessful()) {
                             //start the profile activity
+                            //передаем имя и емаил в другое активити
+                            final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                            intent =new Intent(getApplicationContext(),MenuMainActivity.class);
+
                             finish();
-                            startActivity(new Intent(getApplicationContext(), MenuMainActivity.class));//ProfileActivity.class));
+                            startActivity(intent);//ProfileActivity.class));
 
                             UserImplService usrv = new UserImplService();
                             try {
