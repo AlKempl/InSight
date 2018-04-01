@@ -1,7 +1,9 @@
 package com.pelicanus.insight;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,5 +71,10 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
             });
         return  userdata;
+    }
+
+    public void OpenEdit(View view)
+    {
+        startActivity(new Intent(this, EditExcursionActivity.class));
     }
 }
