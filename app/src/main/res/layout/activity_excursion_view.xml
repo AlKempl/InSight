@@ -152,6 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
+            android:onClick="OpenEdit"
             android:text="I'm in"/>
         
     </LinearLayout>
