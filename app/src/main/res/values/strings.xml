@@ -147,4 +147,6 @@
     <string name="description">Description</string>
     <string name="name">Name</string>
     <string name="edit_picture">Edit picture</string>
+    <string name="exview_btn">I\'m in</string>
+    <string name="exview_btn_im_in">I\'m in</string>
 </resources>

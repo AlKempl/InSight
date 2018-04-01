@@ -154,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:text="I'm in" />
+            android:text="@string/exview_btn_im_in" />
         
     </LinearLayout>
 
