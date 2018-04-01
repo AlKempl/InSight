@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.pelicanus.insight.EditExcursionActivity">
 
     <LinearLayout
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,8 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:textColor="@android:color/darker_gray"
-                    android:text="@string/edit_image"/>
+                    android:text="@string/edit_image"
+                    android:textColor="@android:color/darker_gray" />
 
             </LinearLayout>
 
@@ -45,16 +44,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/exc_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:gravity="center"
-                    android:hint="Excursion Name"/>
+                    android:hint="Excursion Name"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -64,47 +63,47 @@
             android:id="@+id/exc_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:textSize="14sp"
             android:hint="Description"
-            android:inputType="textCapSentences|textMultiLine"/>
+            android:inputType="textCapSentences|textMultiLine"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/exc_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:textSize="14sp"
-            android:hint="Meeting point"/>
+            android:layout_marginStart="15dp"
+            android:hint="Meeting point"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="15dp">
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="7"
-                android:layout_gravity="center_vertical">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/maximum_visitors"/>
+                    android:text="@string/maximum_visitors" />
 
                 <EditText
                     android:id="@+id/exc_visitors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:layout_marginEnd="10dp"
-                    android:textSize="14sp"/>
+                    android:inputType="number"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -112,38 +111,38 @@
                 android:id="@+id/exc_date"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_weight="3"
                 android:calendarViewShown="false"
-                android:datePickerMode="spinner"
-                android:layout_weight="3"/>
+                android:datePickerMode="spinner" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/language"
-            android:layout_margin="15dp"/>
+            android:layout_margin="15dp"
+            android:text="@string/language" />
 
         <Spinner
             android:id="@+id/select_language"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1"
             android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown"
-            android:entries="@array/Languages"/>
+            android:entries="@array/Languages"
+            android:spinnerMode="dropdown" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="15dp"
-            android:padding="10dp"
             android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:text="@string/confirm_changes"/>
+            android:padding="10dp"
+            android:text="@string/confirm_changes"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

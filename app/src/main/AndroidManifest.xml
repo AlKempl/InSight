@@ -48,8 +48,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditExcursionActivity"
-            android:label="@string/Edit_Excursion"/>
+        <activity
+            android:name=".EditExcursionActivity"
+            android:label="@string/Edit_Excursion" />
     </application>
 
 </manifest>
