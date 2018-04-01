@@ -38,9 +38,9 @@
     </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <string name="pref_header_data_sync" translatable="false">Data &amp; sync</string>
 
-    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string name="pref_title_sync_frequency" translatable="false">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
         <item>15 minutes</item>
         <item>30 minutes</item>
@@ -134,10 +134,6 @@
     <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
     <string name="date_and_time">Date and time</string>
     <string name="meeting_point">Meeting point</string>
-    <string name="date">Date</string>
-    <string name="description">Description</string>
-    <string name="name">Name</string>
-    <string name="edit_picture">Edit picture</string>
     <string name="Author_name_not_found">Author name not found</string>
     <string-array name="Languages">
         <item>English</item>
@@ -146,6 +142,12 @@
         <item>German</item>
     </string-array>
     <string name="repeat_password">Repeat password</string>
+    <string name="date">Date</string>
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="edit_picture">Edit picture</string>
+    <string name="exview_btn">I\'m in</string>
+    <string name="exview_btn_im_in">I\'m in</string>
     <string name="edit_excursion">Edit excursion</string>
     <string name="maximum_visitors">Maximum visitors</string>
     <string name="confirm_changes">Confirm changes</string>

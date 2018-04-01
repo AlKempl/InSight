@@ -41,7 +41,6 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +76,15 @@ public class EmailPassActivityReg extends AppCompatActivity {
     public void registerUser(View view) {
 
         //getting email and password from edit texts
-        String login = editTextLogin.getText().toString().trim();
+        final String login = editTextLogin.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String password_repeated = editTextPasswordRepeat.getText().toString().trim();
 
+        if (password.length() < 6) {
+            Toast.makeText(this, "Password must be more than 6 chars", Toast.LENGTH_LONG).show();
+            return;
+        }
         //checking if email and passwords are empty
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
@@ -119,7 +122,9 @@ public class EmailPassActivityReg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            //writeUserData(FirebaseAuth.getInstance().getUid(),email," ",0.0,"rookie",false);
+
+                            new User(login,email,"rookie","0.0",firebaseAuth.getCurrentUser().getUid(),false).writeUserData();
+
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
@@ -140,11 +145,6 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
 
 
-/*    public void writeUserData (String id, String email ,String name,Double rating, String status,Boolean verifiedEmail){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        myRef.setValue(new User(email,id,name,rating,status,verifiedEmail));
 
 
-    }
-*/
 }

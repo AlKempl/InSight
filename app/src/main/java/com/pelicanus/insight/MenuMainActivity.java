@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.User;
 
@@ -31,33 +32,19 @@ public class MenuMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth firebaseAuth;
-    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(this);
-
         //if the user is not logged in
         //that means current user will return null
-        if (firebaseAuth.getCurrentUser() == null && googleAccount == null) {
+        if (firebaseAuth.getCurrentUser() == null) {
             //closing this activity
             finish();
             //starting login activity
@@ -88,6 +75,12 @@ public class MenuMainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerLayout = navigationView.getHeaderView(0);
+        new Picture((ImageView)headerLayout.findViewById(R.id.this_user_photo), Picture.Type.User_avatar, user.getUid()).Download();
+        TextView userName = headerLayout.findViewById(R.id.navdr_username_label);
+        TextView userEmail = headerLayout.findViewById(R.id.navdr_useremail_label);
+        userName.setText(user.getUid());
+        userEmail.setText("TODO");//TODO e-mail и логин из базы НЕ ЗАБЫТЬ СДЕЛАТЬ И В ProfileActivity
     }
 
     @Override
@@ -110,7 +103,7 @@ public class MenuMainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button_bitmap, so long
+        // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -142,7 +135,8 @@ public class MenuMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
             logOut();
-
+        } else if (id == R.id.nav_how_to) {
+            startActivity(new Intent(this, HowToActivity.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -154,14 +148,6 @@ public class MenuMainActivity extends AppCompatActivity
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(this, MainActivity.class));
-
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
     }
     public void OpenCreateTripActivity(View view)
     {
@@ -172,6 +158,13 @@ public class MenuMainActivity extends AppCompatActivity
     {
 
         startActivity(new Intent(this, TripList.class));
+    }
+    public void OpenProfile(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("User_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        startActivity(intent);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
 }

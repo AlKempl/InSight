@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity{
     private ProgressDialog progressDialog;
     private GoogleSignInClient mGoogleSignInClient;
 
+    Intent intent;
+    private User current_user;
+    String userid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("DEBUG:", "On create");
@@ -99,10 +103,6 @@ public class MainActivity extends AppCompatActivity{
         if (fbaccount != null) {
             updateUI(new User(fbaccount));
         }
-//        else if (ggaccount != null) {
-//            updateUI(new User(ggaccount));
-//            updateUI(null);
-//        }
     }
 
     public void SignInFirebaseLoginPass(View view) {
