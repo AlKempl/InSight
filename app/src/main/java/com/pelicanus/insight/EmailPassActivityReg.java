@@ -81,6 +81,10 @@ public class EmailPassActivityReg extends AppCompatActivity {
         String password = editTextPassword.getText().toString().trim();
         String password_repeated = editTextPasswordRepeat.getText().toString().trim();
 
+        if (password.length() < 6) {
+            Toast.makeText(this, "Password must be more than 6 chars", Toast.LENGTH_LONG).show();
+            return;
+        }
         //checking if email and passwords are empty
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
