@@ -26,6 +26,8 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
     DatabaseReference reference;
     String author_id;
+    HashMap<String,User> userdata;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,35 +48,60 @@ public class ExcursionViewActivity extends AppCompatActivity {
         ex_language.setText(getIntent().getExtras().getString("language"));
         author_id = getIntent().getExtras().getString("guide_id");
         final String trip_id = getIntent().getStringExtra("Trip_id");
-        final HashMap<String,User> users = getUserData();
-        if(users.containsKey(author_id)) {
-            ex_author.setText(users.get(author_id).getName());
+
+        userdata=new HashMap<>();
+        getUserData();
+        if(userdata.size()==0)
+            Toast.makeText(this,"fuck again",Toast.LENGTH_LONG).show();
+
+        if(userdata.containsKey(author_id)) {
+            ex_author.setText(userdata.get(author_id).getName());
         }
         else
             Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
         new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, author_id).Download();
         new Picture((ImageView) findViewById(R.id.view_trip_image), Picture.Type.Trip_avatar, trip_id).Download();
+
+
         Button im_in=findViewById(R.id.im_in);
+        final String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         im_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference.child("Visitors").child(trip_id).setValue(users.get(FirebaseAuth.getInstance().getCurrentUser().getUid()).getName());
 
+                reference.child("Visitors").child(trip_id).child(userid).setValue("kakashka");
             }
         });
 
 
 
     }
-    private HashMap<String,User> getUserData(){
+    public void getUserData(){
 
-        final HashMap<String,User> userdata=new HashMap<>();
-
-            reference.child("Users").addValueEventListener(new ValueEventListener() {
+            reference.child("Users").addChildEventListener(new ChildEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     User user = dataSnapshot.getValue(User.class);
-                    userdata.put(dataSnapshot.getKey(),user);
+                    String userid = dataSnapshot.getKey();
+                    userdata.put(userid,user);
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    User user = dataSnapshot.getValue(User.class);
+                    String userid = dataSnapshot.getKey();
+                    if(!userdata.containsKey(userid))
+                        userdata.put(userid,user);
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
                 }
 
                 @Override
@@ -82,8 +109,8 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
                 }
 
+
             });
-        return  userdata;
     }
     public void OpenProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);

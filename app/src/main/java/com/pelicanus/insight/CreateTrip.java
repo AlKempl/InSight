@@ -91,7 +91,9 @@ public class CreateTrip extends AppCompatActivity {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
         avatar.Upload(myRef.getKey());
         String trip_id =myRef.getKey();
+
         FirebaseDatabase.getInstance().getReference().child("Visitors").child(trip_id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(name);
+
         myRef.setValue(new Trip(name,description,date,address,id,language)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

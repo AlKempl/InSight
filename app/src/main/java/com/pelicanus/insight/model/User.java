@@ -10,7 +10,7 @@ import lombok.Setter;
  * Created by Olga on 10.02.2018.
  */
 
-
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -32,16 +32,9 @@ public class User {
     String id;
 
     @NonNull
-    String verifiedemail;
+    Boolean verifiedemail;
 
-    User(String name, String email, String status, String id, String rating,String verifiedemail) {
-        this.name = name;
-        this.email = email;
-        this.rating = rating;
-        this.status = status;
-        this.id = id;
-        this.verifiedemail=verifiedemail;
-    }
+
 
 
 }

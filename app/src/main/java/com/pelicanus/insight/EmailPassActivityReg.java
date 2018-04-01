@@ -41,7 +41,6 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +141,8 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
     public void writeUserData (String id, String email ,String name,String rating, String status,Boolean verifiedEmail){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        //myRef.setValue(new User(name,email,status,rating,verifiedEmail);
+        User user = new User(name,email,status,rating,id,verifiedEmail);
+        myRef.setValue(user);
 
 
     }
