@@ -1,5 +1,6 @@
 package com.pelicanus.insight;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -34,11 +35,13 @@ public class ExcursionViewActivity extends AppCompatActivity {
         TextView ex_address = findViewById(R.id.view_adress);
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
+        CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
 
         //ex_name.setText(getIntent().getExtras().getString("name"));
         name = getIntent().getExtras().getString("name");
-        getActionBar().setTitle(name);
-        getSupportActionBar().setTitle(name);
+        m_coll.setTitle(name);
+//        getActionBar().setTitle(name);
+//        getSupportActionBar().setTitle(name);
         ex_description.setText(getIntent().getExtras().getString("description"));
         ex_date.setText(getIntent().getExtras().getString("date"));
         ex_address.setText(getIntent().getExtras().getString("address"));
