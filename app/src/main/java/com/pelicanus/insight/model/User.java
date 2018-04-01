@@ -1,15 +1,14 @@
 package com.pelicanus.insight.model;
 
+import android.net.Uri;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import android.net.Uri;
-
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.auth.FirebaseUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,12 +39,8 @@ public class User {
     String id;
 
     @NonNull
-    Boolean verifiedemail;
+    Boolean verifiedEmail;
 
-
-    public void writeUserData(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        reference.setValue(this);
     @NonNull
     UserProvider provider;
 
@@ -66,7 +61,7 @@ public class User {
     @NonNull
     String name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
 
-    public User(String name, String email, String status, String id, Double rating, UserProvider provider) {
+    public User(String name, String email, String status, String id, String rating, Boolean verifiedEmail, UserProvider provider) {
         this.setName(name);
         this.setEmail(email);
         this.setStatus(status);
@@ -94,6 +89,12 @@ public class User {
         this.setPhotoUrl(user.getPhotoUrl());
         this.setProvider(UserProvider.GOOGLE);
     }
+
+    public void writeUserData() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
+        reference.setValue(this);
+    }
+
     public void readUserDataWithID(final String userid){
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(userid).addChildEventListener(new ChildEventListener() {
@@ -103,7 +104,7 @@ public class User {
                 email = dataSnapshot.child("email").getValue(String.class);
                 status = dataSnapshot.child("status").getValue(String.class);
                 rating = dataSnapshot.child("rating").getValue(String.class);
-                verifiedemail = dataSnapshot.child("verifiedemail").getValue(Boolean.class);
+                verifiedEmail = dataSnapshot.child("verifiedEmail").getValue(Boolean.class);
                 id = userid;
             }
 
@@ -113,7 +114,7 @@ public class User {
                 email = dataSnapshot.child("email").getValue(String.class);
                 status = dataSnapshot.child("status").getValue(String.class);
                 rating = dataSnapshot.child("rating").getValue(String.class);
-                verifiedemail = dataSnapshot.child("verifiedemail").getValue(Boolean.class);
+                verifiedEmail = dataSnapshot.child("verifiedEmail").getValue(Boolean.class);
                 id = userid;
             }
 

@@ -2,7 +2,6 @@ package com.pelicanus.insight;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.pelicanus.insight.model.FBUser;
 import com.pelicanus.insight.model.User;
-
-import java.util.HashMap;
+import com.pelicanus.insight.model.UserProvider;
 
 public class EmailPassActivityReg extends AppCompatActivity {
 
@@ -123,7 +118,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
                         //checking if success
                         if (task.isSuccessful()) {
 
-                            new User(login,email,"rookie","0.0",firebaseAuth.getCurrentUser().getUid(),false).writeUserData();
+                            new User(login, email, "rookie", "0.0", firebaseAuth.getCurrentUser().getUid(), false, UserProvider.OTHER).writeUserData();
 
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
