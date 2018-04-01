@@ -20,20 +20,25 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
     DatabaseReference reference;
 
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excursion_view);
         reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        TextView ex_name = findViewById(R.id.view_excursion_name);
+        //TextView ex_name = findViewById(R.id.view_excursion_name);
         TextView ex_description = findViewById(R.id.view_description);
         TextView ex_date = findViewById(R.id.view_date_time);
         TextView ex_address = findViewById(R.id.view_adress);
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
 
-        ex_name.setText(getIntent().getExtras().getString("name"));
+        //ex_name.setText(getIntent().getExtras().getString("name"));
+        name = getIntent().getExtras().getString("name");
+        getActionBar().setTitle(name);
+        getSupportActionBar().setTitle(name);
         ex_description.setText(getIntent().getExtras().getString("description"));
         ex_date.setText(getIntent().getExtras().getString("date"));
         ex_address.setText(getIntent().getExtras().getString("address"));
