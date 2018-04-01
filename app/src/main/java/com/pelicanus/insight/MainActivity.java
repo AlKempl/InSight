@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity{
         //if getCurrentUser does not returns null
         if (firebaseAuth.getCurrentUser() != null || account != null) {
             //TODO update UI user
+            updateUI(null);
         }
     }
 
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             //TODO update UI user
+                            updateUI(null);
 
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect login and/or password. Please, try again.", Toast.LENGTH_LONG).show();
@@ -177,6 +179,7 @@ public class MainActivity extends AppCompatActivity{
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             //TODO Update UI user
+            updateUI(null);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
