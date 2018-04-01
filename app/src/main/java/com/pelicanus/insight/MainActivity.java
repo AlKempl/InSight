@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.User;
 
 
@@ -88,11 +89,14 @@ public class MainActivity extends AppCompatActivity{
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInAccount ggaccount = GoogleSignIn.getLastSignedInAccount(this);
+        FirebaseUser fbaccount = firebaseAuth.getCurrentUser();
 
-        //if getCurrentUser does not returns null
-        if (firebaseAuth.getCurrentUser() != null || account != null) {
-            //TODO update UI user
+        //if account does not returns null
+        if (fbaccount != null) {
+            updateUI(new User(fbaccount));
+        } else if (ggaccount != null) {
+            updateUI(new User(ggaccount));
         }
     }
 
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity{
                         //if the task is successfull
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
-                            //TODO update UI user
+                            updateUI(new User(user));
 
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect login and/or password. Please, try again.", Toast.LENGTH_LONG).show();
@@ -175,8 +179,7 @@ public class MainActivity extends AppCompatActivity{
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            //TODO Update UI user
+            updateUI(new User(account));
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -186,11 +189,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void updateUI(User userData) {
-
-        //that means user is already logged in
-        //so close this activity
         finish();
-        //and open profile activity
+        DataHolder.getInstance().save("CURR_USER", userData);
         startActivity(new Intent(getApplicationContext(), MenuMainActivity.class));
     }
 

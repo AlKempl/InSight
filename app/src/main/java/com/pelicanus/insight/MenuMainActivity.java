@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,6 +24,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pelicanus.insight.model.DataHolder;
+import com.pelicanus.insight.model.User;
 
 public class MenuMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -128,6 +131,8 @@ public class MenuMainActivity extends AppCompatActivity
         if (id == R.id.nav_myexc) {
             // Handle the camera action
         } else if (id == R.id.nav_search) {
+            User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
+            Toast.makeText(this, usr.getEmail(), Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_create) {
             startActivity(new Intent(this, CreateTrip.class));
