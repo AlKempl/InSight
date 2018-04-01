@@ -22,6 +22,14 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
     DatabaseReference reference;
 
+    String name;
+    String description;
+    String date;
+    String adress;
+    String language;
+    String author_id;
+    String trip_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +43,18 @@ public class ExcursionViewActivity extends AppCompatActivity {
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
 
-        ex_name.setText(getIntent().getExtras().getString("name"));
-        ex_description.setText(getIntent().getExtras().getString("description"));
-        ex_date.setText(getIntent().getExtras().getString("date"));
-        ex_address.setText(getIntent().getExtras().getString("address"));
-        ex_language.setText(getIntent().getExtras().getString("language"));
-        String author_id = getIntent().getExtras().getString("guide_id");
-        String trip_id = getIntent().getStringExtra("Trip_id");
+        name = getIntent().getExtras().getString("name");
+        ex_name.setText(name);
+        description = getIntent().getExtras().getString("description");
+        ex_description.setText(description);
+        date = getIntent().getExtras().getString("date");
+        ex_date.setText(date);
+        adress = getIntent().getExtras().getString("address");
+        ex_address.setText(adress);
+        language = getIntent().getExtras().getString("language");
+        ex_language.setText(language);
+        author_id = getIntent().getExtras().getString("guide_id");
+        trip_id = getIntent().getStringExtra("Trip_id");
         HashMap<String,User> users = getUserData();
         if(users.containsKey(author_id)) {
             ex_author.setText(users.get(author_id).getName());
@@ -75,6 +88,15 @@ public class ExcursionViewActivity extends AppCompatActivity {
 
     public void OpenEdit(View view)
     {
-        startActivity(new Intent(this, EditExcursionActivity.class));
+        Intent intent = new Intent(this,EditExcursionActivity.class);
+
+        intent.putExtra("name",name);
+        intent.putExtra("date",date);
+        intent.putExtra("address",adress);
+        intent.putExtra("description",description);
+        intent.putExtra("guide_id",author_id);
+        intent.putExtra("Trip_id",trip_id);
+        intent.putExtra("language",language);
+        startActivity(intent);
     }
 }
