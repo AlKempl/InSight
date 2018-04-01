@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity{
         progressDialog = new ProgressDialog(this);
     }
 
+
     @Override
     protected void onStart() {
         Log.d("DEBUG:", "On start 1");
