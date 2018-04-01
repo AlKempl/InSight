@@ -1,8 +1,5 @@
 package com.pelicanus.insight.model;
 
-import android.net.Uri;
-
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +22,9 @@ public class User {
     String email;
 
     @NonNull
+    String name;
+
+    @NonNull
     String status;
 
     @NonNull
@@ -36,24 +36,16 @@ public class User {
     @NonNull
     UserProvider provider;
 
-    String familyName;
-
-    String givenName;
-
+    @NonNull
     String displayName;
 
-    String nickname;
-
-    String phoneNumber;
-
-    Uri photoUrl;
-
-    String fbProvider;
+    @NonNull
+    String familyName;
 
     @NonNull
-    String name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
+    String givenName;
 
-    public User(String name, String email, String status, String id, Double rating, UserProvider provider) {
+    User(String name, String email, String status, String id, Double rating, UserProvider provider) {
         this.setName(name);
         this.setEmail(email);
         this.setStatus(status);
@@ -63,23 +55,11 @@ public class User {
     }
 
 
-    public User(FirebaseUser user) {
-        this.setDisplayName(user.getDisplayName());
+    User(FirebaseUser user) {
+        this.setName(user.getDisplayName());
         this.setEmail(user.getEmail());
         this.setId(user.getUid());
-        this.setFbProvider(user.getProviderId());
         this.setProvider(UserProvider.LOGINPASS);
-        this.setPhoneNumber(user.getPhoneNumber());
-    }
-
-    public User(GoogleSignInAccount user) {
-        this.setFamilyName(user.getFamilyName());
-        this.setGivenName(user.getGivenName());
-        this.setDisplayName(user.getDisplayName());
-        this.setEmail(user.getEmail());
-        this.setId(user.getId());
-        this.setPhotoUrl(user.getPhotoUrl());
-        this.setProvider(UserProvider.GOOGLE);
     }
 
 
