@@ -34,16 +34,23 @@
             android:name=".EmailPassActivityReg"
             android:label="@string/user_registration"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateTrip" />
-        <activity android:name=".TripList" />
+        <activity
+            android:name=".CreateTrip" />
+        <activity
+            android:name=".TripList" />
         <activity
             android:name=".MenuMainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ExcursionViewActivity" />
-        <activity android:name=".TestActivity"><intent-filter>
+        <activity
+            android:name=".ExcursionViewActivity" />
+        <activity
+            android:name=".TestActivity"/>
+        <activity
+            android:name=".HowToActivity"
+            android:label="How To">
+            <intent-filter>
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter></activity>
     </application>
-
 </manifest>
