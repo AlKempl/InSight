@@ -189,9 +189,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void updateUI(User userData) {
-
-        //that means user is already logged in
-        //so close this activity
         finish();
         //and open profile activity
         startActivity(new Intent(getApplicationContext(), MenuMainActivity.class));

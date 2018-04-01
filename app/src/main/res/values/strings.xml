@@ -134,7 +134,6 @@
     <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
     <string name="date_and_time">Date and time</string>
     <string name="meeting_point">Meeting point</string>
-    <string name="language">Language</string>
     <string name="date">Date</string>
     <string name="description">Description</string>
     <string name="name">Name</string>
@@ -147,4 +146,10 @@
         <item>German</item>
     </string-array>
     <string name="repeat_password">Repeat password</string>
+    <string name="edit_excursion">Edit excursion</string>
+    <string name="maximum_visitors">Maximum visitors</string>
+    <string name="confirm_changes">Confirm changes</string>
+    <string name="edit_image">Edit image</string>
+    <string name="language">Language</string>
+    <string name="Edit_Excursion">Edit Excursion</string>
 </resources>
