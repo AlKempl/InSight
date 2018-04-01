@@ -33,6 +33,6 @@ public class EditExcursionActivity extends AppCompatActivity {
         exc_place.setText(getIntent().getExtras().getString("adress"));
         String date = getIntent().getExtras().getString("date");
         String[] tokens = date.split("[,]");
-        exc_date.init(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), null);
+        //exc_date.init(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), null);
     }
 }

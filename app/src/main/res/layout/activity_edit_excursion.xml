@@ -7,16 +7,10 @@
     tools:context="com.pelicanus.insight.EditExcursionActivity">
 
     <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            style="?android:listSeparatorTextViewStyle"
-            android:text="@string/edit_excursion"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,6 +140,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="15dp"
+            android:padding="10dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:text="@string/confirm_changes"/>
 
     </LinearLayout>
