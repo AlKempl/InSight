@@ -1,7 +1,6 @@
 package com.pelicanus.insight;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,10 +18,10 @@ import com.pelicanus.insight.service.TripAdapter;
 import java.util.ArrayList;
 
 
-public class TripList extends AppCompatActivity {
+public class TripList extends AppBaseActivity {
 
-    private DatabaseReference myRef;
     ArrayList<Trip> listofTrips;
+    private DatabaseReference myRef;
     private RecyclerView recyclerView;
     private TripAdapter adapter;
 

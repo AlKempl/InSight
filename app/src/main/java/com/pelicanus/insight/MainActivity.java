@@ -31,19 +31,17 @@ import com.pelicanus.insight.model.User;
 
 public class MainActivity extends AppCompatActivity{
     public static final int RC_SIGN_IN = 1;
+    Intent intent;
+    String userid;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignup;
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
-
     //progress dialog
     private ProgressDialog progressDialog;
     private GoogleSignInClient mGoogleSignInClient;
-
-    Intent intent;
     private User current_user;
-    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +136,6 @@ public class MainActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             updateUI(new User(user));
-                            updateUI(null);
 
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect login and/or password. Please, try again.", Toast.LENGTH_LONG).show();

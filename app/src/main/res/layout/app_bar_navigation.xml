@@ -13,15 +13,15 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_navigation" />
+    <!--<include layout="@layout/content_navigation" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

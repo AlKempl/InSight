@@ -1,5 +1,6 @@
 package com.pelicanus.insight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,22 +83,32 @@ public class NavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//        if (id == R.id.nav_myexc) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_search) {
+//            User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
+//            Toast.makeText(this, usr.getEmail(), Toast.LENGTH_LONG).show();
+//
+//        } else if (id == R.id.nav_create) {
+//            startActivity(new Intent(this, CreateTrip.class));
+//        } else if (id == R.id.nav_settings) {
+//            startActivity(new Intent(this, SettingsActivity.class));
+//        } else if (id == R.id.nav_about) {
+//
+//        } else if (id == R.id.nav_logout) {
+//            logOut();
+//        } else if (id == R.id.nav_how_to) {
+//            startActivity(new Intent(this, HowToActivity.class));
+//        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        finish();
+        startActivity(new Intent(this, MainActivity.class));
     }
 }
