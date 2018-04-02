@@ -159,4 +159,5 @@
     <string name="language">Language</string>
     <string name="Edit_Excursion">Edit Excursion</string>
     <string name="pref_title_debug_get_curr_user_data">Get current user\'s data</string>
+    <string name="version">release-alpha-1-03-04-2018-01-46</string>
 </resources>
