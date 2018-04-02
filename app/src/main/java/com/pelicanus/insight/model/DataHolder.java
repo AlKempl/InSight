@@ -34,4 +34,9 @@ public class DataHolder {
         objectSoftReference.clear();
         data.remove(objectSoftReference);
     }
+
+    public Object retrieve(String id) {
+        SoftReference<Object> objectSoftReference = data.get(id);
+        return objectSoftReference.get();
+    }
 }

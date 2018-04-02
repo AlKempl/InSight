@@ -17,7 +17,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
+import com.pelicanus.insight.model.User;
 
 public class ExcursionViewActivity extends AppBaseActivity {
 
@@ -52,7 +54,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
         author_id = getIntent().getExtras().getString("guide_id");
         final String trip_id = getIntent().getStringExtra("Trip_id");
 
-
+        User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
+        String userId = usr.getId();
 
 
         Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
