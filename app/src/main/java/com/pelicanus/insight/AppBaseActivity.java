@@ -30,7 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -130,29 +129,20 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         switch (item.getItemId()) {
             case R.id.nav_myexc:
                 // handle it
-                Toast.makeText(this, "My exc", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_search:
                 // do whatever
-                Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_create:
-                Toast.makeText(this, "Before nav_create", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, CreateTrip.class));
-                Toast.makeText(this, "After nav_create", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "Before nav_logout", Toast.LENGTH_LONG).show();
                 logOut();
-                Toast.makeText(this, "After nav_logout", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_how_to:
-                Toast.makeText(this, "Before nav_howto", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, HowToActivity.class));
-                Toast.makeText(this, "After nav_howto", Toast.LENGTH_LONG).show();
                 break;
         }
         return false;

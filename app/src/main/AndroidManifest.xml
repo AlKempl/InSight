@@ -44,16 +44,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".HowToActivity"
-            android:label="How To">
-            <intent-filter>
+            android:label="How To"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ExcursionViewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".TestActivity"><intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".ExcursionViewActivity" />
         <activity android:name=".TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

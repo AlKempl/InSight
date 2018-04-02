@@ -3,39 +3,39 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:fitsSystemWindows="true"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/main.appbar"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/main_collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@style/ExcursionNameStyle"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
 
             <ImageView
                 android:id="@+id/view_trip_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/excursion_zaglushka"
                 app:layout_collapseMode="parallax"
                 />
@@ -44,8 +44,8 @@
                 android:id="@+id/main.toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -65,18 +65,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp">
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@android:color/black"
-                    android:text="@string/description" />
+                    android:layout_marginTop="15dp"
+                    android:text="@string/description"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                 android:id="@+id/view_description"
@@ -87,10 +87,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@android:color/black"
-                    android:text="@string/date_and_time"/>
+                    android:layout_marginTop="15dp"
+                    android:text="@string/date_and_time"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                 android:id="@+id/view_date_time"
@@ -101,10 +101,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@android:color/black"
-                    android:text="@string/meeting_point"/>
+                    android:layout_marginTop="15dp"
+                    android:text="@string/meeting_point"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                 android:id="@+id/view_adress"
@@ -115,10 +115,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@android:color/black"
-                    android:text="@string/language"/>
+                    android:layout_marginTop="15dp"
+                    android:text="@string/language"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                 android:id="@+id/view_language"
@@ -130,23 +130,23 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/darker_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:orientation="horizontal"
                     android:weightSum="4">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="2"
-                        android:layout_gravity="center_vertical">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/view_participants"
@@ -157,39 +157,40 @@
                         />
 
                         <Button
+                            android:id="@+id/im_in_btn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:background="@color/colorPrimary"
-                            android:textColor="@color/white"
                             android:layout_marginTop="10dp"
-                            android:text="I'm in" />
+                            android:background="@color/colorPrimary"
+                            android:text="I'm in"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="15dp"
-                        android:layout_weight="2">
+                        android:layout_weight="2"
+                        android:orientation="vertical">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/view_author_image"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/avatar_default"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="15dp"/>
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/avatar_default" />
 
                         <TextView
                             android:id="@+id/view_author_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Author name"
-                            android:layout_marginTop="10dp"/>
+                            android:layout_marginTop="10dp"
+                            android:text="Author name" />
 
                     </LinearLayout>
 
