@@ -57,4 +57,8 @@
     <string name="name">Название</string>
     <string name="edit_picture">Редактировать фото</string>
     <string name="repeat_password">Повторите пароль</string>
+    <string name="description">Описание</string>
+    <string name="date_and_time">Дата и время</string>
+    <string name="meeting_point">Место встречи</string>
+    <string name="language">Язык</string>
 </resources>

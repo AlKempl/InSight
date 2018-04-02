@@ -46,6 +46,10 @@
             android:name=".HowToActivity"
             android:label="How To">
             <intent-filter>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ExcursionViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".TestActivity"><intent-filter>
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter></activity>
@@ -61,4 +65,5 @@
             android:name=".EditExcursionActivity"
             android:label="@string/Edit_Excursion" />
     </application>
+
 </manifest>

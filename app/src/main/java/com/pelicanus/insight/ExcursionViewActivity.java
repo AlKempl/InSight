@@ -1,5 +1,7 @@
 package com.pelicanus.insight;
 
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +31,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
     String userid;
     ButtonMode buttonMode;
 
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +43,19 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        TextView ex_name = findViewById(R.id.view_excursion_name);
+        //TextView ex_name = findViewById(R.id.view_excursion_name);
         TextView ex_description = findViewById(R.id.view_description);
         TextView ex_date = findViewById(R.id.view_date_time);
         TextView ex_address = findViewById(R.id.view_adress);
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
+        CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
 
-        ex_name.setText(getIntent().getExtras().getString("name"));
+        //ex_name.setText(getIntent().getExtras().getString("name"));
+        name = getIntent().getExtras().getString("name");
+        m_coll.setTitle(name);
+//        getActionBar().setTitle(name);
+//        getSupportActionBar().setTitle(name);
         ex_description.setText(getIntent().getExtras().getString("description"));
         ex_date.setText(getIntent().getExtras().getString("date"));
         ex_address.setText(getIntent().getExtras().getString("address"));
