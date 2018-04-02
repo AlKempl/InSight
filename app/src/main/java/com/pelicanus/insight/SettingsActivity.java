@@ -1,6 +1,8 @@
 package com.pelicanus.insight;
 
 import android.annotation.TargetApi;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -15,9 +17,15 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.pelicanus.insight.model.DataHolder;
+import com.pelicanus.insight.model.User;
 
 import java.util.List;
 
@@ -158,7 +166,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
-                || NotificationPreferenceFragment.class.getName().equals(fragmentName);
+                || NotificationPreferenceFragment.class.getName().equals(fragmentName)
+                || DebugPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -251,4 +260,43 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class DebugPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_debug);
+
+            Preference myPref = findPreference("get_curr_user_data");
+            myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                public boolean onPreferenceClick(Preference pref) {
+                    ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    User current = (User) DataHolder.getInstance().retrieve("CURR_USER");
+                    Gson gson = new Gson();
+                    String json = gson.toJson(current);
+                    ClipData clip = ClipData.newPlainText("Current user data", json);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(getContext(), "Data was copied to the clipboard", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+
+    }
 }
+
+

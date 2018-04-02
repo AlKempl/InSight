@@ -160,6 +160,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
                 startActivity(new Intent(this, CreateTrip.class));
                 break;
             case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.nav_logout:
                 logOut();
