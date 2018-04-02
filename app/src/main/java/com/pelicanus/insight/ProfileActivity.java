@@ -46,6 +46,5 @@ public class ProfileActivity extends AppBaseActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         finish();
-        return;
     }
 }

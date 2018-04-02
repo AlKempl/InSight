@@ -10,14 +10,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MenuMainActivity extends AppBaseActivity {
 
-    private FirebaseAuth firebaseAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_main);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         //if the user is not logged in
         //that means current user will return null

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class DataHolder {
     private static volatile DataHolder instance;
-    private Map<String, SoftReference<Object>> data = new HashMap<String, SoftReference<Object>>();
+    private Map<String, SoftReference<Object>> data = new HashMap<>();
 
     public DataHolder() {
     }
@@ -25,8 +25,8 @@ public class DataHolder {
         return instance;
     }
 
-    public void save(String id, Object object) {
-        data.put(id, new SoftReference<Object>(object));
+    public void save(@SuppressWarnings("SameParameterValue") String id, Object object) {
+        data.put(id, new SoftReference<>(object));
     }
 
     public void remove(String id) {
@@ -35,7 +35,7 @@ public class DataHolder {
         data.remove(objectSoftReference);
     }
 
-    public Object retrieve(String id) {
+    public Object retrieve(@SuppressWarnings("SameParameterValue") String id) {
         SoftReference<Object> objectSoftReference = data.get(id);
         return objectSoftReference.get();
     }

@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -31,11 +30,9 @@ import com.pelicanus.insight.model.User;
 
 public class MainActivity extends AppCompatActivity{
     public static final int RC_SIGN_IN = 1;
-    Intent intent;
-    String userid;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private TextView textViewSignup;
+
     //defining firebaseauth object
     private FirebaseAuth firebaseAuth;
     //progress dialog
@@ -66,7 +63,6 @@ public class MainActivity extends AppCompatActivity{
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        textViewSignup = findViewById(R.id.textViewSignup);
 
         findViewById(R.id.google_sign_in_button).setOnClickListener(
                 new View.OnClickListener() {
@@ -139,7 +135,6 @@ public class MainActivity extends AppCompatActivity{
 
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect login and/or password. Please, try again.", Toast.LENGTH_LONG).show();
-                            return;
                         }
                     }
                 });

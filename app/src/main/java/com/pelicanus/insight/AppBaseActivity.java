@@ -1,7 +1,7 @@
 package com.pelicanus.insight;
 
-/**
- * Created by alkempl on 4/2/18.
+/*
+  Created by alkempl on 4/2/18.
  */
 
 /*
@@ -49,6 +49,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, 0, 0);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        //TODO find out what TBD with this deprecated method
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerMenu = navigation_view.getMenu();

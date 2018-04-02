@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.pelicanus.insight.ExcursionViewActivity;
 import com.pelicanus.insight.R;
-import com.pelicanus.insight.TripList;
-import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 
 import java.util.List;

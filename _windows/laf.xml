@@ -1,5 +1,6 @@
+<!--suppress XmlUnboundNsPrefix, XmlUnboundNsPrefix -->
 <application>
-  <component name="LafManager">
-    <laf class-name="com.intellij.ide.ui.laf.darcula.DarculaLaf" />
-  </component>
+    <component name="LafManager">
+        <laf class-name="com.intellij.ide.ui.laf.darcula.DarculaLaf" />
+    </component>
 </application>

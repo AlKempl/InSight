@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.pelicanus.insight.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,8 +25,7 @@ import lombok.Setter;
  * Created by Slavik on 09.03.2018.
  */
 public class Picture {
-    public enum Type {Trip_avatar, User_avatar, Test}
-
+    long maxSize = 1024 * 1024;
     @NonNull
     private ImageView imageView;
     private Type type;
@@ -35,8 +33,6 @@ public class Picture {
     private StorageReference storage = FirebaseStorage.getInstance().getReference();
     @Setter
     private Bitmap bitmap;
-    long maxSize = 1024*1024;
-
     public Picture(ImageView imageView, Type type) {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
@@ -51,16 +47,19 @@ public class Picture {
         this.type = type;
         this.name = name;
     }
+
     public Picture(Type type, String name) {
         this.type = type;
         this.name = name;
     }
+
     public void setImageView(ImageView imageView) {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
 
     }
+
     public void SetDefault() {
         Download("avatar_default.jpg"); //заменить на default, а то бред какой-то
     }
@@ -86,6 +85,7 @@ public class Picture {
         }
         return check;
     }
+
     public boolean Upload(String pic_name) {
         name = pic_name;
         return Upload();
@@ -120,10 +120,12 @@ public class Picture {
             LoadToImageView();
         }
     }
+
     public void Download(String pic_name, boolean forcibly) {
         name = pic_name;
         Download(forcibly);
     }
+
     public void Download(String pic_name) {
         name = pic_name;
         Download();
@@ -133,10 +135,13 @@ public class Picture {
         Intent intent = new Intent(Intent.ACTION_PICK).setType("image/*");
         activity.startActivityForResult(intent, 1);
     }
+
     public void Set(Uri uri, Activity activity) throws IOException {
         bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver() , uri);
         LoadToImageView();
     }
+
+    public enum Type {Trip_avatar, User_avatar, Test}
     /* Не удалять! Этот метод нужно скопировать в активити, чтобы работала загрузка из галереи
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent ReturnedIntent) {

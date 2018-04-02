@@ -60,8 +60,9 @@ public class User {
 
     @NonNull
     String name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
+    //TODO fix conditions> they're always false
 
-    public User(String name, String email, String status, String id, String rating, Boolean verifiedEmail, UserProvider provider) {
+    public User(String name, String email, @SuppressWarnings("SameParameterValue") String status, @SuppressWarnings("SameParameterValue") String id, String rating, @SuppressWarnings("SameParameterValue") Boolean verifiedEmail, @SuppressWarnings("SameParameterValue") UserProvider provider) {
         this.setName(name);
         this.setEmail(email);
         this.setStatus(status);
