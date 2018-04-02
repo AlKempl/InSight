@@ -67,21 +67,25 @@ public class User {
         this.setEmail(email);
         this.setStatus(status);
         this.setId(id);
-        this.setRating(rating);
+        this.setRating(rating != null ? rating : "0.0");
         this.setProvider(provider);
     }
 
 
     public User(FirebaseUser user) {
+
+        //TODO GET DATA FROM DB
         this.setDisplayName(user.getDisplayName());
         this.setEmail(user.getEmail());
         this.setId(user.getUid());
         this.setFbProvider(user.getProviderId());
         this.setProvider(UserProvider.LOGINPASS);
         this.setPhoneNumber(user.getPhoneNumber());
+        this.setRating("0.0");
     }
 
     public User(GoogleSignInAccount user) {
+        //TODO GET DATA FROM DB
         this.setFamilyName(user.getFamilyName());
         this.setGivenName(user.getGivenName());
         this.setDisplayName(user.getDisplayName());
@@ -89,6 +93,7 @@ public class User {
         this.setId(user.getId());
         this.setPhotoUrl(user.getPhotoUrl());
         this.setProvider(UserProvider.GOOGLE);
+        this.setRating("0.0");
     }
 
     public void writeUserData() {
@@ -135,5 +140,4 @@ public class User {
             }
         });
     }
-
 }

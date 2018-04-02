@@ -38,6 +38,7 @@ public class UserImplService {
 //
 //    }
 
+
     private static final String ALLOWED_CHARACTERS = "0123456789qwertyuiopasdfghjklzxcvbnm";
 
     private static String getRandomString(final int sizeOfRandomString) {

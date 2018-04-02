@@ -1,5 +1,6 @@
 package com.pelicanus.insight;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,7 @@ public class TripList extends AppBaseActivity {
     private DatabaseReference myRef;
     private RecyclerView recyclerView;
     private TripAdapter adapter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,14 @@ public class TripList extends AppBaseActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
 
-
         adapter = new TripAdapter(this,listofTrips);
         updateList();
         recyclerView.setAdapter(adapter);
 
-
     }
-    private void updateList(){
 
+
+    private void updateList(){
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

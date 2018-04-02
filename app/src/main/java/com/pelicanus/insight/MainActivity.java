@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity{
         //displaying a progress dialog
 
         progressDialog.setMessage("Signing in... Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
         //logging in the user

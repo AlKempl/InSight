@@ -30,8 +30,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.pelicanus.insight.model.DataHolder;
+import com.pelicanus.insight.model.Picture;
+import com.pelicanus.insight.model.User;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
     private FrameLayout view_stub; //This is the framelayout to keep your content view
@@ -57,12 +62,29 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
             drawerMenu.getItem(i).setOnMenuItemClickListener(this);
         }
         // and so on...
+
+        loadDrawerUserInfo();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
+    }
+
+    protected void loadDrawerUserInfo() {
+
+        User current = (User) DataHolder.getInstance().retrieve("CURR_USER");
+
+        View headerLayout = navigation_view.getHeaderView(0);
+        TextView username_label = headerLayout.findViewById(R.id.navdr_username_label);
+        TextView useremail_label = headerLayout.findViewById(R.id.navdr_useremail_label);
+        String displayName = current.getDisplayName();
+        username_label.setText(displayName);
+        useremail_label.setText(current.getEmail());
+
+        new Picture((ImageView) headerLayout.findViewById(R.id.this_user_photo), Picture.Type.User_avatar, current.getId()).Download();
+
     }
 
     @Override
@@ -152,7 +174,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
         finish();
-        finish();
         startActivity(new Intent(this, MainActivity.class));
     }
 
@@ -166,9 +187,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     }
 
     public void OpenProfile(View view) {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        //intent.putExtra("User_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-        startActivity(intent);
+        startActivity(new Intent(this, ProfileActivity.class));
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }

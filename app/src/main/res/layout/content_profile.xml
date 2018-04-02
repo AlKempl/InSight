@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@drawable/background_login">
+    android:background="@drawable/background_login"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        tools:context="com.pelicanus.insight.ProfileActivity"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.pelicanus.insight.ProfileActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,28 +25,28 @@
                 android:id="@+id/user_photo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@color/white"/>
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp" />
 
             <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:text="John Snow"
-                android:textSize="20sp"
-                android:id="@+id/user_name"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <android.support.v7.widget.CardView
-            android:layout_margin="20dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:layout_margin="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,9 +56,9 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
@@ -70,9 +70,9 @@
                         />
 
                     <TextView
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="7"
                         android:textSize="19sp"
                         />
@@ -82,15 +82,15 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"/>
+                    android:background="@android:color/darker_gray" />
 
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
@@ -101,9 +101,9 @@
                         android:textSize="15sp"/>
 
                     <TextView
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="0"
                         android:textSize="19sp"
                         />
@@ -113,14 +113,14 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"/>
+                    android:background="@android:color/darker_gray" />
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -133,12 +133,13 @@
                         />
 
                     <TextView
-                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/in_profile_rating_string"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="3.9/5.0"
                         android:textSize="19sp"
-                        />
+                        android:tooltipText="This rating \n helps to understand \n how much we love you!" />
 
                 </LinearLayout>
 
@@ -149,33 +150,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Latest excursions"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
                     android:gravity="center_horizontal"
-                    android:textColor="@color/white"/>
+                    android:text="Latest excursions"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -183,9 +184,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_margin="10dp"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_margin="10dp"
                         android:contentDescription="@string/user_photo"
                         android:src="@mipmap/ic_launcher" />
 
@@ -225,9 +226,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_margin="10dp"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_margin="10dp"
                         android:contentDescription="@string/user_photo"
                         android:src="@mipmap/ic_launcher" />
                     <LinearLayout
@@ -259,9 +260,9 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_margin="10dp"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
+                        android:layout_margin="10dp"
                         android:contentDescription="@string/user_photo"
                         android:src="@mipmap/ic_launcher" />
                     <LinearLayout
