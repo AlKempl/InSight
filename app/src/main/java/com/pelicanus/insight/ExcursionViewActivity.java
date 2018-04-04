@@ -30,7 +30,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
     Button multi_btn;
     String user_id;
     ButtonMode buttonMode;
-
+    TextView vis;
+    long count_vis = -1;
     String name;
 
     @Override
@@ -47,6 +48,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         TextView ex_address = findViewById(R.id.view_adress);
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
+        vis  = findViewById(R.id.view_participants);
         CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
 
         //ex_name.setText(getIntent().getExtras().getString("name"));
@@ -85,11 +87,13 @@ public class ExcursionViewActivity extends AppBaseActivity {
                             multi_btn.setText("I'm out");
                             buttonMode = ButtonMode.Im_out;
                     }
+                    count_vis = dataSnapshot.getChildrenCount();
+                    vis.setText(count_vis+"/10");
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    vis.setText("1/10");
                 }
             });
 
