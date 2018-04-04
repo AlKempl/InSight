@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.User;
@@ -77,29 +78,13 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         }
         else{
-            reference.child("Visitors").child(trip_id).addChildEventListener(new ChildEventListener() {
+            reference.child("Visitors").child(trip_id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    if(s!=null && s.contentEquals(user_id)) {
-                        multi_btn.setText("I'm out");
-                        buttonMode = ButtonMode.Im_out;
-                        reference.child("Visitors").child(trip_id).removeEventListener(this);
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChild(user_id)) {
+                            multi_btn.setText("I'm out");
+                            buttonMode = ButtonMode.Im_out;
                     }
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
                 }
 
                 @Override
