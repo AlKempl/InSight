@@ -149,10 +149,10 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
 
     }
-    public void onStop () {
+    public void onDestroy () {
     // тут удалить данные из хранилища, например
         DataHolder.getInstance().remove("REQUESTED_TRIP");
-        super.onStop();
+        super.onDestroy();
     }
     public void OpenProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
