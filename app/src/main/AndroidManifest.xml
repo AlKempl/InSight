@@ -36,10 +36,8 @@
             android:name=".EmailPassActivityReg"
             android:label="@string/user_registration"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".CreateTrip" />
-        <activity
-            android:name=".TripList" />
+        <activity android:name=".CreateTrip" />
+        <activity android:name=".TripList" />
         <activity
             android:name=".MenuMainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -59,6 +57,7 @@
         <activity
             android:name=".EditExcursionActivity"
             android:label="@string/Edit_Excursion" />
+        <activity android:name=".EditProfileActiity"></activity>
     </application>
 
 </manifest>
