@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.pelicanus.insight.ExcursionViewActivity;
 import com.pelicanus.insight.R;
+import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Trip;
 
 import java.util.List;
@@ -34,8 +35,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
 
     @Override
     public void onBindViewHolder(TripViewHolder holder, int position) {
-
-       final Trip trp = list.get(position);
+        position = list.size() - position - 1;
+        final Trip trp = list.get(position);
         holder.exc_date.setText(trp.getDate());
         holder.exc_description.setText(trp.getDescription());
         holder.exc_name.setText(trp.getName());
@@ -44,14 +45,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(c,ExcursionViewActivity.class);
-
-                intent.putExtra("name",trp.getName());
-                intent.putExtra("date",trp.getDate());
-                intent.putExtra("address",trp.getAddress());
-                intent.putExtra("description",trp.getDescription());
-                intent.putExtra("guide_id",trp.getGuide_id());
-                intent.putExtra("Trip_id",trp.getTrip_id());
-                intent.putExtra("language",trp.getLanguage());
+                DataHolder.getInstance().save("REQUESTED_TRIP", trp);
                 c.startActivity(intent);
             }
         });
