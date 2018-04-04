@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
+import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
 
 public class ExcursionViewActivity extends AppBaseActivity {
@@ -39,7 +40,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excursion_view);
         reference = FirebaseDatabase.getInstance().getReference();
-
+        Trip trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
         multi_btn =findViewById(R.id.im_in_btn);
 
         //TextView ex_name = findViewById(R.id.view_excursion_name);
@@ -52,16 +53,16 @@ public class ExcursionViewActivity extends AppBaseActivity {
         CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
 
         //ex_name.setText(getIntent().getExtras().getString("name"));
-        name = getIntent().getExtras().getString("name");
+        name = trip.getName();
         m_coll.setTitle(name);
 //        getActionBar().setTitle(name);
 //        getSupportActionBar().setTitle(name);
-        ex_description.setText(getIntent().getExtras().getString("description"));
-        ex_date.setText(getIntent().getExtras().getString("date"));
-        ex_address.setText(getIntent().getExtras().getString("address"));
-        ex_language.setText(getIntent().getExtras().getString("language"));
-        author_id = getIntent().getExtras().getString("guide_id");
-        final String trip_id = getIntent().getStringExtra("Trip_id");
+        ex_description.setText(trip.getDescription());
+        ex_date.setText(trip.getDate());
+        ex_address.setText(trip.getAddress());
+        ex_language.setText(trip.getLanguage());
+        author_id = trip.getGuide_id();
+        final String trip_id = trip.getTrip_id();
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
         user_id = usr.getId();
@@ -69,7 +70,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
         new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, author_id).Download();
-        new Picture((ImageView) findViewById(R.id.view_trip_image), Picture.Type.Trip_avatar, trip_id).Download();
+        trip.avatar.setImageView((ImageView)findViewById(R.id.view_trip_image));
+        trip.avatar.LoadToImageView();
 
         buttonMode=ButtonMode.Im_in;
 
@@ -136,7 +138,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
                     }
                     break;
                     case Edit:{
-                        //TODO Переход на активити редактирования экскурсии
+                        OpenEdit();
                     }
                     break;
 
@@ -147,24 +149,20 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
 
     }
-
+    public void onStop () {
+    // тут удалить данные из хранилища, например
+        DataHolder.getInstance().remove("REQUESTED_TRIP");
+        super.onStop();
+    }
     public void OpenProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("User_id", author_id);
         startActivity(intent);
     }
 
-    public void OpenEdit(View view) {
-//        Intent intent = new Intent(this, EditExcursionActivity.class);
-//
-//        intent.putExtra("name", name);
-//        intent.putExtra("date", date);
-//        intent.putExtra("address", adress);
-//        intent.putExtra("description", description);
-//        intent.putExtra("guide_id", author_id);
-//        intent.putExtra("Trip_id", trip_id);
-//        intent.putExtra("language", language);
-//        startActivity(intent);
+    public void OpenEdit() {
+        Intent intent = new Intent(this, EditExcursionActivity.class);
+        startActivity(intent);
     }
 
 
