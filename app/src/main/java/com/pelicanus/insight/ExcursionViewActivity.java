@@ -27,7 +27,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
     DatabaseReference reference;
     String author_id;
     Button multi_btn;
-    String userid;
+    String user_id;
     ButtonMode buttonMode;
 
     String name;
@@ -39,8 +39,6 @@ public class ExcursionViewActivity extends AppBaseActivity {
         reference = FirebaseDatabase.getInstance().getReference();
 
         multi_btn =findViewById(R.id.im_in_btn);
-
-        userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //TextView ex_name = findViewById(R.id.view_excursion_name);
         TextView ex_description = findViewById(R.id.view_description);
@@ -63,7 +61,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         final String trip_id = getIntent().getStringExtra("Trip_id");
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
-        String userId = usr.getId();
+        user_id = usr.getId();
 
 
         Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
@@ -73,7 +71,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         buttonMode=ButtonMode.Im_in;
 
 
-        if(userid==author_id) {
+        if(user_id.contentEquals(author_id)) {
             multi_btn.setText("Edit");
             buttonMode=ButtonMode.Edit;
 
@@ -82,11 +80,11 @@ public class ExcursionViewActivity extends AppBaseActivity {
             reference.child("Visitors").child(trip_id).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    if(dataSnapshot.hasChild(userid)) {
+                    if(s!=null && s.contentEquals(user_id)) {
                         multi_btn.setText("I'm out");
                         buttonMode = ButtonMode.Im_out;
+                        reference.child("Visitors").child(trip_id).removeEventListener(this);
                     }
-                    reference.child("Visitors").child(trip_id).removeEventListener(this);
                 }
 
                 @Override
@@ -119,11 +117,11 @@ public class ExcursionViewActivity extends AppBaseActivity {
                 switch (buttonMode){
                     case Im_in:{
                         if(buttonMode==ButtonMode.Im_in){
-                            reference.child("Visitors").child(trip_id).child(userid).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            reference.child("Visitors").child(trip_id).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
-                                        Toast.makeText(getApplicationContext(),"Вы записаны на экскурсию",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),"Вы записаны на экскурсию",Toast.LENGTH_SHORT).show();
                                     else
                                         Toast.makeText(getApplicationContext(),"FAIL",Toast.LENGTH_LONG).show();
                                 }
@@ -135,11 +133,11 @@ public class ExcursionViewActivity extends AppBaseActivity {
                     }
                     break;
                     case Im_out:{
-                        reference.child("Visitors").child(trip_id).child(userid).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        reference.child("Visitors").child(trip_id).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful())
-                                    Toast.makeText(getApplicationContext(),"Вы отписаны на экскурсию",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Вы отписаны на экскурсию",Toast.LENGTH_SHORT).show();
                                 else
                                     Toast.makeText(getApplicationContext(),"FAIL",Toast.LENGTH_LONG).show();
                             }
