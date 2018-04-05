@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.pelicanus.insight.PictureSetActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -127,30 +128,15 @@ public class Picture {
     }
 
     public void Set(Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_PICK).setType("image/*");
-        activity.startActivityForResult(intent, 1);
+        DataHolder.getInstance().save("PICTURE_SET", this);
+        activity.startActivity(new Intent(activity, PictureSetActivity.class));
     }
 
     public void Set(Uri uri, Activity activity) throws IOException {
         bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver() , uri);
         LoadToImageView();
+        DataHolder.getInstance().remove("PICTURE_SET");
     }
 
     public enum Type {Trip_avatar, User_avatar, Test}
-    /* Не удалять! Этот метод нужно скопировать в активити, чтобы работала загрузка из галереи
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent ReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, ReturnedIntent);
-        switch(requestCode) {
-            case 1:
-                if(resultCode == RESULT_OK){
-                    try {
-                        <Picture>.Set(ReturnedIntent.getData(), this);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-     */
 }
