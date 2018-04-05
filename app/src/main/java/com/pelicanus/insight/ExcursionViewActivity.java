@@ -60,8 +60,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         ex_language.setText(trip.getLanguage());
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
-        String userId = usr.getId();
-
+        user_id = usr.getId();
 
         Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
         new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, trip.getGuide_id()).Download();
