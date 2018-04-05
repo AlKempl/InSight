@@ -22,8 +22,8 @@ public class ProfileActivity extends AppBaseActivity {
         User current = (User) DataHolder.getInstance().retrieve("CURR_USER");
         TextView username_label = findViewById(R.id.user_name);
         TextView in_profile_rating_string_label = findViewById(R.id.in_profile_rating_string);
-        username_label.setText(current.getDisplayName());
-        in_profile_rating_string_label.setText(current.getRating() + "/5.0");
+        current.setFieldName(username_label);
+        current.setFieldRating(in_profile_rating_string_label);
 
         current.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
     }

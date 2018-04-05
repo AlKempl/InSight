@@ -1,6 +1,7 @@
 package com.pelicanus.insight.model;
 
 import android.net.Uri;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,10 +61,17 @@ public class User {
     String fbProvider;
 
     Picture avatar = new Picture(Picture.Type.User_avatar, "0");
+    //Так нужно сделать, чтобы данные нормально прогружались
+    TextView fieldName;
+    TextView fieldEmail;
+    TextView fieldRating;
+
 
     @NonNull
-    String name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
-    //TODO fix conditions> they're always false
+    String name;
+    public void setName() {
+         name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
+    }
 
     public User(String name, String email, @SuppressWarnings("SameParameterValue") String status, @SuppressWarnings("SameParameterValue") String id, String rating, @SuppressWarnings("SameParameterValue") Boolean verifiedEmail, @SuppressWarnings("SameParameterValue") UserProvider provider) {
         this.setName(name);
@@ -120,6 +128,7 @@ public class User {
                 status = dataSnapshot.child("status").getValue(String.class);
                 rating = dataSnapshot.child("rating").getValue(String.class);
                 verifiedEmail = dataSnapshot.child("verifiedEmail").getValue(Boolean.class);
+                loadToAllField();
             }
 
             @Override
@@ -131,5 +140,35 @@ public class User {
     public void setId(String id) {
         this.id = id;
         avatar.Download(id);
+    }
+
+    public void setFieldName(TextView textView) {
+        fieldName = textView;
+        loadToFieldName();
+    }
+    public void setFieldEmail(TextView textView) {
+        fieldEmail = textView;
+        loadToFieldEmail();
+    }
+    public void setFieldRating(TextView textView) {
+        fieldRating = textView;
+        loadToFieldRating();
+    }
+    public void loadToFieldName() {
+        if(fieldName!=null && getName() != null)
+            fieldName.setText(getName());
+    }
+    public void loadToFieldEmail() {
+        if(fieldEmail!=null && getEmail() != null)
+            fieldEmail.setText(getEmail());
+    }
+    public void loadToFieldRating() {
+        if(fieldRating!=null && getRating() != null)
+            fieldRating.setText(getRating()+"/5.0");
+    }
+    public void loadToAllField() {
+        loadToFieldRating();
+        loadToFieldEmail();
+        loadToFieldName();
     }
 }

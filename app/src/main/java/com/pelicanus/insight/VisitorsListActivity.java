@@ -52,7 +52,6 @@ public class VisitorsListActivity extends AppBaseActivity {
     private void updateList(){
         for (String v:trip.getVisitors().keySet()) {
             User u = new User(v);
-            //u.readUserDataWithID();
             listofUsers.add(u);
         }
     }

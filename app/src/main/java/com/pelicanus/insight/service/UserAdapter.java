@@ -34,8 +34,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(UserAdapter.UserViewHolder holder, int position) {
 
         final User user = list.get(position);
-        holder.vis_name.setText(user.getName());
-        holder.vis_email.setText(user.getEmail());
+        user.setFieldName(holder.vis_name);
+        user.setFieldEmail(holder.vis_email);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
