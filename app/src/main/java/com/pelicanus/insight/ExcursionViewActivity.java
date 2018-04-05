@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,20 +25,19 @@ import com.pelicanus.insight.model.User;
 public class ExcursionViewActivity extends AppBaseActivity {
 
     DatabaseReference reference;
-    String author_id;
     Button multi_btn;
     String user_id;
     ButtonMode buttonMode;
-    TextView vis;
+    TextView participants;
     long count_vis = -1;
-    String name;
+    Trip trip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excursion_view);
         reference = FirebaseDatabase.getInstance().getReference();
-        Trip trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
+        trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
         multi_btn =findViewById(R.id.im_in_btn);
 
         //TextView ex_name = findViewById(R.id.view_excursion_name);
@@ -49,40 +46,37 @@ public class ExcursionViewActivity extends AppBaseActivity {
         TextView ex_address = findViewById(R.id.view_adress);
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
-        vis  = findViewById(R.id.view_participants);
+        participants = findViewById(R.id.view_participants);
         CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
 
         //ex_name.setText(getIntent().getExtras().getString("name"));
-        name = trip.getName();
-        m_coll.setTitle(name);
+        m_coll.setTitle(trip.getName());
 //        getActionBar().setTitle(name);
 //        getSupportActionBar().setTitle(name);
         ex_description.setText(trip.getDescription());
         ex_date.setText(trip.getDate());
         ex_address.setText(trip.getAddress());
         ex_language.setText(trip.getLanguage());
-        author_id = trip.getGuide_id();
-        final String trip_id = trip.getTrip_id();
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
         user_id = usr.getId();
 
 
         Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
-        new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, author_id).Download();
+        new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, trip.getGuide_id()).Download();
         trip.avatar.setImageView((ImageView)findViewById(R.id.view_trip_image));
         trip.avatar.LoadToImageView();
 
         buttonMode=ButtonMode.Im_in;
 
 
-        if(user_id.contentEquals(author_id)) {
+        if(user_id.contentEquals(trip.getGuide_id())) {
             multi_btn.setText("Edit");
             buttonMode=ButtonMode.Edit;
 
         }
         else{
-            reference.child("Visitors").child(trip_id).addValueEventListener(new ValueEventListener() {
+            reference.child("Visitors").child(trip.getTrip_id()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.hasChild(user_id)) {
@@ -90,12 +84,12 @@ public class ExcursionViewActivity extends AppBaseActivity {
                             buttonMode = ButtonMode.Im_out;
                     }
                     count_vis = dataSnapshot.getChildrenCount();
-                    vis.setText(count_vis+"/10");
+                    participants.setText(count_vis+"/"+trip.getMax_visitors()+" participants");
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    vis.setText("1/10");
+                    participants.setText("NaN/NaN");
                 }
             });
 
@@ -108,7 +102,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
                 switch (buttonMode){
                     case Im_in:{
                         if(buttonMode==ButtonMode.Im_in){
-                            reference.child("Visitors").child(trip_id).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            reference.child("Visitors").child(trip.getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
@@ -124,7 +118,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
                     }
                     break;
                     case Im_out:{
-                        reference.child("Visitors").child(trip_id).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        reference.child("Visitors").child(trip.getTrip_id()).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful())
@@ -156,7 +150,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
     }
     public void OpenProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("User_id", author_id);
+        intent.putExtra("User_id", trip.getGuide_id());
         startActivity(intent);
     }
 

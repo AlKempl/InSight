@@ -45,16 +45,20 @@ public class Trip {
     @Getter
     String language;
 
+    long max_visitors;
     public Picture avatar;
 
-    public Trip(String name, String description, String date, String address, String guide_id,String language) {
+    public Trip(String name, String description, String date, String address, String guide_id, String language, long max_visitors) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.guide_id = guide_id;
         this.date = date;
         this.language=language;
+        this.max_visitors = max_visitors;
     }
-
+    public long getMax_visitors() {
+        return Math.max(2, max_visitors);
+    }
 
 }

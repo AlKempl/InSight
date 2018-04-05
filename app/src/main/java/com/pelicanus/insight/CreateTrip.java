@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,6 +49,7 @@ public class CreateTrip extends AppCompatActivity {
         lang_spn=findViewById(R.id.select_language);
         trip_avatar = new Picture((ImageView) findViewById(R.id.trip_avatar), Picture.Type.Trip_avatar);
         myRef = FirebaseDatabase.getInstance().getReference();
+        final TextView max_visistorsFiled = findViewById(R.id.text_hCount);
 
         mCreateTrip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +60,14 @@ public class CreateTrip extends AppCompatActivity {
                 String date = datePicker.getDayOfMonth()+"."+datePicker.getMonth()+"."+datePicker.getYear();
                 String address = addressField.getText().toString().trim();
                 String description = descriptionField.getText().toString().trim();
+                String max_visitors = max_visistorsFiled.getText().toString();
                 //Проверка данных на пустоту
                 //При добавлении новых полей нужно не забыть добавить сюда!
                 if (name.length() == 0||
                     date.length() == 0||
                     address.length() == 0||
-                    description.length() == 0) {
+                    description.length() == 0 ||
+                    max_visitors.length() == 0) {
                     Toast.makeText(CreateTrip.this, R.string.trip_create_emptydata,Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -72,7 +76,7 @@ public class CreateTrip extends AppCompatActivity {
                 //Но нужно знать, какие типы должны получиться в итоге
                 //Ещё можно будет "на уровне" xml запретить вводить не цифры, например
                 String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                tripCreator(name,description,date,address, userid, trip_avatar,language);
+                tripCreator(name,description,date,address, userid, trip_avatar,language,Math.max(2, Long.parseLong(max_visitors)));
                 nameField.setText("");
 
 
@@ -84,14 +88,14 @@ public class CreateTrip extends AppCompatActivity {
 
 
     }
-    public void tripCreator(String name, String description, String date, String address, String id, Picture avatar,String language){
+    public void tripCreator(String name, String description, String date, String address, String id, Picture avatar,String language, long max_visitors){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
         avatar.Upload(myRef.getKey());
         String trip_id =myRef.getKey();
 
         FirebaseDatabase.getInstance().getReference().child("Visitors").child(trip_id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(name);
 
-        myRef.setValue(new Trip(name,description,date,address,id,language)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        myRef.setValue(new Trip(name,description,date,address,id,language, max_visitors)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isComplete()) {
