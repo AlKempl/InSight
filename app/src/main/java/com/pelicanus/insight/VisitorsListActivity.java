@@ -34,7 +34,6 @@ public class VisitorsListActivity extends AppBaseActivity {
         listofUsers = new ArrayList<>();
         trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
         trip_id = trip.getTrip_id();
-        myRef = FirebaseDatabase.getInstance().getReference().child("Visitors").child(trip_id);
 
         recyclerView = findViewById(R.id.visitor_list);
 

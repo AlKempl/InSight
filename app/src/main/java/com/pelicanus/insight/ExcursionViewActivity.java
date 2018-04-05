@@ -16,10 +16,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
+
+import static com.pelicanus.insight.ExcursionViewActivity.ButtonMode.Im_out;
 
 public class ExcursionViewActivity extends AppBaseActivity {
 
@@ -28,7 +31,6 @@ public class ExcursionViewActivity extends AppBaseActivity {
     String user_id;
     ButtonMode buttonMode;
     TextView participants;
-    long count_vis = -1;
     Trip trip;
 
     @Override
@@ -58,7 +60,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         ex_language.setText(trip.getLanguage());
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
-        user_id = usr.getId();
+        String userId = usr.getId();
 
 
         Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
@@ -105,9 +107,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
                         OpenEdit();
                     }
                     break;
-
-
-            }}
+                }}
         });
 
 
