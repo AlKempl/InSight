@@ -18,18 +18,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
+import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
+
+import static com.pelicanus.insight.ExcursionViewActivity.ButtonMode.Im_out;
 
 public class ExcursionViewActivity extends AppBaseActivity {
 
     DatabaseReference reference;
     String author_id;
     Button multi_btn;
-    String userid;
+    String user_id;
     ButtonMode buttonMode;
 
+    TextView vis;
+    long count_vis = -1;
     String name;
 
     @Override
@@ -38,9 +44,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
         setContentView(R.layout.activity_excursion_view);
         reference = FirebaseDatabase.getInstance().getReference();
 
+        Trip trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
         multi_btn =findViewById(R.id.im_in_btn);
-
-        userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //TextView ex_name = findViewById(R.id.view_excursion_name);
         TextView ex_description = findViewById(R.id.view_description);
@@ -48,68 +53,54 @@ public class ExcursionViewActivity extends AppBaseActivity {
         TextView ex_address = findViewById(R.id.view_adress);
         TextView ex_language = findViewById(R.id.view_language);
         TextView ex_author = findViewById(R.id.view_author_name);
+        vis  = findViewById(R.id.view_participants);
         CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
 
         //ex_name.setText(getIntent().getExtras().getString("name"));
-        name = getIntent().getExtras().getString("name");
+        name = trip.getName();
         m_coll.setTitle(name);
 //        getActionBar().setTitle(name);
 //        getSupportActionBar().setTitle(name);
-        ex_description.setText(getIntent().getExtras().getString("description"));
-        ex_date.setText(getIntent().getExtras().getString("date"));
-        ex_address.setText(getIntent().getExtras().getString("address"));
-        ex_language.setText(getIntent().getExtras().getString("language"));
-        author_id = getIntent().getExtras().getString("guide_id");
-        final String trip_id = getIntent().getStringExtra("Trip_id");
+        ex_description.setText(trip.getDescription());
+        ex_date.setText(trip.getDate());
+        ex_address.setText(trip.getAddress());
+        ex_language.setText(trip.getLanguage());
+        author_id = trip.getGuide_id();
+        final String trip_id = trip.getTrip_id();
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
-        String userId = usr.getId();
+        user_id = usr.getId();
 
 
         Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
         new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, author_id).Download();
-        new Picture((ImageView) findViewById(R.id.view_trip_image), Picture.Type.Trip_avatar, trip_id).Download();
+        trip.avatar.setImageView((ImageView)findViewById(R.id.view_trip_image));
+        trip.avatar.LoadToImageView();
 
         buttonMode=ButtonMode.Im_in;
 
 
-        if(userid==author_id) {
+        if(user_id.contentEquals(author_id)) {
             multi_btn.setText("Edit");
             buttonMode=ButtonMode.Edit;
 
         }
         else{
-            reference.child("Visitors").child(trip_id).addChildEventListener(new ChildEventListener() {
+            reference.child("Visitors").child(trip_id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    if(dataSnapshot.hasChild(userid)) {
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChild(user_id)) {
                         multi_btn.setText("I'm out");
-                        buttonMode = ButtonMode.Im_out;
+                        buttonMode = Im_out;
                     }
-                    reference.child("Visitors").child(trip_id).removeEventListener(this);
+                    count_vis = dataSnapshot.getChildrenCount();
+                    vis.setText(count_vis + "/10");
                 }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
+                    vis.setText("1/10");
+                    }
+                });
         }
 
         multi_btn.setOnClickListener(new View.OnClickListener() {
@@ -119,42 +110,39 @@ public class ExcursionViewActivity extends AppBaseActivity {
                 switch (buttonMode){
                     case Im_in:{
                         if(buttonMode==ButtonMode.Im_in){
-                            reference.child("Visitors").child(trip_id).child(userid).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful())
-                                        Toast.makeText(getApplicationContext(),"Вы записаны на экскурсию",Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"FAIL",Toast.LENGTH_LONG).show();
-                                }
-                            });
-                            buttonMode=ButtonMode.Im_out;
-                            multi_btn.setText("I'm out");
-                    }
-
+                            reference.child("Visitors").child(trip_id).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete (@NonNull Task < Void > task) {
+                                        if (task.isSuccessful())
+                                        Toast.makeText(getApplicationContext(), "Вы записаны на экскурсию", Toast.LENGTH_SHORT).show();
+                                     else
+                                        Toast.makeText(getApplicationContext(), "FAIL", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                buttonMode=Im_out;
+                             multi_btn.setText("I'm out");
+                            }
                     }
                     break;
                     case Im_out:{
-                        reference.child("Visitors").child(trip_id).child(userid).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful())
-                                    Toast.makeText(getApplicationContext(),"Вы отписаны на экскурсию",Toast.LENGTH_LONG).show();
-                                else
-                                    Toast.makeText(getApplicationContext(),"FAIL",Toast.LENGTH_LONG).show();
-                            }
-                        });
+                        reference.child("Visitors").child(trip_id).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful())
+                                        Toast.makeText(getApplicationContext(),"Вы отписаны на экскурсию",Toast.LENGTH_SHORT).show();
+                                     else
+                                        Toast.makeText(getApplicationContext(),"FAIL",Toast.LENGTH_LONG).show();
+                                    }
+                                });
                         multi_btn.setText("I'm in");
                         buttonMode=ButtonMode.Im_in;
                     }
                     break;
                     case Edit:{
-                        //TODO Переход на активити редактирования экскурсии
+                        OpenEdit();
                     }
                     break;
-
-
-            }}
+                }}
         });
 
 
@@ -172,17 +160,16 @@ public class ExcursionViewActivity extends AppBaseActivity {
         //intent.putExtra("trip_id", )
         startActivity(intent);
     }
-    public void OpenEdit(View view) {
-//        Intent intent = new Intent(this, EditExcursionActivity.class);
-//
-//        intent.putExtra("name", name);
-//        intent.putExtra("date", date);
-//        intent.putExtra("address", adress);
-//        intent.putExtra("description", description);
-//        intent.putExtra("guide_id", author_id);
-//        intent.putExtra("Trip_id", trip_id);
-//        intent.putExtra("language", language);
-//        startActivity(intent);
+
+    public void onDestroy () {
+        // тут удалить данные из хранилища, например
+        DataHolder.getInstance().remove("REQUESTED_TRIP");
+        super.onDestroy();
+    }
+
+    public void OpenEdit() {
+        Intent intent = new Intent(this, EditExcursionActivity.class);
+        startActivity(intent);
     }
 
 
