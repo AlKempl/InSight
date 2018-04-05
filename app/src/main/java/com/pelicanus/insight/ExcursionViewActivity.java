@@ -61,14 +61,12 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
         user_id = usr.getId();
-
-        Toast.makeText(this,R.string.Author_name_not_found,Toast.LENGTH_LONG).show();
-        new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, trip.getGuide_id()).Download();
+        User guide = new User(trip.getGuide_id());
+        guide.getAvatar().setImageView((ImageView) findViewById(R.id.view_author_image));
         trip.avatar.setImageView((ImageView)findViewById(R.id.view_trip_image));
-        trip.avatar.LoadToImageView();
         setCount_participants();
         buttonMode=ButtonMode.Im_in;
-
+        ex_author.setText(guide.getName());
 
         if(user_id.contentEquals(trip.getGuide_id())) {
             multi_btn.setText("Edit");

@@ -28,8 +28,7 @@ public class EditProfileActiity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile_actiity);
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         user = (User)DataHolder.getInstance().retrieve("CURR_USER");
-        avatar = new Picture((ImageView)findViewById(R.id.user_photo), Picture.Type.User_avatar, user_id);
-        avatar.Download();
+        user.getAvatar().setImageView((ImageView)findViewById(R.id.user_photo));
         ed_name = findViewById(R.id.ed_name);
         ed_email = findViewById(R.id.ed_email);
     }

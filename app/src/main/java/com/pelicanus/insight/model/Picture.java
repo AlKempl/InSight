@@ -31,19 +31,14 @@ public class Picture {
     private Type type;
     private String name;
     private StorageReference storage = FirebaseStorage.getInstance().getReference();
-    @Setter
     private Bitmap bitmap;
     public Picture(ImageView imageView, Type type) {
-        imageView.setDrawingCacheEnabled(true);
-        imageView.buildDrawingCache();
-        this.imageView = imageView;
+        this.setImageView(imageView);
         this.type = type;
     }
 
     public Picture(ImageView imageView, Type type, String name) {
-        imageView.setDrawingCacheEnabled(true);
-        imageView.buildDrawingCache();
-        this.imageView = imageView;
+        this.setImageView(imageView);
         this.type = type;
         this.name = name;
     }
@@ -57,7 +52,7 @@ public class Picture {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
-
+        LoadToImageView();
     }
 
     public void SetDefault() {
@@ -72,7 +67,7 @@ public class Picture {
     }
 
     public void LoadToImageView() {
-        if (imageView != null) {
+        if (imageView != null && bitmap != null) {
              imageView.setImageBitmap(bitmap);
         }
     }

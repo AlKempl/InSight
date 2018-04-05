@@ -55,51 +55,12 @@ public class VisitorsListActivity extends AppBaseActivity {
             //u.readUserDataWithID();
             listofUsers.add(u);
         }
-/*        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                User user = dataSnapshot.getValue(User.class);
-                user.setId(dataSnapshot.getKey());
-                    //    TODO user.avatar = new Picture(Picture.Type.User_avatar, dataSnapshot.getKey()); ????????????????????
-                listofUsers.add(user);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                User user = dataSnapshot.getValue(User.class);
-                user.setId(dataSnapshot.getKey());
-                //user.avatar = new Picture(Picture.Type.User_avatar, dataSnapshot.getKey()); ?????????????????????????
-                int index =getItemIndex(user);
-                listofUsers.set(index, user);
-                adapter.notifyItemChanged(index);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                user.setId(dataSnapshot.getKey());
-                int index =getItemIndex(user);
-                listofUsers.remove(index);
-                adapter.notifyItemRemoved(index);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
     }
     private int getItemIndex(User user){
         int index =-1;
         for(int i=0;i<listofUsers.size();i++){
             if(listofUsers.get(i).getId().equals(user.getId())){
-                index =i;
+                index = i;
                 break;
             }
         }

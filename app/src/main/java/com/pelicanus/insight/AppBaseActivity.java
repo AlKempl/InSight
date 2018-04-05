@@ -83,8 +83,8 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         username_label.setText(displayName);
         useremail_label.setText(current.getEmail());
 
-        new Picture((ImageView) headerLayout.findViewById(R.id.this_user_photo), Picture.Type.User_avatar, current.getId()).Download();
-
+        //new Picture((ImageView) headerLayout.findViewById(R.id.this_user_photo), Picture.Type.User_avatar, current.getId()).Download();
+        current.getAvatar().setImageView((ImageView) headerLayout.findViewById(R.id.this_user_photo));
     }
 
     @Override

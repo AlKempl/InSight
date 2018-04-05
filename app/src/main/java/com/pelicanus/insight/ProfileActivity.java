@@ -25,6 +25,6 @@ public class ProfileActivity extends AppBaseActivity {
         username_label.setText(current.getDisplayName());
         in_profile_rating_string_label.setText(current.getRating() + "/5.0");
 
-        new Picture((ImageView) findViewById(R.id.user_photo), Picture.Type.User_avatar, current.getId()).Download();
+        current.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
     }
 }
