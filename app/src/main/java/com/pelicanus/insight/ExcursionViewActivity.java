@@ -76,7 +76,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         }
         else{
-            if(trip.getVisitors().containsKey(user_id)) {
+            if(trip.isVisitor(user_id)) {
                 multi_btn.setText("I'm out");
                 buttonMode = ButtonMode.Im_out;
             }
@@ -89,36 +89,17 @@ public class ExcursionViewActivity extends AppBaseActivity {
                 switch (buttonMode){
                     case Im_in:{
                         if(buttonMode==ButtonMode.Im_in){
-                            reference.child("Visitors").child(trip.getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful())
-                                        Toast.makeText(getApplicationContext(),"Вы записаны на экскурсию",Toast.LENGTH_SHORT).show();
-                                    else
-                                        Toast.makeText(getApplicationContext(),"FAIL",Toast.LENGTH_LONG).show();
-                                }
-                            });
+                            trip.addVisitor(user_id, ExcursionViewActivity.this);
                             buttonMode=ButtonMode.Im_out;
                             multi_btn.setText("I'm out");
-                            setCount_participants();
                     }
 
                     }
                     break;
                     case Im_out:{
-                        reference.child("Visitors").child(trip.getTrip_id()).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful())
-                                    Toast.makeText(getApplicationContext(),"Вы отписаны на экскурсию",Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(getApplicationContext(),"FAIL",Toast.LENGTH_LONG).show();
-                            }
-                        });
+                        trip.delVisitor(user_id, ExcursionViewActivity.this);
                         multi_btn.setText("I'm in");
                         buttonMode=ButtonMode.Im_in;
-                        count_vis = trip.getVisitors().size();
-                        participants.setText(count_vis+"/"+trip.getMax_visitors()+" participants");
                     }
                     break;
                     case Edit:{
@@ -127,7 +108,9 @@ public class ExcursionViewActivity extends AppBaseActivity {
                     break;
 
 
-            }}
+            }
+            //setCount_participants();
+                }
         });
 
 
@@ -148,9 +131,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
         Intent intent = new Intent(this, EditExcursionActivity.class);
         startActivity(intent);
     }
-    private void setCount_participants() {
-        count_vis = trip.getVisitors().size();
-        participants.setText(count_vis+"/"+trip.getMax_visitors()+" participants");
+    public void setCount_participants() {
+        participants.setText(trip.getVisitors().size()+"/"+trip.getMax_visitors()+" participants");
     }
 
     enum ButtonMode {Im_in, Im_out, Edit}
