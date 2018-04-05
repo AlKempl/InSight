@@ -82,7 +82,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         }
         else{
-            reference.child("Visitors").child(trip_id).addListenerForSingleValueEvent(new ValueEventListener() {
+            reference.child("Visitors").child(trip_id).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.hasChild(user_id)) {
