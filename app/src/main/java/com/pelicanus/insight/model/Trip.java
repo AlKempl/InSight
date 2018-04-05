@@ -62,7 +62,6 @@ public class Trip {
     long max_visitors;
 
     public Picture avatar;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     HashMap<String, String> visitors = new HashMap<String, String>();
 
     public Trip(String name, String description, String date, String address, String guide_id, String language, long max_visitors) {
@@ -79,7 +78,7 @@ public class Trip {
         return Math.max(2, max_visitors);
     }
     public void downloadVisitors() {
-        database.child("Visitors").child(this.getTrip_id()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Visitors").child(this.getTrip_id()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 visitors = new HashMap<String, String>();
@@ -97,7 +96,7 @@ public class Trip {
         return getVisitors().containsKey(user_id);
     }
     public void addVisitor(String user_id, final Context context) {
-        database.child("Visitors").child(getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
                 if(task.isSuccessful())
@@ -109,7 +108,7 @@ public class Trip {
         });
     }
     public void delVisitor(String user_id, final Context context) {
-        database.child("Visitors").child(getTrip_id()).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
                 if(task.isSuccessful())
