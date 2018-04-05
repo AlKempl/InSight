@@ -43,6 +43,8 @@ public class PictureSetActivity extends AppCompatActivity {
                             .withAspectRatio(x, y)
                             .withMaxResultSize(1024, 1024)
                             .start(PictureSetActivity.this);
+                } else {
+                    PictureSetActivity.this.finish();
                 }
                 break;
             case UCrop.REQUEST_CROP:
