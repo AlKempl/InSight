@@ -190,6 +190,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     }
 
     public void OpenProfile(View view) {
+        DataHolder.getInstance().save("PROFILE_USER", DataHolder.getInstance().retrieve("CURR_USER"));
         startActivity(new Intent(this, ProfileActivity.class));
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

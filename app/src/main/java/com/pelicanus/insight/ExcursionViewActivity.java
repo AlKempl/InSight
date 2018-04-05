@@ -32,7 +32,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
     ButtonMode buttonMode;
     TextView participants;
     Trip trip;
-
+    User guide;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +61,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
         user_id = usr.getId();
-        User guide = new User(trip.getGuide_id());
+        guide = new User(trip.getGuide_id());
         guide.getAvatar().setImageView((ImageView) findViewById(R.id.view_author_image));
         guide.setFieldName(ex_author);
         trip.avatar.setImageView((ImageView)findViewById(R.id.view_trip_image));
@@ -117,7 +117,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
     }
     public void OpenProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("User_id", trip.getGuide_id());
+        DataHolder.getInstance().save("PROFILE_USER", guide);
         startActivity(intent);
     }
 
@@ -130,7 +130,6 @@ public class ExcursionViewActivity extends AppBaseActivity {
     }
     public void OpenVisitorsList(View view) {
         Intent intent = new Intent(this, VisitorsListActivity.class);
-        //intent.putExtra("trip_id", )
         startActivity(intent);
     }
     enum ButtonMode {Im_in, Im_out, Edit}

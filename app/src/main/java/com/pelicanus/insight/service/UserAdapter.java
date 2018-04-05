@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pelicanus.insight.ProfileActivity;
 import com.pelicanus.insight.R;
 import com.pelicanus.insight.VisitorsListActivity;
+import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.User;
 
 import java.util.List;
@@ -39,10 +41,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(c, VisitorsListActivity.class);
-
-                intent.putExtra("name",user.getName());
-                intent.putExtra("email", user.getEmail());
+                DataHolder.getInstance().save("PROFILE_USER", user);
+                Intent intent = new Intent(c, ProfileActivity.class);
                 c.startActivity(intent);
             }
         });

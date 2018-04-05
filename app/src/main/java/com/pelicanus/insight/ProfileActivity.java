@@ -19,12 +19,17 @@ public class ProfileActivity extends AppBaseActivity {
 
     protected void loadHeaderUserInfo() {
 
-        User current = (User) DataHolder.getInstance().retrieve("CURR_USER");
+        User current = (User) DataHolder.getInstance().retrieve("PROFILE_USER");
         TextView username_label = findViewById(R.id.user_name);
         TextView in_profile_rating_string_label = findViewById(R.id.in_profile_rating_string);
         current.setFieldName(username_label);
         current.setFieldRating(in_profile_rating_string_label);
 
         current.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
+    }
+    protected  void onDestroy() {
+        super.onDestroy();
+        DataHolder.getInstance().remove("PROFILE_USER");
+        finish();
     }
 }
