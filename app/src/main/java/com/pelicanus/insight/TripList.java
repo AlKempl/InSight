@@ -56,6 +56,7 @@ public class TripList extends AppBaseActivity {
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 trip.setTrip_id(dataSnapshot.getKey());
                 trip.avatar = new Picture(Picture.Type.Trip_avatar, dataSnapshot.getKey());
+                trip.downloadVisitors();
                 listofTrips.add(trip);
                 adapter.notifyDataSetChanged();
             }

@@ -213,6 +213,7 @@
                 android:ems="10"
                 android:hint="Maximum count of visitors"
                 android:inputType="number"
+                android:numeric="signed"
                 android:orientation="vertical" />
 
         </LinearLayout>
