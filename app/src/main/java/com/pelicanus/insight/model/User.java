@@ -115,7 +115,13 @@ public class User {
     }
     public void writeUserData() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
+        Picture p_backup = this.avatar;
+        this.avatar = null;
+        TextView[] backup = backupFileds();
+        toNullAllField(); //Если поля не базового типа будут не null, то Firebase сойдёт с ума и будет StackOverflowException
         reference.setValue(this);
+        this.avatar = p_backup;
+        backdownFileds(backup);
     }
 
     public void readUserDataWithID(){
@@ -170,5 +176,18 @@ public class User {
         loadToFieldRating();
         loadToFieldEmail();
         loadToFieldName();
+    }
+    private TextView[] backupFileds() {
+        return new TextView[]{fieldName, fieldEmail, fieldRating};
+    }
+    private void backdownFileds(TextView[] backup) {
+        setFieldName(backup[0]);
+        setFieldEmail(backup[1]);
+        setFieldRating(backup[2]);
+    }
+    private void toNullAllField() {
+        setFieldName(null);
+        setFieldRating(null);
+        setFieldEmail(null);
     }
 }
