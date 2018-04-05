@@ -18,6 +18,7 @@ import com.pelicanus.insight.PictureSetActivity;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -29,10 +30,12 @@ public class Picture {
     long maxSize = 1024 * 1024;
     @NonNull
     private ImageView imageView;
+    @Getter
     private Type type;
     private String name;
     private StorageReference storage = FirebaseStorage.getInstance().getReference();
     private Bitmap bitmap;
+    private int quality = 100;
     public Picture(ImageView imageView, Type type) {
         this.setImageView(imageView);
         this.type = type;
@@ -63,7 +66,7 @@ public class Picture {
     private byte[] ExtractData() {
         Bitmap bitmap = imageView.getDrawingCache();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         return baos.toByteArray();
     }
 
