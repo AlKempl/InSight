@@ -133,64 +133,96 @@
                     android:layout_marginBottom="10dp"
                     android:background="@android:color/darker_gray" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginStart="15dp"
-                    android:orientation="horizontal"
-                    android:weightSum="4">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
 
-                        <TextView
-                            android:id="@+id/view_participants"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="8 / 10 participants"
-                        />
-
-                        <Button
-                            android:id="@+id/im_in_btn"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/view_participants"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="8 / 10 participants"
+                            />
+
+                            <Button
+                                android:id="@+id/im_in_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/colorPrimary"
+                                android:text="I'm in"
+                                android:textColor="@color/white" />
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/who_prt_btn"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/colorPrimary"
+                                android:text="Who is in?"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:onClick="OpenVisitorsList"
+                                android:textColor="@color/white"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/colorPrimary"
-                            android:text="I'm in"
-                            android:textColor="@color/white" />
+                            android:layout_marginStart="15dp"
+                            android:layout_weight="2"
+                            android:weightSum="5"
+                            android:orientation="vertical"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:onClick="OpenProfile">
 
-                    </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_margin="15dp"
+                                android:layout_gravity="center_horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="15dp"
-                        android:layout_weight="2"
-                        android:orientation="vertical">
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/view_author_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/avatar_default" />
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/view_author_image"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="15dp"
-                            android:src="@drawable/avatar_default" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/view_author_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="10dp"
-                            android:text="Author name" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="4"
+                                android:layout_gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/view_author_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Author name" />
+
+                            </LinearLayout>
 
                     </LinearLayout>
 

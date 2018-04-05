@@ -47,7 +47,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ExcursionViewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".TestActivity">
+        <activity android:name=".TestActivity"/>
+        <activity android:name=".VisitorsListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
