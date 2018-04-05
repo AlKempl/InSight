@@ -37,6 +37,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
     TextView vis;
     long count_vis = -1;
     String name;
+    String trip_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         Trip trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
         multi_btn =findViewById(R.id.im_in_btn);
+        trip_id = trip.getTrip_id();
 
         //TextView ex_name = findViewById(R.id.view_excursion_name);
         TextView ex_description = findViewById(R.id.view_description);
@@ -157,7 +159,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
     public void OpenVisitorsList(View view) {
         Intent intent = new Intent(this, VisitorsListActivity.class);
-        //intent.putExtra("trip_id", )
+        intent.putExtra("trip_id", trip_id);
         startActivity(intent);
     }
 

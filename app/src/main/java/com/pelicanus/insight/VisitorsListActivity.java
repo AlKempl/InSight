@@ -10,8 +10,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.pelicanus.insight.model.DataHolder;
-import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.User;
 import com.pelicanus.insight.service.UserAdapter;
 
@@ -31,7 +29,7 @@ public class VisitorsListActivity extends AppBaseActivity {
 
         listofUsers = new ArrayList<>();
 
-        myRef = FirebaseDatabase.getInstance().getReference().child("Visitors").child(trip_id);
+        myRef = FirebaseDatabase.getInstance().getReference().child("Visitors");//.child(trip_id);
 
         recyclerView = findViewById(R.id.visitor_list);
 
