@@ -17,7 +17,6 @@ import com.pelicanus.insight.model.User;
 import java.io.IOException;
 
 public class EditProfileActiity extends AppCompatActivity {
-    Picture avatar;
     EditText ed_name;
     EditText ed_email;
     boolean avatar_edited = false;
@@ -52,18 +51,4 @@ public class EditProfileActiity extends AppCompatActivity {
         }
     }
     public void setAvatar(View view) {user.getAvatar().Set(this); avatar_edited = true;}
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent ReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, ReturnedIntent);
-        switch(requestCode) {
-            case 1:
-                if(resultCode == RESULT_OK){
-                    try {
-                        avatar.Set(ReturnedIntent.getData(), this);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-        }
-    }
 }

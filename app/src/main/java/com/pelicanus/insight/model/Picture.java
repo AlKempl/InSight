@@ -13,10 +13,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.pelicanus.insight.PictureSetActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -28,10 +30,12 @@ public class Picture {
     long maxSize = 1024 * 1024;
     @NonNull
     private ImageView imageView;
+    @Getter
     private Type type;
     private String name;
     private StorageReference storage = FirebaseStorage.getInstance().getReference();
     private Bitmap bitmap;
+    private int quality = 100;
     public Picture(ImageView imageView, Type type) {
         this.setImageView(imageView);
         this.type = type;
@@ -62,7 +66,7 @@ public class Picture {
     private byte[] ExtractData() {
         Bitmap bitmap = imageView.getDrawingCache();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         return baos.toByteArray();
     }
 
@@ -127,30 +131,15 @@ public class Picture {
     }
 
     public void Set(Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_PICK).setType("image/*");
-        activity.startActivityForResult(intent, 1);
+        DataHolder.getInstance().save("PICTURE_SET", this);
+        activity.startActivity(new Intent(activity, PictureSetActivity.class));
     }
 
     public void Set(Uri uri, Activity activity) throws IOException {
         bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver() , uri);
         LoadToImageView();
+        DataHolder.getInstance().remove("PICTURE_SET");
     }
 
     public enum Type {Trip_avatar, User_avatar, Test}
-    /* Не удалять! Этот метод нужно скопировать в активити, чтобы работала загрузка из галереи
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent ReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, ReturnedIntent);
-        switch(requestCode) {
-            case 1:
-                if(resultCode == RESULT_OK){
-                    try {
-                        <Picture>.Set(ReturnedIntent.getData(), this);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-     */
 }

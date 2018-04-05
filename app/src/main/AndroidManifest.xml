@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +19,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,9 +47,10 @@
             android:name=".HowToActivity"
             android:label="How To"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ExcursionViewActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".TestActivity"/>
+        <activity
+            android:name=".ExcursionViewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".TestActivity" />
         <activity android:name=".VisitorsListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -58,7 +61,12 @@
         <activity
             android:name=".EditExcursionActivity"
             android:label="@string/Edit_Excursion" />
-        <activity android:name=".EditProfileActiity"></activity>
+        <activity android:name=".EditProfileActiity" />
+        <activity android:name=".PictureSetActivity"></activity>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

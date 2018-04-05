@@ -111,18 +111,4 @@ public class CreateTrip extends AppCompatActivity {
     public void setTrip_avatar(View view) {
         trip_avatar.Set(this);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent ReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, ReturnedIntent);
-        switch(requestCode) {
-            case 1:
-                if(resultCode == RESULT_OK){
-                    try {
-                        trip_avatar.Set(ReturnedIntent.getData(), this);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-        }
-    }
 }
