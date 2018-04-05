@@ -79,7 +79,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         View headerLayout = navigation_view.getHeaderView(0);
         TextView username_label = headerLayout.findViewById(R.id.navdr_username_label);
         TextView useremail_label = headerLayout.findViewById(R.id.navdr_useremail_label);
-        String displayName = current.getDisplayName();
+        String displayName = current.getName(); //в базе данных сейчас поле "name". Надо определиться
         username_label.setText(displayName);
         useremail_label.setText(current.getEmail());
 

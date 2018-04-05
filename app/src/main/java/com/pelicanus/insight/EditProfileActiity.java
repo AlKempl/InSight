@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
+import com.pelicanus.insight.model.User;
 
 import java.io.IOException;
 
@@ -19,11 +21,13 @@ public class EditProfileActiity extends AppCompatActivity {
     EditText ed_name;
     EditText ed_email;
     boolean avatar_edited = false;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_actiity);
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        user = (User)DataHolder.getInstance().retrieve("CURR_USER");
         avatar = new Picture((ImageView)findViewById(R.id.user_photo), Picture.Type.User_avatar, user_id);
         avatar.Download();
         ed_name = findViewById(R.id.ed_name);
@@ -32,7 +36,7 @@ public class EditProfileActiity extends AppCompatActivity {
     public void onConfrim(View view) {
         boolean accepted = false;
         if (ed_name.getText().length()>0) {
-            //TODO смена имени пользователя в базе
+            user.setName(ed_name.getText().toString());
             accepted = true;
         }
         if (ed_email.getText().length()>0) {
@@ -44,8 +48,10 @@ public class EditProfileActiity extends AppCompatActivity {
             accepted = true;
             avatar_edited = false;
         }
-        if (accepted)
+        if (accepted) {
+            user.writeUserData();
             Toast.makeText(this, "Изменения сохранены", Toast.LENGTH_LONG).show();
+        }
     }
     public void setAvatar(View view) {avatar.Set(this); avatar_edited = true;}
     @Override

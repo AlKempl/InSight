@@ -47,7 +47,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             }
         });
 
-        // TODO как-то вставить фото пользователя
+        user.getAvatar().setImageView(holder.vis_image);
+        user.getAvatar().LoadToImageView();
     }
 
     @Override

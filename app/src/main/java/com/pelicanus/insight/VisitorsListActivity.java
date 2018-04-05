@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
+import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
 import com.pelicanus.insight.service.UserAdapter;
 
@@ -23,6 +24,7 @@ public class VisitorsListActivity extends AppBaseActivity {
     private RecyclerView recyclerView;
     private UserAdapter adapter;
     String trip_id;
+    Trip trip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,8 @@ public class VisitorsListActivity extends AppBaseActivity {
         setContentView(R.layout.activity_visitors_list);
 
         listofUsers = new ArrayList<>();
-
+        trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
+        trip_id = trip.getTrip_id();
         myRef = FirebaseDatabase.getInstance().getReference().child("Visitors").child(trip_id);
 
         recyclerView = findViewById(R.id.visitor_list);
@@ -48,7 +51,12 @@ public class VisitorsListActivity extends AppBaseActivity {
 
 
     private void updateList(){
-        myRef.addChildEventListener(new ChildEventListener() {
+        for (String v:trip.getVisitors().keySet()) {
+            User u = new User(v);
+            //u.readUserDataWithID();
+            listofUsers.add(u);
+        }
+/*        myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 User user = dataSnapshot.getValue(User.class);
@@ -86,7 +94,7 @@ public class VisitorsListActivity extends AppBaseActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
     private int getItemIndex(User user){
         int index =-1;

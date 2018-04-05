@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -58,6 +59,8 @@ public class User {
 
     String fbProvider;
 
+    Picture avatar = new Picture(Picture.Type.User_avatar, "0");
+
     @NonNull
     String name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
     //TODO fix conditions> they're always false
@@ -73,11 +76,11 @@ public class User {
 
 
     public User(FirebaseUser user) {
-
+        this.setId(user.getUid());
+        readUserDataWithID();
         //TODO GET DATA FROM DB
         this.setDisplayName(user.getDisplayName());
         this.setEmail(user.getEmail());
-        this.setId(user.getUid());
         this.setFbProvider(user.getProviderId());
         this.setProvider(UserProvider.LOGINPASS);
         this.setPhoneNumber(user.getPhoneNumber());
@@ -85,53 +88,38 @@ public class User {
     }
 
     public User(GoogleSignInAccount user) {
+        this.setId(user.getId());
+
+        readUserDataWithID();
         //TODO GET DATA FROM DB
         this.setFamilyName(user.getFamilyName());
         this.setGivenName(user.getGivenName());
         this.setDisplayName(user.getDisplayName());
         this.setEmail(user.getEmail());
-        this.setId(user.getId());
         this.setPhotoUrl(user.getPhotoUrl());
         this.setProvider(UserProvider.GOOGLE);
         this.setRating("0.0");
-    }
 
+    }
+    public User(String id) {
+        this.setId(id);
+        readUserDataWithID();
+    }
     public void writeUserData() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
         reference.setValue(this);
     }
 
-    public void readUserDataWithID(final String userid){
+    public void readUserDataWithID(){
 
-        FirebaseDatabase.getInstance().getReference().child("Users").child(userid).addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 name = dataSnapshot.child("name").getValue(String.class);
                 email = dataSnapshot.child("email").getValue(String.class);
                 status = dataSnapshot.child("status").getValue(String.class);
                 rating = dataSnapshot.child("rating").getValue(String.class);
                 verifiedEmail = dataSnapshot.child("verifiedEmail").getValue(Boolean.class);
-                id = userid;
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                name = dataSnapshot.child("name").getValue(String.class);
-                email = dataSnapshot.child("email").getValue(String.class);
-                status = dataSnapshot.child("status").getValue(String.class);
-                rating = dataSnapshot.child("rating").getValue(String.class);
-                verifiedEmail = dataSnapshot.child("verifiedEmail").getValue(Boolean.class);
-                id = userid;
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -139,5 +127,9 @@ public class User {
 
             }
         });
+    }
+    public void setId(String id) {
+        this.id = id;
+        avatar.Download(id);
     }
 }
