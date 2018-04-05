@@ -66,7 +66,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         new Picture((ImageView) findViewById(R.id.view_author_image), Picture.Type.User_avatar, trip.getGuide_id()).Download();
         trip.avatar.setImageView((ImageView)findViewById(R.id.view_trip_image));
         trip.avatar.LoadToImageView();
-
+        setCount_participants();
         buttonMode=ButtonMode.Im_in;
 
 
@@ -76,23 +76,10 @@ public class ExcursionViewActivity extends AppBaseActivity {
 
         }
         else{
-            reference.child("Visitors").child(trip.getTrip_id()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChild(user_id)) {
-                            multi_btn.setText("I'm out");
-                            buttonMode = ButtonMode.Im_out;
-                    }
-                    count_vis = dataSnapshot.getChildrenCount();
-                    participants.setText(count_vis+"/"+trip.getMax_visitors()+" participants");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    participants.setText("NaN/NaN");
-                }
-            });
-
+            if(trip.getVisitors().containsKey(user_id)) {
+                multi_btn.setText("I'm out");
+                buttonMode = ButtonMode.Im_out;
+            }
         }
 
         multi_btn.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +100,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
                             });
                             buttonMode=ButtonMode.Im_out;
                             multi_btn.setText("I'm out");
+                            setCount_participants();
                     }
 
                     }
@@ -129,6 +117,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
                         });
                         multi_btn.setText("I'm in");
                         buttonMode=ButtonMode.Im_in;
+                        count_vis = trip.getVisitors().size();
+                        participants.setText(count_vis+"/"+trip.getMax_visitors()+" participants");
                     }
                     break;
                     case Edit:{
@@ -158,7 +148,10 @@ public class ExcursionViewActivity extends AppBaseActivity {
         Intent intent = new Intent(this, EditExcursionActivity.class);
         startActivity(intent);
     }
-
+    private void setCount_participants() {
+        count_vis = trip.getVisitors().size();
+        participants.setText(count_vis+"/"+trip.getMax_visitors()+" participants");
+    }
 
     enum ButtonMode {Im_in, Im_out, Edit}
 }
