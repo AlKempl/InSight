@@ -130,7 +130,7 @@
     <string name="participate_in">Participate in</string>
     <string name="friendly_reminder">Friendly reminder of your excursions</string>
     <string name="title_activity_profile" translatable="false">ProfileActivity</string>
-    <string name="user_photo" translatable="false">user_photo</string>
+    <string name="user_photo">user_photo</string>
     <string name="username_nav_placeholder">UserName</string>
     <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
     <string name="date_and_time">Date and time</string>

@@ -46,8 +46,8 @@
     <string name="recently_added">Недавно добавленные</string>
     <string name="find_your_way">Найдите свой путь</string>
     <string name="explore">Исследуйте</string>
-    <string name="username_nav_placeholder">UserName</string>
-    <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
+    <string name="username_nav_placeholder">Имя пользователя</string>
+    <string name="useremail_nav_placeholder">ИмяПользователя@gmail.com</string>
     <string name="date_and_time">Дата и время</string>
     <string name="meeting_point">Место встречи</string>
     <string name="language">Язык</string>
@@ -82,4 +82,5 @@
     <string name="pref_title_debug_get_curr_user_data">Получить данные о текущем пользователе</string>
     <string name="dashboard">Меню инструментов</string>
     <string name="pref_description_social_recommendations" translatable="false">Возможные друзья</string>
+    <string name="user_photo">Фото пользователя</string>
 </resources>
