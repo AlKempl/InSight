@@ -3,16 +3,12 @@ package com.pelicanus.insight.model;
 import android.net.Uri;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -62,6 +58,8 @@ public class User {
 
     String fbProvider;
 
+    Boolean current = false;
+
     Picture avatar = new Picture(Picture.Type.User_avatar, "0");
     //Так нужно сделать, чтобы данные нормально прогружались
     TextView fieldName;
@@ -71,23 +69,11 @@ public class User {
 
     @NonNull
     String name;
-    public void setName() {
-         name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
-    }
-
-    public User(String name, String email, @SuppressWarnings("SameParameterValue") String id, String rating, @SuppressWarnings("SameParameterValue") Boolean verifiedEmail, @SuppressWarnings("SameParameterValue") UserProvider provider) {
-        this.setName(name);
-        this.setEmail(email);
-        this.setId(id);
-        this.setRating(rating != null ? rating : "0.0");
-        this.setProvider(provider);
-    }
-
 
     public User(FirebaseUser user) {
+        this.current = true;
         this.setId(user.getUid());
-        readUserDataWithID();
-        //TODO GET DATA FROM DB
+        readUserData();
         this.setDisplayName(user.getDisplayName());
         this.setEmail(user.getEmail());
         this.setFbProvider(user.getProviderId());
@@ -96,10 +82,10 @@ public class User {
         this.setRating("0.0");
     }
 
-    public User(GoogleSignInAccount user) {
+    /*public User(GoogleSignInAccount user) {
         this.setId(user.getId());
 
-        readUserDataWithID();
+        readUserData();
         //TODO GET DATA FROM DB
         this.setFamilyName(user.getFamilyName());
         this.setGivenName(user.getGivenName());
@@ -109,27 +95,33 @@ public class User {
         this.setProvider(UserProvider.GOOGLE);
         this.setRating("0.0");
 
-    }
+    }*/
     public User(String id) {
         this.setId(id);
-        readUserDataWithID();
+        readUserData();
     }
     public void writeUserData() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
         reference.setValue(new Soul(this));
     }
 
-    public void readUserDataWithID(){
+    public void readUserData(){
         FirebaseDatabase.getInstance().getReference().child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                installSoul(new Soul(dataSnapshot));
-                loadToAllField();
+                if(dataSnapshot.getValue() == null && User.this.current) {
+                    User.this.writeUserData();
+                } else {
+                    installSoul(new Soul(dataSnapshot));
+                    loadToAllField();
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                if (current) {
+                    writeUserData();
+                }
             }
         });
     }
@@ -182,31 +174,25 @@ public class User {
     }
     @Getter
     public class Soul {
+
         private String email;
-
         private String rating;
-
         private Boolean verifiedEmail;
-
         private String name;
+
         public Soul(User user) {
             setEmail(user.getEmail());
             setRating(user.getRating());
             setName(user.getName());
             setVerifiedEmail(user.getVerifiedEmail());
         }
-        public Soul(String name, String email, String rating, Boolean verifiedEmail) {
-            setEmail(email);
-            setRating(rating);
-            setName(name);
-            setVerifiedEmail(verifiedEmail);
-        }
-        public Soul(DataSnapshot dataSnapshot) {
+         public Soul(DataSnapshot dataSnapshot) {
             setName(dataSnapshot.child("name").getValue(String.class));
             setEmail(dataSnapshot.child("email").getValue(String.class));
             setRating(dataSnapshot.child("rating").getValue(String.class));
             setVerifiedEmail(dataSnapshot.child("verifiedEmail").getValue(Boolean.class));
         }
+
         public void setEmail(String email) {
             if (email == null)
                 this.email = "default@insight.com";

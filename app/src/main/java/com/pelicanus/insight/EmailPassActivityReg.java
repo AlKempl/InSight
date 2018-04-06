@@ -117,12 +117,9 @@ public class EmailPassActivityReg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-
-                            new User(login, email, "0.0", firebaseAuth.getCurrentUser().getUid(), false, UserProvider.OTHER).writeUserData();
-
+                            //User user = new User(task.getResult().getUser());
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
                             //display some message here
                             Toast.makeText(EmailPassActivityReg.this, "Registration Error", Toast.LENGTH_LONG).show();
