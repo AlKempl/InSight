@@ -50,11 +50,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
             }
         });
 
-        if(trp.avatar == null) {
+        if(trp.getAvatar()== null) {
             throw new NullPointerException("avatar у экскурсии пуст!"); //Этого вообще не должно случаться
         }
-        trp.avatar.setImageView(holder.exc_image);
-        trp.avatar.Download();
+        trp.getAvatar().setImageView(holder.exc_image);
     }
 
     @Override

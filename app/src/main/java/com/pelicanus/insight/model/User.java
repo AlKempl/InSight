@@ -60,7 +60,7 @@ public class User {
 
     Boolean current = false;
 
-    Picture avatar = new Picture(Picture.Type.User_avatar, "0");
+    Picture avatar = new Picture(Picture.Type.User_avatar);
     //Так нужно сделать, чтобы данные нормально прогружались
     TextView fieldName;
     TextView fieldEmail;
@@ -127,7 +127,7 @@ public class User {
     }
     public void setId(String id) {
         this.id = id;
-        avatar.Download(id);
+        avatar.setName(id);
     }
 
     public void setFieldName(TextView textView) {

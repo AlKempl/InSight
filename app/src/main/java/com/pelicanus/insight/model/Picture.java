@@ -32,6 +32,7 @@ public class Picture {
     private ImageView imageView;
     @Getter
     private Type type;
+    @Setter
     private String name;
     private StorageReference storage = FirebaseStorage.getInstance().getReference();
     private Bitmap bitmap;
@@ -52,6 +53,9 @@ public class Picture {
         this.name = name;
     }
 
+    public Picture(Type type) {
+        this.type = type;
+    }
     public void setImageView(ImageView imageView) {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
@@ -73,7 +77,8 @@ public class Picture {
     public void LoadToImageView() {
         if (imageView != null && bitmap != null) {
              imageView.setImageBitmap(bitmap);
-        }
+        } else if (bitmap == null)
+            Download();
     }
 
     public boolean Upload() {

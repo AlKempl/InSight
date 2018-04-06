@@ -3,6 +3,7 @@ package com.pelicanus.insight.model;
 
 
 import android.content.Context;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,7 +62,7 @@ public class Trip {
 
     long max_visitors;
 
-    public Picture avatar;
+    Picture avatar = new Picture(Picture.Type.Trip_avatar, "0");
     HashMap<String, String> visitors = new HashMap<String, String>();
 
     public Trip(String name, String description, String date, String address, String guide_id, String language, long max_visitors) {
@@ -74,6 +75,10 @@ public class Trip {
         this.max_visitors = max_visitors;
     }
 
+    public void setTrip_id(String id) {
+        this.trip_id = id;
+        avatar.setName(id);
+    }
     public long getMax_visitors() {
         return Math.max(2, max_visitors);
     }
