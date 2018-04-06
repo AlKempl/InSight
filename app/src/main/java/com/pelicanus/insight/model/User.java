@@ -12,6 +12,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -115,13 +117,8 @@ public class User {
     }
     public void writeUserData() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        Picture p_backup = this.avatar;
-        this.avatar = null;
-        TextView[] backup = backupFileds();
-        toNullAllField(); //Если поля не базового типа будут не null, то Firebase сойдёт с ума и будет StackOverflowException
-        reference.setValue(this);
-        this.avatar = p_backup;
-        backdownFileds(backup);
+
+        reference.setValue(new Soul(this));
     }
 
     public void readUserDataWithID(){
@@ -189,5 +186,29 @@ public class User {
         setFieldName(null);
         setFieldRating(null);
         setFieldEmail(null);
+    }
+    @Getter
+    private class Soul {
+        private String email;
+
+        private String status;
+
+        private String rating;
+
+        private Boolean verifiedEmail;
+
+        private String name;
+        /* name = dataSnapshot.child("name").getValue(String.class);
+                email = dataSnapshot.child("email").getValue(String.class);
+                status = dataSnapshot.child("status").getValue(String.class);
+                rating = dataSnapshot.child("rating").getValue(String.class);
+                verifiedEmail */
+        public Soul(User user) {
+            this.email = user.email;
+            this.status = user.status;
+            this.rating = user.rating;
+            this.name = user.name;
+            this.verifiedEmail = user.verifiedEmail;
+        }
     }
 }
