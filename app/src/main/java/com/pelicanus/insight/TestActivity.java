@@ -25,12 +25,12 @@ public class TestActivity extends AppCompatActivity {
         button_bitmap = findViewById(R.id.load_bimap);
         imageView = findViewById(R.id.imageView);
         pic = new Picture(imageView, Picture.Type.Test);
-        pic.Download("avatar_default.jpg");
+        //pic.Download("avatar_default.jpg");
         pic.LoadToImageView();
     }
     public void onClick(View view) {
         if (button_bitmap == view) {
-            pic.Download("test1.jpg", true);
+            //pic.Download("test1.jpg", true);
             pic.LoadToImageView();
         } else if(button_view == view)
             pic.LoadToImageView();

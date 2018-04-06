@@ -60,11 +60,12 @@ public class Picture {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
-        LoadToImageView();
+        if (name != null)
+            LoadToImageView();
     }
 
     public void SetDefault() {
-        Download("avatar_default.jpg"); //заменить на default, а то бред какой-то
+        DownloadDefault(); //заменить на default, а то бред какой-то
     }
 
     private byte[] ExtractData() {
@@ -125,14 +126,21 @@ public class Picture {
         }
     }
 
-    public void Download(String pic_name, boolean forcibly) {
-        name = pic_name;
-        Download(forcibly);
-    }
-
-    public void Download(String pic_name) {
-        name = pic_name;
-        Download();
+    public void DownloadDefault() {
+        OnSuccessListener<byte[]> SucList = new OnSuccessListener<byte[]>() {
+                @Override
+                public synchronized void onSuccess(byte[] image_b) {
+                    bitmap = BitmapFactory.decodeByteArray(image_b, 0, image_b.length);
+                    LoadToImageView();
+                }
+            };
+            OnFailureListener fail = new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            };
+            Task<byte[]> task = storage.child(type.toString() + "/" + "default.jpg").getBytes(maxSize);
+            task.addOnSuccessListener(SucList).addOnFailureListener(fail);
     }
 
     public void Set(Activity activity) {
