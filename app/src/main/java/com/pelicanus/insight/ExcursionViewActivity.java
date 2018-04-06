@@ -122,7 +122,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
     }
 
     public void OpenEdit() {
-        Intent intent = new Intent(this, EditExcursionActivity.class);
+        Intent intent = new Intent(this, CreateTrip.class);
         startActivity(intent);
     }
     public void setCount_participants() {

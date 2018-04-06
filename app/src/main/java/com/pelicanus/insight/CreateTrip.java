@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Trip;
 
 
@@ -21,8 +22,13 @@ public class CreateTrip extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
-        trip = new Trip();
-        trip.setEditFields((EditText)findViewById(R.id.text_nametrip), (EditText)findViewById(R.id.text_location), (EditText)findViewById(R.id.text_description), (EditText) findViewById(R.id.text_hCount), (DatePicker)findViewById(R.id.DatePicker), (Spinner)findViewById(R.id.select_language));
+        trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
+        trip.setEditFields((EditText)findViewById(R.id.text_nametrip),
+                (EditText)findViewById(R.id.text_location),
+                (EditText)findViewById(R.id.text_description),
+                (EditText) findViewById(R.id.text_hCount),
+                (DatePicker)findViewById(R.id.DatePicker),
+                (Spinner)findViewById(R.id.select_language));
         mCreateTrip = findViewById(R.id.btn_create);
         trip.getAvatar().setImageView((ImageView) findViewById(R.id.trip_avatar));
         mCreateTrip.setOnClickListener(new View.OnClickListener() {
