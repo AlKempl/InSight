@@ -186,7 +186,7 @@ public class User {
             setName(user.getName());
             setVerifiedEmail(user.getVerifiedEmail());
         }
-         public Soul(DataSnapshot dataSnapshot) {
+        public Soul(DataSnapshot dataSnapshot) {
             setName(dataSnapshot.child("name").getValue(String.class));
             setEmail(dataSnapshot.child("email").getValue(String.class));
             setRating(dataSnapshot.child("rating").getValue(String.class));

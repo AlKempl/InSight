@@ -90,7 +90,8 @@ public class CreateTrip extends AppCompatActivity {
     }
     public void tripCreator(String name, String description, String date, String address, String id, Picture avatar,String language, long max_visitors){
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Trips").push();
-        avatar.Upload(myRef.getKey());
+        avatar.setName(myRef.getKey());
+        avatar.Upload();
         String trip_id =myRef.getKey();
 
         FirebaseDatabase.getInstance().getReference().child("Visitors").child(trip_id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(false);

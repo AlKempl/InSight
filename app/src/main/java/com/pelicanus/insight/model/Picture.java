@@ -65,7 +65,7 @@ public class Picture {
     }
 
     public void SetDefault() {
-        DownloadDefault(); //заменить на default, а то бред какой-то
+        DownloadDefault();
     }
 
     private byte[] ExtractData() {
@@ -82,18 +82,9 @@ public class Picture {
             Download();
     }
 
-    public boolean Upload() {
-        boolean check = false;
-        if (name != null) {
-            storage.child(type.toString()+"/"+name).putBytes(ExtractData());
-            check = true;
-        }
-        return check;
-    }
-
-    public boolean Upload(String pic_name) {
-        name = pic_name;
-        return Upload();
+    public void Upload() {
+        if (name != null)
+            storage.child(type.toString() + "/" + name).putBytes(ExtractData());
     }
 
     public void Download() {

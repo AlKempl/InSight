@@ -74,10 +74,62 @@ public class Trip {
         this.language=language;
         this.max_visitors = max_visitors;
     }
-
+    public Trip(String id) {
+        setTrip_id(id);
+        readTripData();
+    }
     public void setTrip_id(String id) {
         this.trip_id = id;
         avatar.setName(id);
+    }
+    public void readTripData() {
+        FirebaseDatabase.getInstance().getReference().child("Trips").child(trip_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                installSoul(new Soul(dataSnapshot));
+                //loadToAllField();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    @Getter
+    @Setter
+    public class Soul {
+        private String name;
+        private String description;
+        private String address;
+        private String guide_id;
+        private String date;
+        private String language;
+        private Long max_visitors;
+        public Soul(DataSnapshot dataSnapshot) {
+            setName(dataSnapshot.child("name").getValue(String.class));
+            setDate(dataSnapshot.child("date").getValue(String.class));
+            setAddress(dataSnapshot.child("address").getValue(String.class));
+            setGuide_id(dataSnapshot.child("guide_id").getValue(String.class));
+            setDescription(dataSnapshot.child("description").getValue(String.class));
+            setLanguage(dataSnapshot.child("language").getValue(String.class));
+            setMax_visitors(dataSnapshot.child("max_visitors").getValue(Long.class));
+        }
+        public void setMax_visitors(Long count) {
+            if (count == null)
+                this.max_visitors = (long)2;
+            else
+                this.max_visitors = Math.max(2, count);
+        }
+    }
+    public void installSoul(Soul soul) {
+        setAddress(soul.getAddress());
+        setDate(soul.getDate());
+        setDescription(soul.getDescription());
+        setGuide_id(soul.getGuide_id());
+        setName(soul.getName());
+        setLanguage(soul.getLanguage());
+        setMax_visitors(soul.getMax_visitors());
     }
     public long getMax_visitors() {
         return Math.max(2, max_visitors);
