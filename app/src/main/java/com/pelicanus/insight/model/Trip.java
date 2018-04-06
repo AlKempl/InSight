@@ -82,6 +82,10 @@ public class Trip {
         this.trip_id = id;
         avatar.setName(id);
     }
+    public void writeTripData() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Trips").child(getTrip_id());
+        reference.setValue(new Soul(this));
+    }
     public void readTripData() {
         FirebaseDatabase.getInstance().getReference().child("Trips").child(trip_id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -114,6 +118,15 @@ public class Trip {
             setDescription(dataSnapshot.child("description").getValue(String.class));
             setLanguage(dataSnapshot.child("language").getValue(String.class));
             setMax_visitors(dataSnapshot.child("max_visitors").getValue(Long.class));
+        }
+        public Soul(Trip trip) {
+            setName(trip.getName());
+            setDate(trip.getDate());
+            setAddress(trip.getAddress());
+            setGuide_id(trip.getGuide_id());
+            setDescription(trip.getDescription());
+            setLanguage(trip.getLanguage());
+            setMax_visitors(trip.getMax_visitors());
         }
         public void setMax_visitors(Long count) {
             if (count == null)
