@@ -3,7 +3,9 @@ package com.pelicanus.insight.model;
 
 
 import android.content.Context;
-import android.widget.ImageView;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.ExcursionViewActivity;
+import com.pelicanus.insight.R;
 
 import java.util.HashMap;
 
@@ -59,10 +62,11 @@ public class Trip {
     @Setter
     @Getter
     String language;
-
+    final private static DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Trips");
     long max_visitors;
 
-    Picture avatar = new Picture(Picture.Type.Trip_avatar, "0");
+    EditFields editFields;
+    Picture avatar = new Picture(Picture.Type.Trip_avatar);
     HashMap<String, String> visitors = new HashMap<String, String>();
 
     public Trip(String name, String description, String date, String address, String guide_id, String language, long max_visitors) {
@@ -82,12 +86,12 @@ public class Trip {
         this.trip_id = id;
         avatar.setName(id);
     }
+    //Работа с базой
     public void writeTripData() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Trips").child(getTrip_id());
-        reference.setValue(new Soul(this));
+        reference.child(getTrip_id()).setValue(new Soul(this));
     }
     public void readTripData() {
-        FirebaseDatabase.getInstance().getReference().child("Trips").child(trip_id).addValueEventListener(new ValueEventListener() {
+        reference.child(getTrip_id()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 installSoul(new Soul(dataSnapshot));
@@ -144,7 +148,8 @@ public class Trip {
         setLanguage(soul.getLanguage());
         setMax_visitors(soul.getMax_visitors());
     }
-    public long getMax_visitors() {
+    //Посетители
+    public Long getMax_visitors() {
         return Math.max(2, max_visitors);
     }
     public void downloadVisitors() {
@@ -188,6 +193,82 @@ public class Trip {
                 ((ExcursionViewActivity)context).setCount_participants();
             }
         });
+    }
+    //Создание/редактирование
+    private class EditFields {
+        private EditText nameField;
+        private EditText addressField;
+        private EditText descriptionField;
+        @Setter //TODO нормальный сеттер
+        private DatePicker dateField;
+        @Setter
+        private Spinner languageField;
+        private EditText maxVisitorsFiled;
+
+        public EditFields(EditText nameField, EditText addressField, EditText descriptionField, EditText maxVisitorsFiled, DatePicker dateField, Spinner languageField) {
+            setAddressField(addressField);
+            setDateField(dateField);
+            setDescriptionField(descriptionField);
+            setLanguageField(languageField);
+            setNameField(nameField);
+            setMaxVisitorsFiled(maxVisitorsFiled);
+        }
+
+        public void setNameField(EditText nameField) {
+            this.nameField = nameField;
+            nameField.setText(Trip.this.getName());
+        }
+        public void setAddressField(EditText addressField) {
+            this.addressField = addressField;
+            addressField.setText(Trip.this.getAddress());
+        }
+        public void setDescriptionField(EditText descriptionField) {
+            this.descriptionField = descriptionField;
+            descriptionField.setText(Trip.this.getDescription());
+        }
+        public void setMaxVisitorsFiled(EditText maxVisitorsFiled) {
+            this.maxVisitorsFiled = maxVisitorsFiled;
+            maxVisitorsFiled.setText((Trip.this.getMax_visitors().toString()));
+        }
+        public String getName() {
+            return nameField.getText().toString().trim();
+        }
+        public String getAddress() {
+            return addressField.getText().toString().trim();
+        }
+        public String getDescription() {
+            return descriptionField.getText().toString().trim();
+        }
+        public String getMaxVisitors() {
+            return maxVisitorsFiled.getText().toString();
+        }
+        public String getLanguage() {
+            return languageField.getSelectedItem().toString();
+        }
+        public String getDate() {
+            return dateField.getDayOfMonth()+"."+dateField.getMonth()+"."+dateField.getYear();
+        }
+        public boolean readData() {
+            String name = getName();
+            String language = getLanguage();
+            String date = getDate();
+            String address = getAddress();
+            String description = getDescription();
+            String max_visitors = getMaxVisitors();
+            if (name.length() == 0||
+                date.length() == 0||
+                address.length() == 0||
+                description.length() == 0 ||
+                max_visitors.length() == 0) {
+                Toast.makeText(nameField.getContext(), R.string.trip_create_emptydata, Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            return true;
+        }
+    }
+    public void setEditFields(EditText nameField, EditText addressField, EditText descriptionField, EditText maxVisitrosField, DatePicker dateField, Spinner languageField) {
+        this.editFields = new EditFields(nameField, addressField, descriptionField, maxVisitrosField, dateField, languageField);
     }
 
 }
