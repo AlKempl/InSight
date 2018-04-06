@@ -2,6 +2,7 @@ package com.pelicanus.insight.model;
 
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -87,8 +89,25 @@ public class Trip {
         avatar.setName(id);
     }
     //Работа с базой
-    public void writeTripData() {
-        reference.child(getTrip_id()).setValue(new Soul(this));
+    public void writeTripData(final Activity activity) {
+        if(editFields == null || !editFields.readData())
+            return;
+        getAvatar().setName(getTrip_id());
+        getAvatar().Upload();
+        final Context context = getEditFields().getContext();
+        addVisitor(getGuide_id(), context);
+        reference.child(getTrip_id()).setValue(new Soul(this))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isComplete()) {
+                            Toast.makeText(context, R.string.trip_create_success, Toast.LENGTH_LONG).show();
+                            activity.finish();
+                        } else
+                            Toast.makeText(context, R.string.trip_create_error, Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
     public void readTripData() {
         reference.child(getTrip_id()).addValueEventListener(new ValueEventListener() {
@@ -178,7 +197,7 @@ public class Trip {
                     Toast.makeText(context,"Вы записаны на экскурсию",Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                ((ExcursionViewActivity)context).setCount_participants();
+                //((ExcursionViewActivity)context).setCount_participants();
             }
         });
     }
@@ -190,7 +209,7 @@ public class Trip {
                     Toast.makeText(context,"Вы отписаны на экскурсию",Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                ((ExcursionViewActivity)context).setCount_participants();
+                //((ExcursionViewActivity)context).setCount_participants();
             }
         });
     }
@@ -248,6 +267,9 @@ public class Trip {
         public String getDate() {
             return dateField.getDayOfMonth()+"."+dateField.getMonth()+"."+dateField.getYear();
         }
+        public Context getContext() {
+            return nameField.getContext();
+        }
         public boolean readData() {
             String name = getName();
             String language = getLanguage();
@@ -260,15 +282,32 @@ public class Trip {
                 address.length() == 0||
                 description.length() == 0 ||
                 max_visitors.length() == 0) {
-                Toast.makeText(nameField.getContext(), R.string.trip_create_emptydata, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.trip_create_emptydata, Toast.LENGTH_LONG).show();
                 return false;
             }
-
+            Trip.this.setAddress(getAddress());
+            Trip.this.setDate(date);
+            Trip.this.setDescription(description);
+            Trip.this.setName(name);
+            Trip.this.setLanguage(language);
+            Trip.this.setMax_visitors(Long.parseLong(max_visitors));
             return true;
         }
     }
     public void setEditFields(EditText nameField, EditText addressField, EditText descriptionField, EditText maxVisitrosField, DatePicker dateField, Spinner languageField) {
         this.editFields = new EditFields(nameField, addressField, descriptionField, maxVisitrosField, dateField, languageField);
     }
-
+    public String getGuide_id() {
+        if (guide_id == null)
+            guide_id =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+        return guide_id;
+    }
+    public String getTrip_id() {
+        if (trip_id == null)
+            trip_id = genTrip_id();
+        return trip_id;
+    }
+    private String genTrip_id() {
+        return reference.push().getKey();
+    }
 }
