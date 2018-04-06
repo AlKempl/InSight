@@ -13,13 +13,12 @@
     <string name="login">Логин</string>
     <string name="rating">Рейтинг</string>
     <string name="settings">Настройки</string>
-    <string name="dashboard">dashboard</string>
     <string name="my_excursions">Мои экскурсии</string>
-    <string name="log_out">Log out</string>
-    <string name="about">About</string>
+    <string name="log_out">Выйти</string>
+    <string name="about">О приложении</string>
     <string name="email">E-mail</string>
     <string name="password">Пароль</string>
-    <string name="trip_create_error">При создании экскурсии возникли проблемы</string>
+    <string name="trip_create_error">При создании экскурсии возникли проблемы. Для более точной информации звонить по телефону +79185166379</string>
     <string name="trip_create_success">Экскурсия успешно создана</string>
     <string name="trip_create_emptydata">Пожалуйста, заполните все поля</string>
     <string name="create_trip">Создать экскурсию</string>
@@ -57,4 +56,30 @@
     <string name="name">Название</string>
     <string name="edit_picture">Редактировать фото</string>
     <string name="repeat_password">Повторите пароль</string>
+    <string name="pref_header_general" translatable="false">Основные</string>
+    <string name="pref_title_social_recommendations" translatable="false">"Включить рекомендации "</string>
+    <string name="pref_title_display_name" translatable="false">Отображать имя</string>
+    <string name="pref_default_display_name" translatable="false">Джон Смит</string>
+    <string name="pref_title_add_friends_to_messages" translatable="false">Добавить друзей по переписке</string>
+    <string name="pref_header_debug" translatable="false">Отладка</string>
+    <string name="pref_title_sync_frequency" translatable="false">Частота синхронизации</string>
+    <string name="pref_header_data_sync">Данные и синхронизация</string>
+    <string name="pref_title_system_sync_settings" translatable="false">Настройки синхронизации</string>
+    <string name="Toas" translatable="false">Получить данные текущего пользователя</string>
+    <string name="pref_header_notifications" translatable="false">Уведомления</string>
+    <string name="pref_title_new_message_notifications" translatable="false">Уведомления о новых сообщениях</string>
+    <string name="pref_title_ringtone" translatable="false">Звук уведомления</string>
+    <string name="pref_title_vibrate" translatable="false">Вибрация</string>
+    <string name="pref_ringtone_silent" translatable="false">Бесшумно</string>
+    <string name="Author_name_not_found">Имя автора не найдено</string>
+    <string name="exview_btn">Пойду</string>
+    <string name="exview_btn_im_in">Пойду</string>
+    <string name="edit_excursion">Редактирование экскурсии</string>
+    <string name="maximum_visitors">Максимальное число посетителей</string>
+    <string name="confirm_changes">Подтвердить изменения</string>
+    <string name="edit_image">Редактировать фото</string>
+    <string name="Edit_Excursion">Редактировать экскурсию</string>
+    <string name="pref_title_debug_get_curr_user_data">Получить данные о текущем пользователе</string>
+    <string name="dashboard">Меню инструментов</string>
+    <string name="pref_description_social_recommendations" translatable="false">Возможные друзья</string>
 </resources>
