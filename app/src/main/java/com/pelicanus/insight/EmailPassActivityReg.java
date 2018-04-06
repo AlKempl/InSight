@@ -118,7 +118,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
                         //checking if success
                         if (task.isSuccessful()) {
 
-                            new User(login, email, "rookie", "0.0", firebaseAuth.getCurrentUser().getUid(), false, UserProvider.OTHER).writeUserData();
+                            new User(login, email, "0.0", firebaseAuth.getCurrentUser().getUid(), false, UserProvider.OTHER).writeUserData();
 
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));

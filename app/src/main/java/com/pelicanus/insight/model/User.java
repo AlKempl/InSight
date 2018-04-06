@@ -75,10 +75,9 @@ public class User {
          name = ((familyName != null) || (givenName != null)) ? givenName + " " + familyName : displayName;
     }
 
-    public User(String name, String email, @SuppressWarnings("SameParameterValue") String status, @SuppressWarnings("SameParameterValue") String id, String rating, @SuppressWarnings("SameParameterValue") Boolean verifiedEmail, @SuppressWarnings("SameParameterValue") UserProvider provider) {
+    public User(String name, String email, @SuppressWarnings("SameParameterValue") String id, String rating, @SuppressWarnings("SameParameterValue") Boolean verifiedEmail, @SuppressWarnings("SameParameterValue") UserProvider provider) {
         this.setName(name);
         this.setEmail(email);
-        this.setStatus(status);
         this.setId(id);
         this.setRating(rating != null ? rating : "0.0");
         this.setProvider(provider);
@@ -128,7 +127,6 @@ public class User {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 name = dataSnapshot.child("name").getValue(String.class);
                 email = dataSnapshot.child("email").getValue(String.class);
-                status = dataSnapshot.child("status").getValue(String.class);
                 rating = dataSnapshot.child("rating").getValue(String.class);
                 verifiedEmail = dataSnapshot.child("verifiedEmail").getValue(Boolean.class);
                 loadToAllField();
@@ -191,8 +189,6 @@ public class User {
     private class Soul {
         private String email;
 
-        private String status;
-
         private String rating;
 
         private Boolean verifiedEmail;
@@ -204,11 +200,34 @@ public class User {
                 rating = dataSnapshot.child("rating").getValue(String.class);
                 verifiedEmail */
         public Soul(User user) {
-            this.email = user.email;
-            this.status = user.status;
-            this.rating = user.rating;
-            this.name = user.name;
-            this.verifiedEmail = user.verifiedEmail;
+            setEmail(user.getEmail());
+            setRating(user.getRating());
+            setName(user.getName());
+            setVerifiedEmail(user.getVerifiedEmail());
+        }
+        public void setEmail(String email) {
+            if (email == null)
+                this.email = "default@insight.com";
+            else
+                this.email = email;
+        }
+        public void setName(String name) {
+            if (name == null)
+                this.name = "John Smith";
+            else
+                this.name = name;
+        }
+        public void setRating(String rating) {
+            if (rating == null)
+                this.rating = "0.0";
+            else
+                this.rating = rating;
+        }
+        public void setVerifiedEmail(Boolean verifiedEmail) {
+            if (verifiedEmail == null)
+                this.verifiedEmail = false;
+            else
+                this.verifiedEmail = verifiedEmail;
         }
     }
 }
