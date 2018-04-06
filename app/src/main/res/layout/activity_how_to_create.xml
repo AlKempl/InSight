@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/how_to_create"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        tools:context="com.pelicanus.insight.HowToActivity"
         android:background="@drawable/background_login">
 
             <LinearLayout
@@ -270,5 +261,4 @@
                 android:text="Нажмите кнопку «Создать экскурсию». Поздравляем, вы создали вашу первую экскурсию, приятного использования нашего приложения!"
                 android:textSize="15dp"/>
         </LinearLayout>
-        </LinearLayout>
-</ScrollView>
+</LinearLayout>
