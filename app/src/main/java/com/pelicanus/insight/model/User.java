@@ -116,19 +116,14 @@ public class User {
     }
     public void writeUserData() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-
         reference.setValue(new Soul(this));
     }
 
     public void readUserDataWithID(){
-
         FirebaseDatabase.getInstance().getReference().child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                name = dataSnapshot.child("name").getValue(String.class);
-                email = dataSnapshot.child("email").getValue(String.class);
-                rating = dataSnapshot.child("rating").getValue(String.class);
-                verifiedEmail = dataSnapshot.child("verifiedEmail").getValue(Boolean.class);
+                installSoul(new Soul(dataSnapshot));
                 loadToAllField();
             }
 
@@ -186,7 +181,7 @@ public class User {
         setFieldEmail(null);
     }
     @Getter
-    private class Soul {
+    public class Soul {
         private String email;
 
         private String rating;
@@ -194,16 +189,23 @@ public class User {
         private Boolean verifiedEmail;
 
         private String name;
-        /* name = dataSnapshot.child("name").getValue(String.class);
-                email = dataSnapshot.child("email").getValue(String.class);
-                status = dataSnapshot.child("status").getValue(String.class);
-                rating = dataSnapshot.child("rating").getValue(String.class);
-                verifiedEmail */
         public Soul(User user) {
             setEmail(user.getEmail());
             setRating(user.getRating());
             setName(user.getName());
             setVerifiedEmail(user.getVerifiedEmail());
+        }
+        public Soul(String name, String email, String rating, Boolean verifiedEmail) {
+            setEmail(email);
+            setRating(rating);
+            setName(name);
+            setVerifiedEmail(verifiedEmail);
+        }
+        public Soul(DataSnapshot dataSnapshot) {
+            setName(dataSnapshot.child("name").getValue(String.class));
+            setEmail(dataSnapshot.child("email").getValue(String.class));
+            setRating(dataSnapshot.child("rating").getValue(String.class));
+            setVerifiedEmail(dataSnapshot.child("verifiedEmail").getValue(Boolean.class));
         }
         public void setEmail(String email) {
             if (email == null)
@@ -229,5 +231,11 @@ public class User {
             else
                 this.verifiedEmail = verifiedEmail;
         }
+    }
+    public void installSoul(Soul soul) {
+        setEmail(soul.getEmail());
+        setRating(soul.getRating());
+        setName(soul.getName());
+        setVerifiedEmail(soul.getVerifiedEmail());
     }
 }
