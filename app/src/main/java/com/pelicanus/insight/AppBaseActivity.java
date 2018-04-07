@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Picture;
+import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
@@ -158,6 +159,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
                 // do whatever
                 break;
             case R.id.nav_create:
+                DataHolder.getInstance().save("REQUESTED_TRIP", new Trip());
                 startActivity(new Intent(this, CreateTrip.class));
                 break;
             case R.id.nav_settings:
@@ -181,6 +183,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     }
 
     public void OpenCreateTripActivity(View view) {
+        DataHolder.getInstance().save("REQUESTED_TRIP", new Trip());
         startActivity(new Intent(this, CreateTrip.class));
     }
 

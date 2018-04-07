@@ -32,6 +32,7 @@ public class Picture {
     private ImageView imageView;
     @Getter
     private Type type;
+    @Setter
     private String name;
     private StorageReference storage = FirebaseStorage.getInstance().getReference();
     private Bitmap bitmap;
@@ -52,15 +53,19 @@ public class Picture {
         this.name = name;
     }
 
+    public Picture(Type type) {
+        this.type = type;
+    }
     public void setImageView(ImageView imageView) {
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         this.imageView = imageView;
-        LoadToImageView();
+        if (name != null)
+            LoadToImageView();
     }
 
     public void SetDefault() {
-        Download("avatar_default.jpg"); //заменить на default, а то бред какой-то
+        DownloadDefault();
     }
 
     private byte[] ExtractData() {
@@ -73,21 +78,13 @@ public class Picture {
     public void LoadToImageView() {
         if (imageView != null && bitmap != null) {
              imageView.setImageBitmap(bitmap);
-        }
+        } else if (bitmap == null)
+            Download();
     }
 
-    public boolean Upload() {
-        boolean check = false;
-        if (name != null) {
-            storage.child(type.toString()+"/"+name).putBytes(ExtractData());
-            check = true;
-        }
-        return check;
-    }
-
-    public boolean Upload(String pic_name) {
-        name = pic_name;
-        return Upload();
+    public void Upload() {
+        if (name != null)
+            storage.child(type.toString() + "/" + name).putBytes(ExtractData());
     }
 
     public void Download() {
@@ -120,14 +117,21 @@ public class Picture {
         }
     }
 
-    public void Download(String pic_name, boolean forcibly) {
-        name = pic_name;
-        Download(forcibly);
-    }
-
-    public void Download(String pic_name) {
-        name = pic_name;
-        Download();
+    public void DownloadDefault() {
+        OnSuccessListener<byte[]> SucList = new OnSuccessListener<byte[]>() {
+                @Override
+                public synchronized void onSuccess(byte[] image_b) {
+                    bitmap = BitmapFactory.decodeByteArray(image_b, 0, image_b.length);
+                    LoadToImageView();
+                }
+            };
+            OnFailureListener fail = new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                }
+            };
+            Task<byte[]> task = storage.child(type.toString() + "/" + "default.jpg").getBytes(maxSize);
+            task.addOnSuccessListener(SucList).addOnFailureListener(fail);
     }
 
     public void Set(Activity activity) {

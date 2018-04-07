@@ -55,7 +55,6 @@ public class TripList extends AppBaseActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 trip.setTrip_id(dataSnapshot.getKey());
-                trip.avatar = new Picture(Picture.Type.Trip_avatar, dataSnapshot.getKey());
                 trip.downloadVisitors();
                 listofTrips.add(trip);
                 adapter.notifyDataSetChanged();
@@ -65,7 +64,6 @@ public class TripList extends AppBaseActivity {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 trip.setTrip_id(dataSnapshot.getKey());
-                trip.avatar = new Picture(Picture.Type.Trip_avatar, dataSnapshot.getKey());
                 int index =getItemIndex(trip);
                 listofTrips.set(index,trip);
                 adapter.notifyItemChanged(index);
