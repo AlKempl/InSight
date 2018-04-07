@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pelicanus.insight.ExcursionViewActivity;
 import com.pelicanus.insight.R;
 import com.pelicanus.insight.model.DataHolder;
 import com.pelicanus.insight.model.Trip;
+import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
 import java.util.List;
 
@@ -41,6 +43,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
         holder.exc_description.setText(trp.getDescription());
         holder.exc_name.setText(trp.getName());
         holder.exc_lang.setText(trp.getLanguage());
+        HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimary, new HashTagHelper.OnHashTagClickListener() {
+            @Override
+            public void onHashTagClicked(String hashTag) {
+                Toast.makeText(c,"HashTag",Toast.LENGTH_LONG).show();
+            }
+        });
+        hashTagHelper.handle(holder.exc_description);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
