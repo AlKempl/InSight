@@ -184,10 +184,6 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-
-    }
-
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d("GGLAUTH", "firebaseAuthWithGoogle:" + acct.getId());
 

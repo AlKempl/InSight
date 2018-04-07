@@ -37,9 +37,15 @@ public class Dialog1 extends DialogFragment implements OnClickListener {
         inputNew2Password = v.findViewById(R.id.input_new_password2);
 
         inputOldPassword.addTextChangedListener(new MyTextWatcher(inputOldPassword));
+        inputNew1Password.addTextChangedListener(new MyTextWatcher(inputNew1Password));
+        inputNew2Password.addTextChangedListener(new MyTextWatcher(inputNew2Password));
 
         btnChangePass = v.findViewById(R.id.confirm_pass_change);
         btnCancelPass = v.findViewById(R.id.cancel_pass_change);
+
+        inputOldPassword.setText("");
+        inputNew1Password.setText("");
+        inputNew2Password.setText("");
 
         btnChangePass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,25 +96,26 @@ public class Dialog1 extends DialogFragment implements OnClickListener {
             //inputLayoutNew2Password.setError(getString(R.string.err_msg_password));
             inputLayoutNew2Password.setError("Passwords don't match");
             return false;
-        } else {
-            if (!inputNew1Password.getText().toString().trim().equals("")) {
-                inputLayoutNew2Password.setError("Empty password");
-                return false;
-            }
-
-            if (inputNew1Password.getText().toString().trim().length() <= 6) {
-                inputLayoutNew2Password.setError("Password must be longer than 6 symbols");
-                return false;
-            }
-
-            inputLayoutNew2Password.setErrorEnabled(false);
         }
 
+        if (inputNew1Password.getText().toString().trim().equals("")) {
+                inputLayoutNew2Password.setError("Empty password");
+                return false;
+        }
+
+        if (inputNew1Password.getText().toString().trim().length() <= 6) {
+                inputLayoutNew2Password.setError("Password must be longer than 6 symbols");
+                return false;
+        }
+
+        inputLayoutNew1Password.setErrorEnabled(false);
+        inputLayoutNew2Password.setErrorEnabled(false);
         return true;
     }
 
     public void changePass(View view) {
         if (validatePassword() && validateTwoPasswords()) {
+            inputLayoutNew2Password.setErrorEnabled(false);
             String pass = inputNew1Password.getText().toString().trim();
             FirebaseAuth.getInstance().getCurrentUser().updatePassword(pass);
             Toast.makeText(view.getContext(), "Password successfully updated", Toast.LENGTH_LONG).show();
@@ -129,6 +136,16 @@ public class Dialog1 extends DialogFragment implements OnClickListener {
         }
 
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            switch (view.getId()) {
+                case R.id.input_password:
+                    validatePassword();
+                    break;
+
+                case R.id.input_new_password1:
+                case R.id.input_layout_new_password2:
+                    validateTwoPasswords();
+                    break;
+            }
         }
 
         public void afterTextChanged(Editable editable) {

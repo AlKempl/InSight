@@ -1,5 +1,6 @@
 package com.pelicanus.insight.model;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.annotations.Expose;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,76 +31,78 @@ import lombok.ToString;
 public class User {
 
     @NonNull
+    @Expose
     String email;
 
     @NonNull
+    @Expose
     String status;
 
     @NonNull
+    @Expose
     String rating;
 
     @NonNull
+    @Expose
     String id;
 
     @NonNull
+    @Expose
     Boolean verifiedEmail;
 
     @NonNull
+    @Expose
     UserProvider provider;
 
+    @Expose
     String familyName;
 
+    @Expose
     String givenName;
 
+    @Expose
     String displayName;
 
+    @Expose
     String nickname;
 
+    @Expose
     String phoneNumber;
 
+    @Expose
     Uri photoUrl;
 
+    @Expose
     String fbProvider;
 
+    @Expose
     Boolean current = false;
 
+    @Expose
     Picture avatar = new Picture(Picture.Type.User_avatar);
 
     //Так нужно сделать, чтобы данные нормально прогружались
-    TextView fieldName;
-    TextView fieldEmail;
-    TextView fieldRating;
 
+    transient TextView fieldName;
+    transient TextView fieldEmail;
+    transient TextView fieldRating;
 
+    @Expose
     @NonNull
     String name;
 
+    @SuppressLint("RestrictedApi")
     public User(FirebaseUser user) {
         this.current = true;
         this.setId(user.getUid());
         readUserData();
         this.setDisplayName(user.getDisplayName());
         this.setEmail(user.getEmail());
-        this.setFbProvider(user.getProviderId());
-        this.setProvider(UserProvider.LOGINPASS);
+        this.setFbProvider(user.getProviders().get(0));
         this.setPhoneNumber(user.getPhoneNumber());
         this.setRating("0.0");
     }
 
-    /*public User(GoogleSignInAccount user) {
-        this.setId(user.getId());
-
-        readUserData();
-        //TODO GET DATA FROM DB
-        this.setFamilyName(user.getFamilyName());
-        this.setGivenName(user.getGivenName());
-        this.setDisplayName(user.getDisplayName());
-        this.setEmail(user.getEmail());
-        this.setPhotoUrl(user.getPhotoUrl());
-        this.setProvider(UserProvider.GOOGLE);
-        this.setRating("0.0");
-
-    }*/
     public User(String id) {
         this.setId(id);
         readUserData();
@@ -127,7 +131,7 @@ public class User {
                     User.this.writeUserData();
                 } else {
                     installSoul(new Soul(dataSnapshot));
-                    loadToAllField();
+                    //loadToAllField();
                 }
             }
 
@@ -156,10 +160,27 @@ public class User {
         fieldRating = textView;
         loadToFieldRating();
     }
+
     public void loadToFieldName() {
         if(fieldName!=null && getName() != null)
             fieldName.setText(getName());
+        else
+            fieldName.setText("John Snow");
     }
+
+    public String getName() {
+        if (this.name != null)
+            return name;
+        else if (getDisplayName() != null)
+            return getDisplayName();
+        else if (getGivenName() != null && getFamilyName() != null)
+            return (getGivenName() + " " + getFamilyName());
+        else if (getNickname() != null)
+            return (getNickname());
+        else
+            return ("John Smith");
+    }
+
     public void loadToFieldEmail() {
         if(fieldEmail!=null && getEmail() != null)
             fieldEmail.setText(getEmail());
@@ -173,14 +194,17 @@ public class User {
         loadToFieldEmail();
         loadToFieldName();
     }
+
     private TextView[] backupFileds() {
         return new TextView[]{fieldName, fieldEmail, fieldRating};
     }
+
     private void backdownFileds(TextView[] backup) {
         setFieldName(backup[0]);
         setFieldEmail(backup[1]);
         setFieldRating(backup[2]);
     }
+
     private void toNullAllField() {
         setFieldName(null);
         setFieldRating(null);
