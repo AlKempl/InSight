@@ -108,6 +108,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:onClick="registerUser"
+                    android:padding="10dp"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:text="@string/signup"
                     android:visibility="visible" />
 
