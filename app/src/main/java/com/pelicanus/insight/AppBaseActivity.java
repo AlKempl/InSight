@@ -35,7 +35,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.pelicanus.insight.model.DataHolder;
-import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
 
@@ -198,4 +197,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
+
 }

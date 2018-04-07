@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,13 +28,12 @@
             android:layout_gravity="center">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/user_photo"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/avatar_default"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -107,12 +105,13 @@
 
     <Button
         android:id="@+id/confirm_prof_changed"
-        android:layout_width="wrap_content"
+        style="@android:style/Holo.ButtonBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginEnd="15dp"
         android:layout_marginTop="5dp"
-        android:onClick="onConfrim"
+        android:background="@color/cardview_shadow_end_color"
         android:padding="20dp"
         android:text="Confirm"
         tools:onClick="onConfrim" />
@@ -125,42 +124,37 @@
         android:layout_marginStart="15dp"
         android:text="Security"/>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/change_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="5dp"
+        android:padding="20dp"
+        android:text="Confirm"
+        android:visibility="gone"
+        tools:onClick="onChangePassConfirm" />
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Debug" />
+
+    <Button
+        android:id="@+id/getUserData"
+        style="@android:style/Holo.ButtonBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:layout_marginEnd="15dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:inputType="textPassword"
-            android:hint="Old password"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:inputType="textPassword"
-            android:hint="New password"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:inputType="textPassword"
-            android:hint="Repeat new password"/>
-
-        <Button
-            android:id="@+id/confirm_pass_changed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:padding="20dp"
-            android:text="Confirm"/>
-
-    </LinearLayout>
+        android:layout_marginTop="5dp"
+        android:background="@color/cardview_shadow_end_color"
+        android:padding="20dp"
+        android:text="Get current user's data"
+        tools:onClick="getUserDataSerialized" />
 
 </LinearLayout>
