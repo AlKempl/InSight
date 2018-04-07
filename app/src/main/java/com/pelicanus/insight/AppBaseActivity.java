@@ -55,8 +55,11 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, 0, 0);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         //TODO find out what TBD with this deprecated method
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
 
         drawerMenu = navigation_view.getMenu();
         for (int i = 0; i < drawerMenu.size(); i++) {
@@ -65,6 +68,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         // and so on...
 
         loadDrawerUserInfo();
+        mDrawerToggle.syncState();
     }
 
     @Override
