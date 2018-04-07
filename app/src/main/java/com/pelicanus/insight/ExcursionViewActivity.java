@@ -31,7 +31,6 @@ public class ExcursionViewActivity extends AppBaseActivity {
     Button multi_btn;
     String user_id;
     ButtonMode buttonMode;
-    TextView participants;
     Trip trip;
     User guide;
     @Override
@@ -42,39 +41,32 @@ public class ExcursionViewActivity extends AppBaseActivity {
         trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
         multi_btn =findViewById(R.id.im_in_btn);
 
-        //TextView ex_name = findViewById(R.id.view_excursion_name);
-        TextView ex_description = findViewById(R.id.view_description);
-        TextView ex_date = findViewById(R.id.view_date_time);
-        TextView ex_address = findViewById(R.id.view_adress);
-        TextView ex_language = findViewById(R.id.view_language);
-        TextView ex_author = findViewById(R.id.view_author_name);
-        participants = findViewById(R.id.view_participants);
         CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
-
-        //ex_name.setText(getIntent().getExtras().getString("name"));
         m_coll.setTitle(trip.getName());
-//        getActionBar().setTitle(name);
-//        getSupportActionBar().setTitle(name);
-        ex_description.setText(trip.getDescription());
-        ex_date.setText(trip.getDate());
-        ex_address.setText(trip.getAddress());
-        ex_language.setText(trip.getLanguage());
+        trip.setViewFields(
+                null,
+                (TextView) findViewById(R.id.view_adress),
+                (TextView) findViewById(R.id.view_description),
+                (TextView) findViewById(R.id.view_participants),
+                (TextView) findViewById(R.id.view_date_time),
+                (TextView) findViewById(R.id.view_language)
+                );
 
+        TextView ex_author = findViewById(R.id.view_author_name);
         HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimaryDark, new HashTagHelper.OnHashTagClickListener() {
             @Override
             public void onHashTagClicked(String hashTag) {
-                Toast.makeText(getApplicationContext(),"HashTag",Toast.LENGTH_LONG).show();//TODO Перенаправить на активити списка экскурсии по этому хештегу
+                Toast.makeText(getApplicationContext(), hashTag,Toast.LENGTH_LONG).show();//TODO Перенаправить на активити списка экскурсии по этому хештегу
 
             }
         });
-        hashTagHelper.handle(ex_description);
+//        hashTagHelper.handle(ex_description);
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
         user_id = usr.getId();
         guide = new User(trip.getGuide_id());
         guide.getAvatar().setImageView((ImageView) findViewById(R.id.view_author_image));
         guide.setFieldName(ex_author);
         trip.getAvatar().setImageView((ImageView)findViewById(R.id.view_trip_image));
-        setCount_participants();
         buttonMode=ButtonMode.Im_in;
 
         if(user_id.contentEquals(trip.getGuide_id())) {
@@ -134,9 +126,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         Intent intent = new Intent(this, CreateTrip.class);
         startActivity(intent);
     }
-    public void setCount_participants() {
-        participants.setText(trip.getVisitors().size()+"/"+trip.getMax_visitors()+" participants");
-    }
+
     public void OpenVisitorsList(View view) {
         Intent intent = new Intent(this, VisitorsListActivity.class);
         startActivity(intent);

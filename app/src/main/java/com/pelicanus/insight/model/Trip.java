@@ -1,11 +1,13 @@
 package com.pelicanus.insight.model;
 
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,6 +68,7 @@ public class Trip {
     long max_visitors;
 
     EditFields editFields;
+    ViewFields viewFields;
     Picture avatar = new Picture(Picture.Type.Trip_avatar);
     HashMap<String, String> visitors = new HashMap<String, String>();
 
@@ -112,7 +115,8 @@ public class Trip {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 installSoul(new Soul(dataSnapshot));
-                //loadToAllField();
+                if (viewFields != null)
+                    viewFields.loadToAllField();
 
             }
             @Override
@@ -166,7 +170,7 @@ public class Trip {
         setMax_visitors(soul.getMax_visitors());
     }
     //Посетители
-    public Long getMax_visitors() {
+    private Long getMax_visitors() {
         return Math.max(2, max_visitors);
     }
     public void downloadVisitors() {
@@ -195,7 +199,8 @@ public class Trip {
                     Toast.makeText(context,"Вы записаны на экскурсию",Toast.LENGTH_SHORT);//.show();
                 else
                     Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                //((ExcursionViewActivity)context).setCount_participants();
+                if (viewFields != null)
+                    viewFields.loadToVisitorsField();
             }
         });
     }
@@ -207,7 +212,8 @@ public class Trip {
                     Toast.makeText(context,"Вы отписаны на экскурсию",Toast.LENGTH_SHORT);//.show();
                 else
                     Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                //((ExcursionViewActivity)context).setCount_participants();
+                if (viewFields != null)
+                    viewFields.loadToVisitorsField();
             }
         });
     }
@@ -220,15 +226,15 @@ public class Trip {
         private DatePicker dateField;
         @Setter
         private Spinner languageField;
-        private EditText maxVisitorsFiled;
+        private EditText maxVisitorsField;
 
-        public EditFields(EditText nameField, EditText addressField, EditText descriptionField, EditText maxVisitorsFiled, DatePicker dateField, Spinner languageField) {
+        public EditFields(EditText nameField, EditText addressField, EditText descriptionField, EditText maxVisitorsField, DatePicker dateField, Spinner languageField) {
             setAddressField(addressField);
             setDateField(dateField);
             setDescriptionField(descriptionField);
             setLanguageField(languageField);
             setNameField(nameField);
-            setMaxVisitorsFiled(maxVisitorsFiled);
+            setMaxVisitorsField(maxVisitorsField);
         }
 
         public void setNameField(EditText nameField) {
@@ -243,9 +249,9 @@ public class Trip {
             this.descriptionField = descriptionField;
             descriptionField.setText(Trip.this.getDescription());
         }
-        public void setMaxVisitorsFiled(EditText maxVisitorsFiled) {
-            this.maxVisitorsFiled = maxVisitorsFiled;
-            maxVisitorsFiled.setText((Trip.this.getMax_visitors().toString()));
+        public void setMaxVisitorsField(EditText maxVisitorsField) {
+            this.maxVisitorsField = maxVisitorsField;
+            maxVisitorsField.setText((Trip.this.getMax_visitors().toString()));
         }
         public String getName() {
             return nameField.getText().toString().trim();
@@ -257,7 +263,7 @@ public class Trip {
             return descriptionField.getText().toString().trim();
         }
         public String getMaxVisitors() {
-            return maxVisitorsFiled.getText().toString();
+            return maxVisitorsField.getText().toString();
         }
         public String getLanguage() {
             return languageField.getSelectedItem().toString();
@@ -292,8 +298,86 @@ public class Trip {
             return true;
         }
     }
-    public void setEditFields(EditText nameField, EditText addressField, EditText descriptionField, EditText maxVisitrosField, DatePicker dateField, Spinner languageField) {
-        this.editFields = new EditFields(nameField, addressField, descriptionField, maxVisitrosField, dateField, languageField);
+    private class ViewFields {
+        private TextView nameField;
+        private TextView addressField;
+        private TextView descriptionField;
+        private TextView dateField;
+        private TextView languageField;
+        private TextView visitorsField;
+
+        public ViewFields(TextView nameField, TextView addressField, TextView descriptionField, TextView visitorsField, TextView dateField, TextView languageField) {
+            setAddressField(addressField);
+            setDateField(dateField);
+            setDescriptionField(descriptionField);
+            setLanguageField(languageField);
+            setNameField(nameField);
+            setVisitorsField(visitorsField);
+        }
+
+        public void setNameField(TextView nameField) {
+            this.nameField = nameField;
+            loadToNameField();
+        }
+        public void loadToNameField() {
+            if(nameField!=null && getName() != null)
+                nameField.setText(getName());
+        }
+        public void setAddressField(TextView addressField) {
+            this.addressField = addressField;
+            loadToAddressField();
+        }
+        public void loadToAddressField() {
+            if(addressField!=null && getAddress() != null)
+                addressField.setText(Trip.this.getAddress());
+        }
+        public void setDescriptionField(TextView descriptionField) {
+            this.descriptionField = descriptionField;
+            loadToDescriptionField();
+        }
+        public void loadToDescriptionField() {
+            if(descriptionField!=null && getDescription() != null)
+                descriptionField.setText(Trip.this.getDescription());
+        }
+        public void setVisitorsField(TextView visitorsField) {
+            this.visitorsField = visitorsField;
+            loadToVisitorsField();
+        }
+        public void loadToVisitorsField() {
+            if(visitorsField !=null && getMax_visitors() != null)
+                visitorsField.setText(getVisitors().size()+"/"+getMax_visitors()+" participants");
+        }
+        public void setDateField(TextView dateField) {
+            this.dateField = dateField;
+            loadToDateField();
+        }
+        public void loadToDateField() {
+            if(dateField!=null && getDate() != null)
+                dateField.setText(Trip.this.getDate());
+        }
+        public void setLanguageField(TextView languageField) {
+            this.languageField = languageField;
+            loadToLanguageField();
+        }
+        public void loadToLanguageField() {
+            if(languageField!=null && getLanguage() != null)
+                languageField.setText(getLanguage());
+        }
+        public void loadToAllField() {
+            loadToLanguageField();
+            loadToDateField();
+            loadToVisitorsField();
+            loadToDescriptionField();
+            loadToAddressField();
+            loadToNameField();
+        }
+    }
+
+    public void setEditFields(EditText nameField, EditText addressField, EditText descriptionField, EditText maxVisitorsField, DatePicker dateField, Spinner languageField) {
+        this.editFields = new EditFields(nameField, addressField, descriptionField, maxVisitorsField, dateField, languageField);
+    }
+    public void setViewFields(TextView nameField, TextView addressField, TextView descriptionField, TextView visitorsField, TextView dateField, TextView languageField) {
+        this.viewFields = new ViewFields(nameField, addressField, descriptionField, visitorsField, dateField, languageField);
     }
     public String getGuide_id() {
         if (guide_id == null)
