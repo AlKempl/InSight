@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/InSight.iml" filepath="$PROJECT_DIR$/InSight.iml" />
-      <module fileurl="file://D:\StudioProjects\InSight\InSight\InSight.iml" filepath="D:\StudioProjects\InSight\InSight\InSight.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\StudioProjects\InSight\InSight\app\app.iml" filepath="D:\StudioProjects\InSight\InSight\app\app.iml" />
     </modules>
   </component>
 </project>
