@@ -194,7 +194,7 @@ public class Trip {
             @Override
             public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
                 if(task.isSuccessful())
-                    Toast.makeText(context,"Вы записаны на экскурсию",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Вы записаны на экскурсию",Toast.LENGTH_SHORT);//.show();
                 else
                     Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
                 //((ExcursionViewActivity)context).setCount_participants();
@@ -206,7 +206,7 @@ public class Trip {
             @Override
             public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
                 if(task.isSuccessful())
-                    Toast.makeText(context,"Вы отписаны на экскурсию",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Вы отписаны на экскурсию",Toast.LENGTH_SHORT);//.show();
                 else
                     Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
                 //((ExcursionViewActivity)context).setCount_participants();

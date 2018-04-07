@@ -15,7 +15,6 @@ import com.pelicanus.insight.model.Trip;
 
 public class CreateTrip extends AppCompatActivity {
 
-    private Button mCreateTrip;
     private Trip trip;
 
     @Override
@@ -29,7 +28,7 @@ public class CreateTrip extends AppCompatActivity {
                 (EditText) findViewById(R.id.text_hCount),
                 (DatePicker)findViewById(R.id.DatePicker),
                 (Spinner)findViewById(R.id.select_language));
-        mCreateTrip = findViewById(R.id.btn_create);
+        Button mCreateTrip = findViewById(R.id.btn_create);
         trip.getAvatar().setImageView((ImageView) findViewById(R.id.trip_avatar));
         mCreateTrip.setOnClickListener(new View.OnClickListener() {
             @Override
