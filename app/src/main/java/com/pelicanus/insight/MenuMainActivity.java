@@ -25,16 +25,7 @@ public class MenuMainActivity extends AppBaseActivity {
             //starting login activity
             startActivity(new Intent(this, MainActivity.class));
         }
-
-        //getting current user
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        //Views for filling recently added part
-        //TODO Add function to get names and images of 3 most recent excursions and assign them to views
-        //TODO Add links to 3 most recent excursions
     }
-
-
 }
 
 

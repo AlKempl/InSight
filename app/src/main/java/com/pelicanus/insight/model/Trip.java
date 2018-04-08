@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -105,7 +104,6 @@ public class Trip {
         getAvatar().setName(getTrip_id());
         getAvatar().Upload();
         final Context context = getEditFields().getContext();
-        visitors.addUser(getGuide_id(), null);
         reference.child(getTrip_id()).setValue(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                            @Override
@@ -115,6 +113,13 @@ public class Trip {
                                                    if (tripButton == null) {
                                                        activity.startActivity(new Intent(context, ExcursionViewActivity.class));
                                                        Toast.makeText(context, R.string.trip_create_success, Toast.LENGTH_LONG).show();
+                                                       //TODO запись в БД список созданных
+                                                       DatabaseReference triplist = FirebaseDatabase.getInstance().getReference().child("TripLists");
+                                                       triplist.child("Guide").child(getGuide_id()).child(getTrip_id()).setValue(false);
+                                                       triplist.child(getLanguage()).child(getDate().replace('.', '_')).child(getTrip_id()).setValue(false);
+                                                       triplist.child(getLanguage()).child(getAddress()).child(getTrip_id()).setValue(false);
+
+                                                       FirebaseDatabase.getInstance().getReference().child("Test").child(getTrip_id()).setValue(false);
                                                    } else
                                                        Toast.makeText(context, R.string.trip_edit_successfully, Toast.LENGTH_LONG).show();
                                                } else
@@ -377,25 +382,32 @@ public class Trip {
         public boolean isVisitor(String user_id) {
             return getVisitors().contains(user_id);
         }
-        public void addUser(String user_id, final Context context) {
+        public void addUser(final String user_id, final Context context) {
             FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
                     if (context != null)
-                        if (task.isSuccessful())
+                        if (task.isSuccessful()) {
+                            //TODO запись в БД подписанные экс
+                            FirebaseDatabase.getInstance().getReference().child("TripLists").child("Participant").child(user_id).child(getTrip_id()).setValue(false);
                             Toast.makeText(context, "Вы записаны на экскурсию", Toast.LENGTH_SHORT).show();
+                        }
                         else
                             Toast.makeText(context, "FAIL", Toast.LENGTH_LONG).show();
                 }
             });
         }
-        public void deleteUser(String user_id, final Context context) {
+        public void deleteUser(final String user_id, final Context context) {
             FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
                     if (context != null)
-                        if (task.isSuccessful())
+                        if (task.isSuccessful()) {
+                            //TODO удаление в БД подписанные экс
+                            FirebaseDatabase.getInstance().getReference().child("TripLists").child("Participant").child(user_id).child(getTrip_id()).setValue(null);
+
                             Toast.makeText(context, "Вы отписаны на экскурсию", Toast.LENGTH_SHORT).show();
+                        }
                         else
                             Toast.makeText(context, "FAIL", Toast.LENGTH_LONG).show();
                 }

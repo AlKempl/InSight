@@ -37,6 +37,7 @@ public class EditProfileActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_activity);
         user = (User) DataHolder.getInstance().retrieve("CURR_USER");
+        //TODO fix bug конфликт ImageView со шторкой
         user.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
         ed_name = findViewById(R.id.ed_name);
         ed_email = findViewById(R.id.ed_email);
