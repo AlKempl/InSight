@@ -4,6 +4,7 @@ package com.pelicanus.insight.model;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.R;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import lombok.Data;
@@ -60,20 +62,19 @@ public class Trip {
     String guide_id;
 
     @NonNull
-    @Setter
-    @Getter
     String trip_id;
 
     @Setter
     @Getter
     String language;
     final private static DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Trips");
-    long max_visitors;
+    Long max_visitors;
     TripButton tripButton;
     EditFields editFields;
     ViewFields viewFields;
     Picture avatar = new Picture(Picture.Type.Trip_avatar);
-    HashMap<String, String> visitors = new HashMap<String, String>();
+    Visitors visitors = new Visitors();
+
 
     public Trip(String name, String description, String date, String address, String guide_id, String language, long max_visitors) {
         this.name = name;
@@ -88,6 +89,11 @@ public class Trip {
         setTrip_id(id);
         readTripData();
     }
+    public Long getMax_visitors() {
+        if (max_visitors == null)
+            return (long)2;
+        return Math.min(2, max_visitors);
+    }
     public void setTrip_id(String id) {
         this.trip_id = id;
         avatar.setName(id);
@@ -99,7 +105,7 @@ public class Trip {
         getAvatar().setName(getTrip_id());
         getAvatar().Upload();
         final Context context = getEditFields().getContext();
-        addVisitor(getGuide_id(), context);
+        visitors.addUser(getGuide_id(), context);
         reference.child(getTrip_id()).setValue(new Soul(this))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -172,54 +178,6 @@ public class Trip {
         setLanguage(soul.getLanguage());
         setMax_visitors(soul.getMax_visitors());
     }
-    //Посетители
-    private Long getMax_visitors() {
-        return Math.max(2, max_visitors);
-    }
-    public void downloadVisitors() {
-        FirebaseDatabase.getInstance().getReference().child("Visitors").child(this.getTrip_id()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                visitors = new HashMap<String, String>();
-                for ( DataSnapshot v:dataSnapshot.getChildren()) {
-                    visitors.put(v.getKey(), v.getValue().toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-    public boolean isVisitor(String user_id) {
-        return getVisitors().containsKey(user_id);
-    }
-    public void addVisitor(String user_id, final Context context) {
-        FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                    Toast.makeText(context,"Вы записаны на экскурсию",Toast.LENGTH_SHORT);//.show();
-                else
-                    Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                if (viewFields != null)
-                    viewFields.loadToVisitorsField();
-            }
-        });
-    }
-    public void delVisitor(String user_id, final Context context) {
-        FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                    Toast.makeText(context,"Вы отписаны на экскурсию",Toast.LENGTH_SHORT);//.show();
-                else
-                    Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                if (viewFields != null)
-                    viewFields.loadToVisitorsField();
-            }
-        });
-    }
     //Создание/редактирование
     private class EditFields {
         private EditText nameField;
@@ -254,7 +212,7 @@ public class Trip {
         }
         public void setMaxVisitorsField(EditText maxVisitorsField) {
             this.maxVisitorsField = maxVisitorsField;
-            maxVisitorsField.setText((Trip.this.getMax_visitors().toString()));
+            maxVisitorsField.setText(Trip.this.getMax_visitors().toString());
         }
         public String getName() {
             return nameField.getText().toString().trim();
@@ -309,7 +267,6 @@ public class Trip {
         private TextView dateField;
         private TextView languageField;
         private TextView visitorsField;
-        //private Button
 
         public ViewFields(TextView nameField, TextView addressField, TextView descriptionField, TextView visitorsField, TextView dateField, TextView languageField, ImageView imageView) {
             setAddressField(addressField);
@@ -351,7 +308,7 @@ public class Trip {
         }
         public void loadToVisitorsField() {
             if(visitorsField !=null && getMax_visitors() != null)
-                visitorsField.setText(getVisitors().size()+"/"+getMax_visitors()+" participants");
+                visitorsField.setText(getVisitors().getCount()+"/"+getMax_visitors()+" participants");
         }
         public void setDateField(TextView dateField) {
             this.dateField = dateField;
@@ -399,13 +356,13 @@ public class Trip {
         return reference.push().getKey();
     }
     //Запись/отпись
-    private class Visitors {
-        private HashMap<String, String> visitors;
-        private HashMap<String, String> getVisitors() {
+    public class Visitors {
+        private HashSet<String> visitors = new HashSet<String>();
+        private HashSet<String> getVisitors() {
             return this.visitors;
         }
         public Set<String> get() {
-            return getVisitors().keySet();
+            return getVisitors();
         }
         public void download() {
             FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).addValueEventListener(new ValueEventListener() {
@@ -415,13 +372,17 @@ public class Trip {
                     for ( DataSnapshot v:dataSnapshot.getChildren()) {
                         _visitors.put(v.getKey(), v.getValue().toString());
                     }
-                    Set<String> past = visitors.keySet();
+                    Set<String> past = (Set<String>) getVisitors().clone();
                     Set<String> now = _visitors.keySet();
                     past.removeAll(now);
                     for (String k:past) {
                         visitors.remove(k);
                     }
-                    visitors.putAll(_visitors);
+                    visitors.addAll(_visitors.keySet());
+                    if (viewFields != null)
+                        viewFields.loadToVisitorsField();
+                    if (tripButton != null)
+                        tripButton.modeUpdate();
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -429,7 +390,7 @@ public class Trip {
             });
         }
         public boolean isVisitor(String user_id) {
-            return getVisitors().containsKey(user_id);
+            return getVisitors().contains(user_id);
         }
         public void addUser(String user_id, final Context context) {
             FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -439,8 +400,6 @@ public class Trip {
                         Toast.makeText(context,"Вы записаны на экскурсию",Toast.LENGTH_SHORT);//.show();
                     else
                         Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                    if (viewFields != null)
-                        viewFields.loadToVisitorsField();
                 }
             });
         }
@@ -452,32 +411,34 @@ public class Trip {
                         Toast.makeText(context,"Вы отписаны на экскурсию",Toast.LENGTH_SHORT);//.show();
                     else
                         Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
-                    if (viewFields != null)
-                        viewFields.loadToVisitorsField();
                 }
             });
         }
+        public int getCount() {
+            return visitors.size();
+        }
     }
     private class TripButton {
-        @Setter
         private Button button;
         private ButtonMode mode;
         @Setter
         @Getter
         private String user;
         public TripButton(Button button, String user) {
-            setButton(button);
             setUser(user);
+            setButton(button);
         }
         private void modeUpdate() {
-            if (Trip.this.getGuide_id() == user) {
-                if (true) //TODO проверка, должна была быть проведена текущая экскурсия или нет
-                    setMode(ButtonMode.EditTrip);
-                else
-                    setMode(ButtonMode.CloseTrip);
-            } else {
-
-            }
+            if (false) //TODO проверка, "Время экскурсии в прошлом?"
+                setMode(ButtonMode.CloseTrip);
+            else if (getUser().contentEquals(getGuide_id()))
+                setMode(ButtonMode.EditTrip);
+            else if (visitors.isVisitor(getUser()))
+                setMode(ButtonMode.DelUser);
+            else if (false) //TODO проверка на кол-во мест
+                setMode(ButtonMode.NoPlaces);
+            else
+                setMode(ButtonMode.AddUser);
         }
         private void setMode(ButtonMode mode) {
             this.mode = mode;
@@ -503,6 +464,35 @@ public class Trip {
                     break;
             }
             button.setText(text);
+        }
+        private void setButton(Button button) {
+            this.button = button;
+            final Context c = button.getContext();
+            modeUpdate();
+            this.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch (mode) {
+                        case AddUser:
+                            visitors.addUser(getUser(), c);
+                            break;
+                        case DelUser:
+                            visitors.deleteUser(getUser(), c);
+                            break;
+                        case EditTrip:
+                            //text = "Edit"; TODO переход на редактирование экскурсии
+                            break;
+                        case CloseTrip:
+                            //text = "Close";
+                            break;
+                        case NoPlaces:
+                            //text = "No places";
+                            break;
+                        default:
+                            //text = "Error";
+                            break;
+                    }
+                }});
         }
     }
     public void setTripButton(Button button, String user_id) {

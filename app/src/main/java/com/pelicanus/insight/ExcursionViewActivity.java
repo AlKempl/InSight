@@ -23,14 +23,11 @@ import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
 import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
-import static com.pelicanus.insight.ExcursionViewActivity.ButtonMode.Im_out;
 
 public class ExcursionViewActivity extends AppBaseActivity {
 
     DatabaseReference reference;
-    Button multi_btn;
     String user_id;
-    ButtonMode buttonMode;
     Trip trip;
     User guide;
     @Override
@@ -39,8 +36,6 @@ public class ExcursionViewActivity extends AppBaseActivity {
         setContentView(R.layout.activity_excursion_view);
         reference = FirebaseDatabase.getInstance().getReference();
         trip = (Trip)DataHolder.getInstance().retrieve("REQUESTED_TRIP");
-        multi_btn =findViewById(R.id.im_in_btn);
-
         CollapsingToolbarLayout m_coll = findViewById(R.id.main_collapsing);
         m_coll.setTitle(trip.getName());
         trip.setViewFields(
@@ -67,47 +62,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         guide = new User(trip.getGuide_id());
         guide.getAvatar().setImageView((ImageView) findViewById(R.id.view_author_image));
         guide.setFieldName(ex_author);
-        buttonMode=ButtonMode.Im_in;
-
-        if(user_id.contentEquals(trip.getGuide_id())) {
-            multi_btn.setText("Edit");
-            buttonMode=ButtonMode.Edit;
-
-        }
-        else{
-            if(trip.isVisitor(user_id)) {
-                multi_btn.setText("I'm out");
-                buttonMode = ButtonMode.Im_out;
-            }
-        }
-
-        multi_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                switch (buttonMode){
-                    case Im_in:{
-                        if(buttonMode==ButtonMode.Im_in){
-                            trip.addVisitor(user_id, ExcursionViewActivity.this);
-                            buttonMode=ButtonMode.Im_out;
-                            multi_btn.setText("I'm out");
-                    }
-
-                    }
-                    break;
-                    case Im_out:{
-                        trip.delVisitor(user_id, ExcursionViewActivity.this);
-                        multi_btn.setText("I'm in");
-                        buttonMode=ButtonMode.Im_in;
-                    }
-                    break;
-                    case Edit:{
-                        OpenEdit();
-                    }
-                    break;
-                }}
-        });
-
+        trip.setTripButton((Button)findViewById(R.id.im_in_btn), user_id);
 
 
     }
@@ -131,5 +86,4 @@ public class ExcursionViewActivity extends AppBaseActivity {
         Intent intent = new Intent(this, VisitorsListActivity.class);
         startActivity(intent);
     }
-    enum ButtonMode {Im_in, Im_out, Edit}
 }

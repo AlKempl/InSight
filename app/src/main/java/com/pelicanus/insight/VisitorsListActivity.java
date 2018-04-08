@@ -50,7 +50,7 @@ public class VisitorsListActivity extends AppBaseActivity {
 
 
     private void updateList(){
-        for (String v:trip.getVisitors().keySet()) {
+        for (String v:trip.getVisitors().get()) {
             User u = new User(v);
             listofUsers.add(u);
         }

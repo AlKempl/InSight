@@ -55,7 +55,7 @@ public class TripList extends AppBaseActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 trip.setTrip_id(dataSnapshot.getKey());
-                trip.downloadVisitors();
+                trip.getVisitors().download();
                 listofTrips.add(trip);
                 adapter.notifyDataSetChanged();
             }
