@@ -131,7 +131,7 @@ public class User {
                     User.this.writeUserData();
                 } else {
                     installSoul(new Soul(dataSnapshot));
-                    //loadToAllField();
+                    loadToAllField();
                 }
             }
 
@@ -169,14 +169,14 @@ public class User {
     }
 
     public String getName() {
-        if (this.name != null)
-            return name;
-        else if (getDisplayName() != null)
+        if (getDisplayName() != null && !getDisplayName().isEmpty())
             return getDisplayName();
-        else if (getGivenName() != null && getFamilyName() != null)
+        else if (getGivenName() != null && getFamilyName() != null && !getGivenName().isEmpty() && !getFamilyName().isEmpty())
             return (getGivenName() + " " + getFamilyName());
-        else if (getNickname() != null)
+        else if (getNickname() != null && !getNickname().isEmpty())
             return (getNickname());
+        else if (this.name != null)
+            return name;
         else
             return ("John Smith");
     }

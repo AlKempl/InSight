@@ -80,10 +80,10 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         TextView username_label = headerLayout.findViewById(R.id.navdr_username_label);
         TextView useremail_label = headerLayout.findViewById(R.id.navdr_useremail_label);
         //String displayName = current.getName(); //в базе данных сейчас поле "name". Надо определиться
-        username_label.setText(current.getName());
-        useremail_label.setText(current.getEmail());
-//        current.setFieldName(username_label);
-//        current.setFieldEmail(useremail_label);
+//        username_label.setText(current.getName());
+//        useremail_label.setText(current.getEmail());
+        current.setFieldName(username_label);
+        current.setFieldEmail(useremail_label);
         //new Picture((ImageView) headerLayout.findViewById(R.id.this_user_photo), Picture.Type.User_avatar, current.getId()).Download();
         current.getAvatar().setImageView((ImageView) headerLayout.findViewById(R.id.this_user_photo));
     }
@@ -197,6 +197,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
-
+    protected void onResume() {
+        super.onResume();
+        loadDrawerUserInfo();
+    }
 
 }
