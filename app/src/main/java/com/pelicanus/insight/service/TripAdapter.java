@@ -25,7 +25,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     private List<Trip> list;
     private Context c;
 
-    public TripAdapter(Context c,List<Trip> list) {
+    public TripAdapter(Context c, List<Trip> list) {
         this.list = list;
         this.c=c;
     }

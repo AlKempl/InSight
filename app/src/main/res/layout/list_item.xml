@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp"
-            android:src="@drawable/city_zaglushka"
+            android:src="@drawable/loading_zaglushka_small"
             android:layout_gravity="start"
             android:layout_weight="2"/>
 

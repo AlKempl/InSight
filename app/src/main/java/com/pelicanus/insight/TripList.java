@@ -27,7 +27,6 @@ public class TripList extends AppBaseActivity {
     private DatabaseReference myRef;
     private RecyclerView recyclerView;
     private TripAdapter adapter;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
