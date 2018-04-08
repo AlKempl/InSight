@@ -39,17 +39,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     public void onBindViewHolder(TripViewHolder holder, int position) {
         position = list.size() - position - 1;
         final Trip trp = list.get(position);
-        holder.exc_date.setText(trp.getDate());
-        holder.exc_description.setText(trp.getDescription());
-        holder.exc_name.setText(trp.getName());
-        holder.exc_lang.setText(trp.getLanguage());
+        /*
         HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimary, new HashTagHelper.OnHashTagClickListener() {
             @Override
             public void onHashTagClicked(String hashTag) {
                 Toast.makeText(c,"HashTag",Toast.LENGTH_LONG).show();
             }
         });
-        hashTagHelper.handle(holder.exc_description);
+        hashTagHelper.handle(holder.exc_description);*/
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,10 +56,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
             }
         });
 
-        if(trp.getAvatar()== null) {
-            throw new NullPointerException("avatar у экскурсии пуст!"); //Этого вообще не должно случаться
-        }
-        trp.getAvatar().setImageView(holder.exc_image);
+        trp.setViewFields(holder.exc_name, null, holder.exc_description, null, holder.exc_date, holder.exc_lang, holder.exc_image);
     }
 
     @Override
