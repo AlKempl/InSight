@@ -45,8 +45,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".HowToActivity"
-            android:label="How To"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="How To"/>
         <activity
             android:name=".ExcursionViewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

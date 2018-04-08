@@ -157,4 +157,19 @@
     <string name="Edit_Excursion">Edit Excursion</string>
     <string name="pref_title_debug_get_curr_user_data">Get current user\'s data</string>
     <string name="pref_description_social_recommendations">Social recommendations</string>
+    <string name="how_to_create_1" >Do you want to create a trip? Then follow this steps and welcome to the touristic world!</string>
+    <string name="how_to_create_2">To begin press \"Create\".</string>
+    <string name="how_to_create_4">Describe your trip. Don\'t write a lot, because long texts bore readers faster. Add tags to make your trip easier to find.</string>
+    <string name="how_to_create_5">Put beginning date. If your trip lasts several days, then indikate it in description.</string>
+    <string name="how_to_create_6">Choose language of your trip.</string>
+    <string name="how_to_create_7">Put meeting point to tell people where meet with you.</string>
+    <string name="how_to_create_8">Point maximum visitors of your trip.</string>
+    <string name="how_to_create_9">You can also choose a picture of your trip from your device\'s gallery or leave default picture.</string>
+    <string name="how_to_create_10">Press button \"Create\". You\'ve created your first trip, our congratulations! Have a good time with our application.</string>
+    <string name="how_to_create_3">Create a name for your trip. Try to do it more attractive to intrigue people.</string>
+    <string name="how_to_search_1">Want to go to the trip, but can’t find interesting one? Use our search system and find anything you want.</string>
+    <string name="how_to_search_2">To begin press “Explore”.</string>
+    <string name="how_to_search_3">Choose language of trip.</string>
+    <string name="how_to_search_4">Describe tags (key words) about your trips, they will be searched. For example, #review #Rostov-on-Don.</string>
+    <string name="how_to_search_5">Press “Search”. We hope you found wanted one.</string>
 </resources>

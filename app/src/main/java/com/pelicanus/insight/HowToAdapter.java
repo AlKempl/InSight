@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -47,10 +46,10 @@ public class HowToAdapter extends BaseExpandableListAdapter {
             convertView = mInflater.inflate(R.layout.activity_how_to_one_elem, null);
         if (expLayoutId == R.layout.activity_how_to_create)
             convertView  = mInflater.inflate(R.layout.activity_how_to_create, null);
-        else if (expLayoutId == R.layout.activity_how_to_group)
-            convertView = mInflater.inflate(R.layout.activity_how_to_group, null); // TODO ЗАМЕНИТЬ на activity_how_to_edit!!!!!!!!!!!
-        else if (expLayoutId == R.layout.activity_how_to_main)
-            convertView = mInflater.inflate(R.layout.activity_how_to_main, null); // TODO ЗАМЕНИТЬ на activity_how_to_after_trip!!!!!!!!!!!
+        else if (expLayoutId == R.layout.activity_how_to_search)
+            convertView = mInflater.inflate(R.layout.activity_how_to_search, null);
+//        else if (expLayoutId == R.layout.activity_how_to_main)
+//            convertView = mInflater.inflate(R.layout.activity_how_to_main, null); // TODO ЗАМЕНИТЬ на activity_how_to_after_trip!!!!!!!!!!!
         return convertView;
     }
 
@@ -88,7 +87,7 @@ public class HowToAdapter extends BaseExpandableListAdapter {
         }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
+        listTitleTextView.setTypeface(null, Typeface.NORMAL);
         listTitleTextView.setText(listTitle);
         return convertView;
     }

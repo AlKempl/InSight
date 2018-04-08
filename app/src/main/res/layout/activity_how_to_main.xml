@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_login"
     tools:context="com.pelicanus.insight.HowToActivity">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_login">
+        android:layout_height="wrap_content">
 
         <ExpandableListView
             android:id="@+id/expListView"

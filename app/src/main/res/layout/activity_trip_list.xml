@@ -47,7 +47,8 @@
                 android:layout_marginTop="5dp"
                 android:textSize="14dp"
                 android:hint="#Tags"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorLink="@color/white"/>
 
             <Button
                 android:layout_width="wrap_content"

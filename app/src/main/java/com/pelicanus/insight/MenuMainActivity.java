@@ -32,13 +32,6 @@ public class MenuMainActivity extends AppBaseActivity {
         //Views for filling recently added part
         //TODO Add function to get names and images of 3 most recent excursions and assign them to views
         //TODO Add links to 3 most recent excursions
-        ImageView ra_excursions_1_img = findViewById(R.id.ra_excursion_1_img);
-        ImageView ra_excursions_2_img = findViewById(R.id.ra_excursion_2_img);
-        ImageView ra_excursions_3_img = findViewById(R.id.ra_excursion_3_img);
-
-        TextView ra_excursions_1_name = findViewById(R.id.ra_excursion_1_name);
-        TextView ra_excursions_2_name = findViewById(R.id.ra_excursion_2_name);
-        TextView ra_excursions_3_name = findViewById(R.id.ra_excursion_3_name);
     }
 
 
