@@ -1,5 +1,6 @@
 package com.pelicanus.insight.model;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.TextView;
@@ -8,8 +9,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.annotations.Expose;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,81 +27,77 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+//@Getter
 @Setter
 public class User {
 
     @NonNull
+    @Expose
+    @Getter
     String email;
 
     @NonNull
-    String status;
-
-    @NonNull
+    @Expose
     String rating;
 
     @NonNull
-    String id;
+    @Expose
+    private String id;
 
     @NonNull
+    @Expose
+    @Getter
     Boolean verifiedEmail;
 
-    @NonNull
-    UserProvider provider;
+    @Expose
+    private String familyName;
 
-    String familyName;
+    @Expose
+    private String givenName;
 
-    String givenName;
+    @Expose
+    private String displayName;
 
-    String displayName;
+    @Expose
+    private String nickname;
 
-    String nickname;
-
+    @Expose
+    @Getter
     String phoneNumber;
 
-    Uri photoUrl;
-
+    @Expose
+    @Getter
     String fbProvider;
 
-    Boolean current = false;
+    @Expose
+    private Boolean current = false;
 
-    Picture avatar = new Picture(Picture.Type.User_avatar);
+    @Expose
+    private Picture avatar = new Picture(Picture.Type.User_avatar);
 
     //Так нужно сделать, чтобы данные нормально прогружались
-    TextView fieldName;
-    TextView fieldEmail;
-    TextView fieldRating;
+    @Exclude
+    private transient TextView fieldName;
+    @Exclude
+    private transient TextView fieldEmail;
+    @Exclude
+    private transient TextView fieldRating;
 
-
+    @Expose
     @NonNull
-    String name;
+    private String name;
 
+    @SuppressLint("RestrictedApi")
     public User(FirebaseUser user) {
         this.current = true;
         this.setId(user.getUid());
         readUserData();
         this.setDisplayName(user.getDisplayName());
         this.setEmail(user.getEmail());
-        this.setFbProvider(user.getProviderId());
-        this.setProvider(UserProvider.LOGINPASS);
+        this.setFbProvider(user.getProviders().get(0));
         this.setPhoneNumber(user.getPhoneNumber());
-        this.setRating("0.0");
     }
 
-    /*public User(GoogleSignInAccount user) {
-        this.setId(user.getId());
-
-        readUserData();
-        //TODO GET DATA FROM DB
-        this.setFamilyName(user.getFamilyName());
-        this.setGivenName(user.getGivenName());
-        this.setDisplayName(user.getDisplayName());
-        this.setEmail(user.getEmail());
-        this.setPhotoUrl(user.getPhotoUrl());
-        this.setProvider(UserProvider.GOOGLE);
-        this.setRating("0.0");
-
-    }*/
     public User(String id) {
         this.setId(id);
         readUserData();
@@ -108,14 +107,12 @@ public class User {
         String id = this.getId();
         Log.i("USER_ID", id);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        Soul sl = new Soul(this);
-        Log.i("SOUL", sl.toString());
         try {
-            reference.setValue(sl);
+            reference.setValue(User.this);
         } catch (Exception e) {
-            Log.e("SOUL_EXC", e.getMessage());
+            Log.e("USER_WRITEDATA", e.getMessage());
             e.printStackTrace();
-            Log.e("SOUL_EXC", e.getLocalizedMessage());
+            Log.e("USER_WRITEDATA", e.getLocalizedMessage());
         }
     }
 
@@ -126,7 +123,7 @@ public class User {
                 if (dataSnapshot.getValue() == null && User.this.current) {
                     User.this.writeUserData();
                 } else {
-                    installSoul(new Soul(dataSnapshot));
+                    installSoul(dataSnapshot);
                     loadToAllField();
                 }
             }
@@ -156,10 +153,28 @@ public class User {
         fieldRating = textView;
         loadToFieldRating();
     }
+
     public void loadToFieldName() {
-        if(fieldName!=null && getName() != null)
-            fieldName.setText(getName());
+        if (fieldName != null)
+            if (getName() != null)
+                fieldName.setText(getName());
+            else
+                fieldName.setText("John Snow");
     }
+
+    public String getName() {
+        if (getDisplayName() != null && !getDisplayName().isEmpty())
+            return getDisplayName();
+        else if (getGivenName() != null && getFamilyName() != null && !getGivenName().isEmpty() && !getFamilyName().isEmpty())
+            return (getGivenName() + " " + getFamilyName());
+        else if (getNickname() != null && !getNickname().isEmpty())
+            return (getNickname());
+        else if (this.name != null)
+            return name;
+        else
+            return ("John Smith");
+    }
+
     public void loadToFieldEmail() {
         if(fieldEmail!=null && getEmail() != null)
             fieldEmail.setText(getEmail());
@@ -173,72 +188,67 @@ public class User {
         loadToFieldEmail();
         loadToFieldName();
     }
-    private TextView[] backupFileds() {
-        return new TextView[]{fieldName, fieldEmail, fieldRating};
-    }
-    private void backdownFileds(TextView[] backup) {
-        setFieldName(backup[0]);
-        setFieldEmail(backup[1]);
-        setFieldRating(backup[2]);
-    }
-    private void toNullAllField() {
-        setFieldName(null);
-        setFieldRating(null);
-        setFieldEmail(null);
+
+    public void installSoul(DataSnapshot dataSnapshot) {
+        setName(dataSnapshot.child("name").getValue(String.class));
+        setEmail(dataSnapshot.child("email").getValue(String.class));
+        setRating(dataSnapshot.child("rating").getValue(String.class));
+        setVerifiedEmail(dataSnapshot.child("verifiedEmail").getValue(Boolean.class));
+        setPhoneNumber(dataSnapshot.child("phoneNumber").getValue(String.class));
+        setFbProvider(dataSnapshot.child("fbProvider").getValue(String.class));
     }
 
-    public void installSoul(Soul soul) {
-        setEmail(soul.email);
-        setRating(soul.rating);
-        setName(soul.name);
-        setVerifiedEmail(soul.verifiedEmail);
+    public void setEmail(String email) {
+        if (email == null)
+            this.email = "default@insight.com";
+        else
+            this.email = email;
     }
-
-    @ToString(callSuper = true, includeFieldNames = true)
-    public static class Soul {
-
-        public String email;
-        public String rating;
-        public Boolean verifiedEmail;
-        public String name;
-
-        public Soul(User user) {
-            setEmail(user.getEmail());
-            setRating(user.getRating());
-            setName(user.getName());
-            setVerifiedEmail(user.getVerifiedEmail());
-        }
-
-        public Soul(DataSnapshot dataSnapshot) {
-            setName(dataSnapshot.child("name").getValue(String.class));
-            setEmail(dataSnapshot.child("email").getValue(String.class));
-            setRating(dataSnapshot.child("rating").getValue(String.class));
-            setVerifiedEmail(dataSnapshot.child("verifiedEmail").getValue(Boolean.class));
-        }
-
-        public void setEmail(String email) {
-            if (email == null)
-                this.email = "default@insight.com";
-            else
-                this.email = email;
-        }
-        public void setName(String name) {
-            if (name == null)
-                this.name = "John Smith";
-            else
-                this.name = name;
-        }
-        public void setRating(String rating) {
-            if (rating == null)
-                this.rating = "0.0";
-            else
-                this.rating = rating;
-        }
-        public void setVerifiedEmail(Boolean verifiedEmail) {
-            if (verifiedEmail == null)
-                this.verifiedEmail = false;
-            else
-                this.verifiedEmail = verifiedEmail;
-        }
+    public void setName(String name) {
+        if (name == null)
+            this.name = "John Smith";
+        else
+            this.name = name;
+    }
+    public void setRating(String rating) {
+        if (rating == null)
+            this.rating = "0.0";
+        else
+            this.rating = rating;
+    }
+    public void setVerifiedEmail(Boolean verifiedEmail) {
+        if (verifiedEmail == null)
+            this.verifiedEmail = false;
+        else
+            this.verifiedEmail = verifiedEmail;
+    }
+    @Exclude
+    public Picture getAvatar() {
+        return avatar;
+    }
+    @Exclude
+    public String getId() {
+        return id;
+    }
+    @Exclude
+    private String getFamilyName() {
+        return familyName;
+    }
+    @Exclude
+    private String getGivenName() {
+        return givenName;
+    }
+    @Exclude
+    private String getDisplayName() {
+        return displayName;
+    }
+    @Exclude
+    private String getNickname() {
+        return nickname;
+    }
+    public String getRating() {
+        if (rating == null)
+            return "0.0";
+        return rating;
     }
 }
