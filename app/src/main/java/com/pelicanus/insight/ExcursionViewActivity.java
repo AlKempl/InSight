@@ -55,7 +55,7 @@ public class ExcursionViewActivity extends AppBaseActivity {
         guide = new User(trip.getGuide_id());
         guide.getAvatar().setImageView((ImageView) findViewById(R.id.view_author_image));
         guide.setFieldName(ex_author);
-        trip.setTripButton((Button)findViewById(R.id.im_in_btn), user_id);
+        trip.setTripButton(this, (Button)findViewById(R.id.im_in_btn), user_id);
 
 
     }
