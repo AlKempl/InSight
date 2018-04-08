@@ -56,7 +56,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, 0, 0);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         //TODO find out what TBD with this deprecated method
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
