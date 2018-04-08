@@ -157,10 +157,10 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_myexc:
-                // handle it
+                //TODO insert link to my excursions activity
                 break;
             case R.id.nav_search:
-                // do whatever
+                startActivity(new Intent(this, TripList.class));
                 break;
             case R.id.nav_create:
                 DataHolder.getInstance().save("REQUESTED_TRIP", new Trip());
