@@ -4,6 +4,7 @@ package com.pelicanus.insight.model;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pelicanus.insight.CreateTrip;
+import com.pelicanus.insight.ExcursionViewActivity;
 import com.pelicanus.insight.R;
 
 import java.util.HashMap;
@@ -68,35 +71,28 @@ public class Trip {
     @Getter
     String language;
     final private static DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Trips");
-    Long max_visitors;
+    Integer max_visitors;
     TripButton tripButton;
     EditFields editFields;
     ViewFields viewFields;
     Picture avatar = new Picture(Picture.Type.Trip_avatar);
     Visitors visitors = new Visitors();
 
-
-    public Trip(String name, String description, String date, String address, String guide_id, String language, long max_visitors) {
-        this.name = name;
-        this.description = description;
-        this.address = address;
-        this.guide_id = guide_id;
-        this.date = date;
-        this.language=language;
-        this.max_visitors = max_visitors;
-    }
     public Trip(String id) {
         setTrip_id(id);
-        readTripData();
+        readTripData(); //TODO должна производиться при подгрузке списка/отображении
     }
-    public Long getMax_visitors() {
+    public Integer getMax_visitors() {
         if (max_visitors == null)
-            return (long)2;
-        return Math.min(2, max_visitors);
+            return 2;
+        return Math.max(2, max_visitors);
     }
     public void setTrip_id(String id) {
         this.trip_id = id;
         avatar.setName(id);
+    }
+    private void setMax_visitors(int max_visitors) {
+        this.max_visitors = Math.max(2, Math.max(max_visitors, visitors.getCount()));
     }
     //Работа с базой
     public void writeTripData(final Activity activity) {
@@ -105,7 +101,7 @@ public class Trip {
         getAvatar().setName(getTrip_id());
         getAvatar().Upload();
         final Context context = getEditFields().getContext();
-        visitors.addUser(getGuide_id(), context);
+        visitors.addUser(getGuide_id(), null);
         reference.child(getTrip_id()).setValue(new Soul(this))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -113,6 +109,7 @@ public class Trip {
                         if (task.isComplete()) {
                             Toast.makeText(context, R.string.trip_create_success, Toast.LENGTH_LONG).show();
                             activity.finish();
+                            activity.startActivity(new Intent(context, ExcursionViewActivity.class));
                         } else
                             Toast.makeText(context, R.string.trip_create_error, Toast.LENGTH_LONG).show();
                     }
@@ -143,7 +140,7 @@ public class Trip {
         public String guide_id;
         public String date;
         public String language;
-        public Long max_visitors;
+        public Integer max_visitors;
         public Soul(DataSnapshot dataSnapshot) {
             setName(dataSnapshot.child("name").getValue(String.class));
             setDate(dataSnapshot.child("date").getValue(String.class));
@@ -151,7 +148,7 @@ public class Trip {
             setGuide_id(dataSnapshot.child("guide_id").getValue(String.class));
             setDescription(dataSnapshot.child("description").getValue(String.class));
             setLanguage(dataSnapshot.child("language").getValue(String.class));
-            setMax_visitors(dataSnapshot.child("max_visitors").getValue(Long.class));
+            setMax_visitors(dataSnapshot.child("max_visitors").getValue(Integer.class));
         }
         public Soul(Trip trip) {
             setName(trip.getName());
@@ -162,9 +159,9 @@ public class Trip {
             setLanguage(trip.getLanguage());
             setMax_visitors(trip.getMax_visitors());
         }
-        public void setMax_visitors(Long count) {
+        public void setMax_visitors(Integer count) {
             if (count == null)
-                this.max_visitors = (long)2;
+                this.max_visitors = 2;
             else
                 this.max_visitors = Math.max(2, count);
         }
@@ -255,7 +252,7 @@ public class Trip {
             Trip.this.setDescription(description);
             Trip.this.setName(name);
             Trip.this.setLanguage(language);
-            Trip.this.setMax_visitors(Long.parseLong(max_visitors));
+            Trip.this.setMax_visitors(Integer.parseInt(max_visitors));
             return true;
         }
     }
@@ -396,10 +393,11 @@ public class Trip {
             FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
-                    if(task.isSuccessful())
-                        Toast.makeText(context,"Вы записаны на экскурсию",Toast.LENGTH_SHORT);//.show();
-                    else
-                        Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
+                    if (context != null)
+                        if (task.isSuccessful())
+                            Toast.makeText(context, "Вы записаны на экскурсию", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(context, "FAIL", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -407,10 +405,11 @@ public class Trip {
             FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
-                    if(task.isSuccessful())
-                        Toast.makeText(context,"Вы отписаны на экскурсию",Toast.LENGTH_SHORT);//.show();
-                    else
-                        Toast.makeText(context,"FAIL",Toast.LENGTH_LONG).show();
+                    if (context != null)
+                        if (task.isSuccessful())
+                            Toast.makeText(context, "Вы отписаны на экскурсию", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(context, "FAIL", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -435,7 +434,7 @@ public class Trip {
                 setMode(ButtonMode.EditTrip);
             else if (visitors.isVisitor(getUser()))
                 setMode(ButtonMode.DelUser);
-            else if (false) //TODO проверка на кол-во мест
+            else if (visitors.getCount() >= getMax_visitors())
                 setMode(ButtonMode.NoPlaces);
             else
                 setMode(ButtonMode.AddUser);
@@ -480,7 +479,8 @@ public class Trip {
                             visitors.deleteUser(getUser(), c);
                             break;
                         case EditTrip:
-                            //text = "Edit"; TODO переход на редактирование экскурсии
+                            Intent intent = new Intent(c, CreateTrip.class);
+                            c.startActivity(intent);
                             break;
                         case CloseTrip:
                             //text = "Close";

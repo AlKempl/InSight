@@ -2,7 +2,6 @@ package com.pelicanus.insight;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.View;
 import android.widget.Button;
@@ -10,15 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.DataHolder;
-import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.User;
 import com.volokh.danylo.hashtaghelper.HashTagHelper;
@@ -71,14 +64,10 @@ public class ExcursionViewActivity extends AppBaseActivity {
         DataHolder.getInstance().remove("REQUESTED_TRIP");
         super.onDestroy();
     }
+
     public void OpenProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         DataHolder.getInstance().save("PROFILE_USER", guide);
-        startActivity(intent);
-    }
-
-    public void OpenEdit() {
-        Intent intent = new Intent(this, CreateTrip.class);
         startActivity(intent);
     }
 
