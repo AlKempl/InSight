@@ -48,7 +48,9 @@
                 android:textSize="14sp"
                 android:background="@color/white"
                 android:padding="7dp"
-                android:hint="#Tags" />
+                android:hint="#Tags"
+                android:textColor="@color/white"
+                android:textColorLink="@color/white"/>
 
             <Button
                 android:layout_width="wrap_content"
