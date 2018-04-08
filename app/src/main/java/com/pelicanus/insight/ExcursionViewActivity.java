@@ -49,7 +49,8 @@ public class ExcursionViewActivity extends AppBaseActivity {
                 (TextView) findViewById(R.id.view_description),
                 (TextView) findViewById(R.id.view_participants),
                 (TextView) findViewById(R.id.view_date_time),
-                (TextView) findViewById(R.id.view_language)
+                (TextView) findViewById(R.id.view_language),
+                (ImageView)findViewById(R.id.view_trip_image)
                 );
 
         TextView ex_author = findViewById(R.id.view_author_name);
@@ -66,7 +67,6 @@ public class ExcursionViewActivity extends AppBaseActivity {
         guide = new User(trip.getGuide_id());
         guide.getAvatar().setImageView((ImageView) findViewById(R.id.view_author_image));
         guide.setFieldName(ex_author);
-        trip.getAvatar().setImageView((ImageView)findViewById(R.id.view_trip_image));
         buttonMode=ButtonMode.Im_in;
 
         if(user_id.contentEquals(trip.getGuide_id())) {
