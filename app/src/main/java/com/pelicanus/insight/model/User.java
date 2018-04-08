@@ -1,6 +1,7 @@
 package com.pelicanus.insight.model;
 
 import android.net.Uri;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -15,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Created by Olga on 10.02.2018.
@@ -61,6 +63,7 @@ public class User {
     Boolean current = false;
 
     Picture avatar = new Picture(Picture.Type.User_avatar);
+
     //Так нужно сделать, чтобы данные нормально прогружались
     TextView fieldName;
     TextView fieldEmail;
@@ -100,16 +103,27 @@ public class User {
         this.setId(id);
         readUserData();
     }
+
     public void writeUserData() {
+        String id = this.getId();
+        Log.i("USER_ID", id);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        reference.setValue(new Soul(this));
+        Soul sl = new Soul(this);
+        Log.i("SOUL", sl.toString());
+        try {
+            reference.setValue(sl);
+        } catch (Exception e) {
+            Log.e("SOUL_EXC", e.getMessage());
+            e.printStackTrace();
+            Log.e("SOUL_EXC", e.getLocalizedMessage());
+        }
     }
 
     public void readUserData(){
         FirebaseDatabase.getInstance().getReference().child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() == null && User.this.current) {
+                if (dataSnapshot.getValue() == null && User.this.current) {
                     User.this.writeUserData();
                 } else {
                     installSoul(new Soul(dataSnapshot));
@@ -172,13 +186,21 @@ public class User {
         setFieldRating(null);
         setFieldEmail(null);
     }
-    @Getter
-    public class Soul {
 
-        private String email;
-        private String rating;
-        private Boolean verifiedEmail;
-        private String name;
+    public void installSoul(Soul soul) {
+        setEmail(soul.email);
+        setRating(soul.rating);
+        setName(soul.name);
+        setVerifiedEmail(soul.verifiedEmail);
+    }
+
+    @ToString(callSuper = true, includeFieldNames = true)
+    public static class Soul {
+
+        public String email;
+        public String rating;
+        public Boolean verifiedEmail;
+        public String name;
 
         public Soul(User user) {
             setEmail(user.getEmail());
@@ -186,6 +208,7 @@ public class User {
             setName(user.getName());
             setVerifiedEmail(user.getVerifiedEmail());
         }
+
         public Soul(DataSnapshot dataSnapshot) {
             setName(dataSnapshot.child("name").getValue(String.class));
             setEmail(dataSnapshot.child("email").getValue(String.class));
@@ -217,11 +240,5 @@ public class User {
             else
                 this.verifiedEmail = verifiedEmail;
         }
-    }
-    public void installSoul(Soul soul) {
-        setEmail(soul.getEmail());
-        setRating(soul.getRating());
-        setName(soul.getName());
-        setVerifiedEmail(soul.getVerifiedEmail());
     }
 }

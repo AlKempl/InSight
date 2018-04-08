@@ -1,7 +1,6 @@
 package com.pelicanus.insight.model;
 
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.widget.DatePicker;
@@ -17,7 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pelicanus.insight.ExcursionViewActivity;
 import com.pelicanus.insight.R;
 
 import java.util.HashMap;
@@ -125,14 +123,14 @@ public class Trip {
     }
     @Getter
     @Setter
-    public class Soul {
-        private String name;
-        private String description;
-        private String address;
-        private String guide_id;
-        private String date;
-        private String language;
-        private Long max_visitors;
+    public static class Soul {
+        public String name;
+        public String description;
+        public String address;
+        public String guide_id;
+        public String date;
+        public String language;
+        public Long max_visitors;
         public Soul(DataSnapshot dataSnapshot) {
             setName(dataSnapshot.child("name").getValue(String.class));
             setDate(dataSnapshot.child("date").getValue(String.class));

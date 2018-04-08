@@ -224,6 +224,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="15dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:padding="10dp"
             android:text="@string/trip_create" />
 
     </LinearLayout>
