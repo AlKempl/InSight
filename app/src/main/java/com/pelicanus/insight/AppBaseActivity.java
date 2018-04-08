@@ -196,6 +196,11 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
         startActivity(new Intent(this, TripList.class));
     }
 
+    public void OpenMyExcursions(View view) {
+
+        startActivity(new Intent(this, MyExcursionsActivity.class));
+    }
+
     public void OpenProfile(View view) {
         DataHolder.getInstance().save("PROFILE_USER", DataHolder.getInstance().retrieve("CURR_USER"));
         startActivity(new Intent(this, ProfileActivity.class));
