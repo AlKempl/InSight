@@ -359,6 +359,8 @@ public class Trip {
             return this.visitors;
         }
         public Set<String> get() {
+            if (visitors.size() == 0)
+                download();
             return getVisitors();
         }
         public void download() {
@@ -414,6 +416,8 @@ public class Trip {
             });
         }
         public int getCount() {
+            if (visitors.size() == 0)
+                download();
             return visitors.size();
         }
     }

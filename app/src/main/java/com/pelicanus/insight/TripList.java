@@ -12,11 +12,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.service.TripAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class TripList extends AppBaseActivity {
@@ -50,7 +52,7 @@ public class TripList extends AppBaseActivity {
 
 
     private void updateList(){
-        myRef.addChildEventListener(new ChildEventListener() {
+        /*myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Trip trip = dataSnapshot.getValue(Trip.class);
@@ -82,6 +84,21 @@ public class TripList extends AppBaseActivity {
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+        FirebaseDatabase.getInstance().getReference().child("Test").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //HashMap trips = new HashMap<String, String>();
+                for ( DataSnapshot v:dataSnapshot.getChildren()) { //TODO доделвть realtime
+                    listofTrips.add(new Trip(v.getKey()));
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
