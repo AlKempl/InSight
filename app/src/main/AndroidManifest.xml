@@ -62,11 +62,12 @@
             android:name=".EditExcursionActivity"
             android:label="@string/Edit_Excursion" />
         <activity android:name=".EditProfileActiity" />
-        <activity android:name=".PictureSetActivity"></activity>
+        <activity android:name=".PictureSetActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".MyExcursionsActivity"></activity>
     </application>
 
 </manifest>
