@@ -39,8 +39,6 @@ public class EditProfileActivity extends AppBaseActivity {
         user = (User) DataHolder.getInstance().retrieve("CURR_USER");
         user.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
         ed_name = findViewById(R.id.ed_name);
-        ed_name.setText(user.getDisplayName());
-
         ed_email = findViewById(R.id.ed_email);
         ch_em_label = findViewById(R.id.change_email_label);
 
@@ -69,6 +67,7 @@ public class EditProfileActivity extends AppBaseActivity {
         boolean accepted = false;
         if (ed_name.getText().length() > 0) {
             user.setName(ed_name.getText().toString());
+            ed_name.setText("");
             accepted = true;
         }
 

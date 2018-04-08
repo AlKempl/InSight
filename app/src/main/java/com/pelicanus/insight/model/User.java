@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.annotations.Expose;
@@ -26,17 +27,14 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+//@Getter
 @Setter
 public class User {
 
     @NonNull
     @Expose
+    @Getter
     String email;
-
-    @NonNull
-    @Expose
-    String status;
 
     @NonNull
     @Expose
@@ -44,52 +42,50 @@ public class User {
 
     @NonNull
     @Expose
-    String id;
+    private String id;
 
     @NonNull
     @Expose
+    @Getter
     Boolean verifiedEmail;
 
-    @NonNull
     @Expose
-    UserProvider provider;
+    private String familyName;
 
     @Expose
-    String familyName;
+    private String givenName;
 
     @Expose
-    String givenName;
+    private String displayName;
 
     @Expose
-    String displayName;
+    private String nickname;
 
     @Expose
-    String nickname;
-
-    @Expose
+    @Getter
     String phoneNumber;
 
     @Expose
-    Uri photoUrl;
-
-    @Expose
+    @Getter
     String fbProvider;
 
     @Expose
-    Boolean current = false;
+    private Boolean current = false;
 
     @Expose
-    Picture avatar = new Picture(Picture.Type.User_avatar);
+    private Picture avatar = new Picture(Picture.Type.User_avatar);
 
     //Так нужно сделать, чтобы данные нормально прогружались
-
-    transient TextView fieldName;
-    transient TextView fieldEmail;
-    transient TextView fieldRating;
+    @Exclude
+    private transient TextView fieldName;
+    @Exclude
+    private transient TextView fieldEmail;
+    @Exclude
+    private transient TextView fieldRating;
 
     @Expose
     @NonNull
-    String name;
+    private String name;
 
     @SuppressLint("RestrictedApi")
     public User(FirebaseUser user) {
@@ -100,7 +96,6 @@ public class User {
         this.setEmail(user.getEmail());
         this.setFbProvider(user.getProviders().get(0));
         this.setPhoneNumber(user.getPhoneNumber());
-        this.setRating("0.0");
     }
 
     public User(String id) {
@@ -112,14 +107,12 @@ public class User {
         String id = this.getId();
         Log.i("USER_ID", id);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-        Soul sl = new Soul(this);
-        Log.i("SOUL", sl.toString());
         try {
-            reference.setValue(sl);
+            reference.setValue(User.this);
         } catch (Exception e) {
-            Log.e("SOUL_EXC", e.getMessage());
+            Log.e("USER_WRITEDATA", e.getMessage());
             e.printStackTrace();
-            Log.e("SOUL_EXC", e.getLocalizedMessage());
+            Log.e("USER_WRITEDATA", e.getLocalizedMessage());
         }
     }
 
@@ -130,7 +123,7 @@ public class User {
                 if (dataSnapshot.getValue() == null && User.this.current) {
                     User.this.writeUserData();
                 } else {
-                    installSoul(new Soul(dataSnapshot));
+                    installSoul(dataSnapshot);
                     loadToAllField();
                 }
             }
@@ -162,10 +155,11 @@ public class User {
     }
 
     public void loadToFieldName() {
-        if(fieldName!=null && getName() != null)
-            fieldName.setText(getName());
-        else
-            fieldName.setText("John Snow");
+        if (fieldName != null)
+            if (getName() != null)
+                fieldName.setText(getName());
+            else
+                fieldName.setText("John Snow");
     }
 
     public String getName() {
@@ -195,74 +189,66 @@ public class User {
         loadToFieldName();
     }
 
-    private TextView[] backupFileds() {
-        return new TextView[]{fieldName, fieldEmail, fieldRating};
+    public void installSoul(DataSnapshot dataSnapshot) {
+        setName(dataSnapshot.child("name").getValue(String.class));
+        setEmail(dataSnapshot.child("email").getValue(String.class));
+        setRating(dataSnapshot.child("rating").getValue(String.class));
+        setVerifiedEmail(dataSnapshot.child("verifiedEmail").getValue(Boolean.class));
+        setPhoneNumber(dataSnapshot.child("phoneNumber").getValue(String.class));
+        setFbProvider(dataSnapshot.child("fbProvider").getValue(String.class));
     }
 
-    private void backdownFileds(TextView[] backup) {
-        setFieldName(backup[0]);
-        setFieldEmail(backup[1]);
-        setFieldRating(backup[2]);
+    public void setEmail(String email) {
+        if (email == null)
+            this.email = "default@insight.com";
+        else
+            this.email = email;
     }
-
-    private void toNullAllField() {
-        setFieldName(null);
-        setFieldRating(null);
-        setFieldEmail(null);
+    public void setName(String name) {
+        if (name == null)
+            this.name = "John Smith";
+        else
+            this.name = name;
     }
-
-    public void installSoul(Soul soul) {
-        setEmail(soul.email);
-        setRating(soul.rating);
-        setName(soul.name);
-        setVerifiedEmail(soul.verifiedEmail);
+    public void setRating(String rating) {
+        if (rating == null)
+            this.rating = "0.0";
+        else
+            this.rating = rating;
     }
-
-    @ToString(callSuper = true, includeFieldNames = true)
-    public static class Soul {
-
-        public String email;
-        public String rating;
-        public Boolean verifiedEmail;
-        public String name;
-
-        public Soul(User user) {
-            setEmail(user.getEmail());
-            setRating(user.getRating());
-            setName(user.getName());
-            setVerifiedEmail(user.getVerifiedEmail());
-        }
-
-        public Soul(DataSnapshot dataSnapshot) {
-            setName(dataSnapshot.child("name").getValue(String.class));
-            setEmail(dataSnapshot.child("email").getValue(String.class));
-            setRating(dataSnapshot.child("rating").getValue(String.class));
-            setVerifiedEmail(dataSnapshot.child("verifiedEmail").getValue(Boolean.class));
-        }
-
-        public void setEmail(String email) {
-            if (email == null)
-                this.email = "default@insight.com";
-            else
-                this.email = email;
-        }
-        public void setName(String name) {
-            if (name == null)
-                this.name = "John Smith";
-            else
-                this.name = name;
-        }
-        public void setRating(String rating) {
-            if (rating == null)
-                this.rating = "0.0";
-            else
-                this.rating = rating;
-        }
-        public void setVerifiedEmail(Boolean verifiedEmail) {
-            if (verifiedEmail == null)
-                this.verifiedEmail = false;
-            else
-                this.verifiedEmail = verifiedEmail;
-        }
+    public void setVerifiedEmail(Boolean verifiedEmail) {
+        if (verifiedEmail == null)
+            this.verifiedEmail = false;
+        else
+            this.verifiedEmail = verifiedEmail;
+    }
+    @Exclude
+    public Picture getAvatar() {
+        return avatar;
+    }
+    @Exclude
+    public String getId() {
+        return id;
+    }
+    @Exclude
+    private String getFamilyName() {
+        return familyName;
+    }
+    @Exclude
+    private String getGivenName() {
+        return givenName;
+    }
+    @Exclude
+    private String getDisplayName() {
+        return displayName;
+    }
+    @Exclude
+    private String getNickname() {
+        return nickname;
+    }
+    public String getRating() {
+        if (rating == null)
+            return "0.0";
+        return rating;
     }
 }
