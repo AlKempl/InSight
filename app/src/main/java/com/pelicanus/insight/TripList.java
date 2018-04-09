@@ -7,18 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.service.TripAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class TripList extends AppBaseActivity {
@@ -51,6 +48,7 @@ public class TripList extends AppBaseActivity {
     }
 
 
+    @SuppressWarnings("HardCodedStringLiteral")
     private void updateList(){
         /*myRef.addChildEventListener(new ChildEventListener() {
             @Override

@@ -17,6 +17,7 @@ public class CreateTrip extends AppCompatActivity {
 
     private Trip trip;
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

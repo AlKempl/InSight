@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity{
     private GoogleSignInClient mGoogleSignInClient;
     private User current_user;
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("DEBUG:", "On create");
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Override
     protected void onStart() {
         Log.d("DEBUG:", "On start 1");
@@ -104,19 +106,19 @@ public class MainActivity extends AppCompatActivity{
 
         //checking if email and passwords are empty
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.pls_entr_email, Toast.LENGTH_LONG).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.pls_entr_psswrd, Toast.LENGTH_LONG).show();
             return;
         }
 
         //if the email and password are not empty
         //displaying a progress dialog
 
-        progressDialog.setMessage("Signing in... Please wait...");
+        progressDialog.setMessage(getString(R.string.signing_in_pls_wait));
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity{
                             updateUI(new User(user));
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "Incorrect login and/or password. Please, try again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.incc_log_pass_try, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -198,7 +200,7 @@ public class MainActivity extends AppCompatActivity{
                             // If sign in fails, display a message to the user.
                             Log.w("GGLAUTH", "signInWithCredential:failure", task.getException());
                             //updateUI(null);
-                            Toast.makeText(getApplicationContext(), "Something went wrong while connecting to Google. Please, try again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.google_auth_err, Toast.LENGTH_LONG).show();
                         }
 
                         // ...

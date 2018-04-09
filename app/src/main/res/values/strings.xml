@@ -180,4 +180,14 @@
     <string name="no">No</string>
     <string name="maybe">Maybe</string>
     <string name="change_pass">Change password</string>
+    <string name="pls_entr_email">Please enter email</string>
+    <string name="pls_entr_psswrd">Please enter password</string>
+    <string name="signing_in_pls_wait">Signing in... Please wait...</string>
+    <string name="incc_log_pass_try">Incorrect login and/or password. Please, try again.</string>
+    <string name="google_auth_err">Something went wrong while connecting to Google. Please, try again.</string>
+    <string name="pass_requirmts">Password must be more than 6 chars</string>
+    <string name="pls_entr_login">Please enter login</string>
+    <string name="psswd_dnt_match">Passwords don\'t match</string>
+    <string name="registr_pls_wait">Registering Please Wait...</string>
+    <string name="reg_err">Registration Error</string>
 </resources>

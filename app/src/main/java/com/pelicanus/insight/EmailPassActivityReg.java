@@ -16,8 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.pelicanus.insight.model.User;
-import com.pelicanus.insight.model.UserProvider;
 
 public class EmailPassActivityReg extends AppCompatActivity {
 
@@ -77,28 +75,28 @@ public class EmailPassActivityReg extends AppCompatActivity {
         String password_repeated = editTextPasswordRepeat.getText().toString().trim();
 
         if (password.length() < 6) {
-            Toast.makeText(this, "Password must be more than 6 chars", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.pass_requirmts, Toast.LENGTH_LONG).show();
             return;
         }
         //checking if email and passwords are empty
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.pls_entr_email, Toast.LENGTH_LONG).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.pls_entr_psswrd, Toast.LENGTH_LONG).show();
             return;
         }
 
         if (TextUtils.isEmpty(login)){
-            Toast.makeText(this, "Please enter login", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.pls_entr_login, Toast.LENGTH_LONG).show();
             return;
         }
 
         if (!password.equals(password_repeated))
         {
-            Toast.makeText(this, "Passwords don't match", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.psswd_dnt_match, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -107,7 +105,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-        progressDialog.setMessage("Registering Please Wait...");
+        progressDialog.setMessage(getString(R.string.registr_pls_wait));
         progressDialog.show();
 
         //creating a new user
@@ -122,7 +120,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             //display some message here
-                            Toast.makeText(EmailPassActivityReg.this, "Registration Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(EmailPassActivityReg.this, R.string.reg_err, Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
                     }
