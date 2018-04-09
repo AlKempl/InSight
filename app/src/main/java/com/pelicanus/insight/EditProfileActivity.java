@@ -45,11 +45,11 @@ public class EditProfileActivity extends AppBaseActivity {
 
 
         Button btnChangePass = findViewById(R.id.change_pass);
-        User curr = (User) DataHolder.getInstance().retrieve("CURR_USER");
 
-        Log.i("CURR_INFO", curr.getFbProvider());
 
-        if (!curr.getFbProvider().trim().equals("google.com")) {
+        //Log.i("CURR_INFO", user.getFbProvider());
+
+        if (!user.getFbProvider().trim().equals("google.com")) {
             btnChangePass.setVisibility(View.VISIBLE);
             ed_email.setVisibility(View.VISIBLE);
             ch_em_label.setVisibility(View.VISIBLE);

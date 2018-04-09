@@ -65,6 +65,12 @@ public class User {
     @Getter
     String phoneNumber;
 
+    public void setFbProvider(String fbProvider) {
+        if (fbProvider==null)
+            fbProvider = "NOT_GOOGLE";
+        this.fbProvider = fbProvider;
+    }
+
     @Expose
     @Getter
     String fbProvider;
