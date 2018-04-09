@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="UserName"
+                        android:hint="@string/username"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -121,7 +121,8 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_weight="3"
-            android:background="@color/common_google_signin_btn_text_dark_disabled"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:onClick="onConfrim"
             android:padding="20dp"
             android:text="@string/confirm" />
@@ -150,37 +151,10 @@
             android:layout_marginTop="5dp"
             android:onClick="onChangePassConfirm"
             android:padding="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:text="@string/change_password" />
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            style="?android:listSeparatorTextViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:text="Debug" />
-
-        <Button
-            android:id="@+id/getUserData"
-            style="@android:style/Holo.ButtonBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/common_google_signin_btn_text_dark_disabled"
-            android:onClick="getUserDataSerialized"
-            android:padding="20dp"
-            android:text="Get current user's data" />
-
-    </LinearLayout>
 
 </LinearLayout>
