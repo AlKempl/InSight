@@ -2,6 +2,7 @@ package com.pelicanus.insight.model;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,6 +67,7 @@ public class TripsList {
                     trips.add(new Trip(id));
                 }
                 adapter.notifyDataSetChanged();
+                loadCountView();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -95,10 +97,23 @@ public class TripsList {
     public int size() {
         if (ids.size() == 0) {
             download();
+            return 0;
         }
         return ids.size();
     }
     public Trip get(int position) {
         return trips.get(position);
     }
+
+    public void setCountView(TextView countView) {
+        this.countView = countView;
+        loadCountView();
+    }
+
+    private void loadCountView() {
+        if(countView!=null)
+            countView.setText(ids.size()+"");
+    }
+
+    private TextView countView;
 }
