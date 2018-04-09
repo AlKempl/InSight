@@ -210,6 +210,6 @@
     <string name="title_list_i_m_organizing">I\'m organizing</string>
     <string name="title_list_i_m_participating">I\'m participating</string>
     <string name="language_selection">Language selection</string>
-    <string name="del_user">Вы отписаны на экскурсию</string>
-    <string name="add_user">Вы записаны на экскурсию</string>
+    <string name="del_user">You are out</string>
+    <string name="add_user">You are in</string>
 </resources>
