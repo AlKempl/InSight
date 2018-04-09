@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -29,6 +30,7 @@ public class TripList extends AppBaseActivity {
 
     private RecyclerView recyclerView;
     private TripsList tripsList;
+    private Spinner languageField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +40,28 @@ public class TripList extends AppBaseActivity {
         recyclerView.setHasFixedSize(true);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+        languageField = findViewById(R.id.trip_list_spinner);
+
         String language = getIntent().getStringExtra("language");
         String hashtag = getIntent().getStringExtra("hashtag");
-
-        SimpleDateFormat dateFormat= new SimpleDateFormat("dd.MM.yyyy");
-        String date = dateFormat.format(new Date());
-
+        String date = getCurrentDate();
         tripsList = new TripsList(language,(hashtag==null?date:hashtag).replace('.','_') , this, recyclerView);
     }
+
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd.MM.yyyy");
+        return dateFormat.format(new Date());
+    }
+
     protected void onDestroy() {
         super.onDestroy();
         tripsList.removeReader();
+    }
+    public void findByTag(View view) {
+        tripsList.changeTag(getLanguage(), getCurrentDate().replace('.','_'));
+    }
+    private String getLanguage() {
+        return languageField.getSelectedItem().toString();
     }
 }
 

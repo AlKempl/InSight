@@ -26,6 +26,7 @@
                 android:text="Language selection"/>
 
             <Spinner
+                android:id="@+id/trip_list_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -53,6 +54,7 @@
                 android:textColorLink="@color/white"/>
 
             <Button
+                android:onClick="findByTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

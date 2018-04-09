@@ -49,6 +49,12 @@ public class TripsList {
     }
     public void changeTag(String parent, String tag) {
         removeReader();
+        for (int i = trips.size()-1; i>-1; i--) {
+            ids.remove(trips.get(i).getTrip_id());
+            trips.remove(i);
+            if (adapter!=null)
+                adapter.notifyItemRemoved(i);
+        }
         this.parent = parent;
         this.tag = tag;
         download();
