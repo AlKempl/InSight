@@ -23,7 +23,7 @@
                 android:layout_marginTop="10dp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:text="Language selection"/>
+                android:text="@string/language_selection"/>
 
             <Spinner
                 android:id="@+id/trip_list_spinner"

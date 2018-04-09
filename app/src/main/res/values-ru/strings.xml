@@ -99,4 +99,5 @@
     <string name="how_to_search_4">Опишите теги (ключевые слова) в описании экскурсии, по ним будет вестись поиск. Например, #обзорная #Ростов-на-Дону.</string>
     <string name="how_to_search_5">Нажмите кнопку «Искать». Искренне надеемся, что вы нашли необходимое.</string>
     <string name="trip_edit_successfully">Изменения сохранены</string>
+    <string name="excursion_name">Excursion Name</string>
 </resources>

@@ -37,7 +37,7 @@
                     android:layout_margin="15dp"
                     android:textAllCaps="true"
                     android:textSize="15sp"
-                    android:text="My excursions"/>
+                    android:text="@string/my_excursions"/>
 
             </LinearLayout>
 
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="I'm participating"
+                    android:text="@string/title_list_i_m_participating"
                     android:textAllCaps="true" />
 
                 <android.support.v7.widget.RecyclerView
@@ -93,7 +93,7 @@
                     android:gravity="center"
                     android:textAllCaps="true"
                     android:layout_marginTop="15dp"
-                    android:text="I'm organizing"/>
+                    android:text="@string/title_list_i_m_organizing"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/organize_trip_list"

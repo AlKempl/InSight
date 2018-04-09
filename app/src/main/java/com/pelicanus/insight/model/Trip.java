@@ -501,7 +501,7 @@ public class Trip {
                     else if (context != null)
                         if (task.isSuccessful()) {
                             FirebaseDatabase.getInstance().getReference().child("TripLists").child("Participant").child(user_id).child(getTrip_id()).setValue(false);
-                            Toast.makeText(context, "Вы записаны на экскурсию", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.add_user, Toast.LENGTH_SHORT).show();
                         }
                         else
                             Toast.makeText(context, "FAIL", Toast.LENGTH_LONG).show();
@@ -515,7 +515,7 @@ public class Trip {
                     if (context != null)
                         if (task.isSuccessful()) {
                             FirebaseDatabase.getInstance().getReference().child("TripLists").child("Participant").child(user_id).child(getTrip_id()).setValue(null);
-                            Toast.makeText(context, "Вы отписаны на экскурсию", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, R.string.del_user, Toast.LENGTH_SHORT).show();
                         }
                         else
                             Toast.makeText(context, "FAIL", Toast.LENGTH_LONG).show();

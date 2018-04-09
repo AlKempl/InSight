@@ -20,7 +20,7 @@
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
 
     <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_default_display_name" translatable="false">John Smith</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
@@ -134,7 +134,6 @@
     <string name="username_nav_placeholder">UserName</string>
     <string name="useremail_nav_placeholder">UserEmail@gmail.com</string>
     <string name="date_and_time">Date and time</string>
-    <string name="meeting_point">Meeting point</string>
     <string name="Author_name_not_found">Author name not found</string>
     <string-array name="Languages">
         <item>English</item>
@@ -144,7 +143,6 @@
     </string-array>
     <string name="repeat_password">Repeat password</string>
     <string name="date">Date</string>
-    <string name="description">Description</string>
     <string name="name">Name</string>
     <string name="edit_picture">Edit picture</string>
     <string name="exview_btn">I\'m in</string>
@@ -180,4 +178,27 @@
     <string name="no">No</string>
     <string name="maybe">Maybe</string>
     <string name="change_pass">Change password</string>
+    <string name="crete_trip_name">Trip name</string>
+    <string name="create_trip_description">Trip Description</string>
+    <string name="create_trip_meeting_point">Meeting point</string>
+    <string name="create_trip_location">Trip Location</string>
+    <string name="create_trip_max_visitors">Maximum visitors</string>
+    <string name="crete_trip_maxcount_of_visitors">Maximum count of visitors</string>
+    <string name="excursion_name">Excursion Name</string>
+    <string name="meeting_point">Meeting point</string>
+    <string name="confirm">Confirm</string>
+    <string name="security">Security</string>
+    <string name="change_password">Change password</string>
+    <string name="profile">Profile</string>
+    <string name="edit_avatar">Edit avatar</string>
+    <string name="change_name">Change name</string>
+    <string name="change_e_mail">Change e-mail</string>
+    <string name="useremail">UserEmail</string>
+    <string name="view_trip_button_who_is_in">Who is in?</string>
+    <string name="author_name">Author name</string>
+    <string name="title_list_i_m_organizing">I\'m organizing</string>
+    <string name="title_list_i_m_participating">I\'m participating</string>
+    <string name="language_selection">Language selection</string>
+    <string name="del_user">Вы отписаны на экскурсию</string>
+    <string name="add_user">Вы записаны на экскурсию</string>
 </resources>

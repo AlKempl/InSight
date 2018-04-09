@@ -174,7 +174,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="10dp"
                                 android:background="@color/colorPrimary"
-                                android:text="Who is in?"
+                                android:text="@string/view_trip_button_who_is_in"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:onClick="OpenVisitorsList"
@@ -220,7 +220,7 @@
                                 android:id="@+id/view_author_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Author name" />
+                                android:text="@string/author_name" />
 
                             </LinearLayout>
 
