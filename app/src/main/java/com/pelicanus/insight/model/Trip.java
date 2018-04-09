@@ -26,7 +26,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.CreateTrip;
 import com.pelicanus.insight.ExcursionViewActivity;
 import com.pelicanus.insight.R;
+import com.pelicanus.insight.TripList;
+import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -178,6 +183,7 @@ public class Trip {
             setLanguageField(languageField);
             setNameField(nameField);
             setMaxVisitorsField(maxVisitorsField);
+
         }
 
         public void setNameField(EditText nameField) {
@@ -212,7 +218,12 @@ public class Trip {
             return languageField.getSelectedItem().toString();
         }
         public String getDate() {
-            return dateField.getDayOfMonth()+"."+dateField.getMonth()+"."+dateField.getYear();
+            return ConvertDate(dateField.getDayOfMonth())+"."+ConvertDate(dateField.getMonth())+"."+ConvertDate(dateField.getYear());
+        }
+        private String ConvertDate(int date){
+            if(date<10)
+                return "0"+date;
+            return date+"";
         }
         public Context getContext() {
             return nameField.getContext();
@@ -228,7 +239,8 @@ public class Trip {
                 date.length() == 0||
                 address.length() == 0||
                 description.length() == 0 ||
-                max_visitors.length() == 0) {
+                max_visitors.length() == 0 ||
+                    CheckDate(date)) {
                 Toast.makeText(getContext(), R.string.trip_create_emptydata, Toast.LENGTH_LONG).show();
                 return false;
             }
@@ -276,8 +288,18 @@ public class Trip {
             if(addressField!=null && getAddress() != null)
                 addressField.setText(Trip.this.getAddress());
         }
-        public void setDescriptionField(TextView descriptionField) {
+        public void setDescriptionField(final TextView descriptionField) {
             this.descriptionField = descriptionField;
+            HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimaryDark, new HashTagHelper.OnHashTagClickListener() {
+                @Override
+                public void onHashTagClicked(String hashTag) {
+                    Intent intent = new Intent(descriptionField.getContext(), TripList.class);
+                    intent.putExtra("hashtag",hashTag);
+                    intent.putExtra("language",Trip.this.getLanguage());
+                    descriptionField.getContext().startActivity(intent);
+                }
+            });
+            hashTagHelper.handle(descriptionField);
             loadToDescriptionField();
         }
         public void loadToDescriptionField() {
@@ -435,7 +457,7 @@ public class Trip {
             setButton(button);
         }
         private void modeUpdate() {
-            if (false) //TODO проверка, "Время экскурсии в прошлом?"
+            if (CheckDate(Trip.this.getDate())) //TODO проверка, "Время экскурсии в прошлом?"
                 setMode(ButtonMode.CloseTrip);
             else if (getUser().contentEquals(getGuide_id()))
                 setMode(ButtonMode.EditTrip);
@@ -504,6 +526,23 @@ public class Trip {
     }
     public void setTripButton(Activity activity, Button button, String user_id) {
         this.tripButton = new TripButton(activity, button, user_id);
+    }
+    public boolean CheckDate(String curr_date){
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd.MM.yyyy");
+        Date date;
+        Date ex_date;
+        try {
+            date= dateFormat.parse(new Date().toString());
+            ex_date = dateFormat.parse(curr_date);
+
+        }
+        catch (ParseException e){
+            return false;
+        }
+
+        if(date.compareTo(ex_date)>=0)
+            return true;
+        return false;
     }
     private enum ButtonMode {AddUser, DelUser, EditTrip, CloseTrip, NoPlaces}
 }
