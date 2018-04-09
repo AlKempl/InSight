@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class TripList extends AppBaseActivity {
     private RecyclerView recyclerView;
     private TripsList tripsList;
     private Spinner languageField;
+    private EditText tagField;
+    private String hashtag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +45,13 @@ public class TripList extends AppBaseActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
         languageField = findViewById(R.id.trip_list_spinner);
+        tagField = findViewById(R.id.tag);
 
         String language = getIntent().getStringExtra("language");
-        String hashtag = getIntent().getStringExtra("hashtag");
+        hashtag = getIntent().getStringExtra("hashtag");
+
+        tagField.setText(hashtag.equals("all")?"":hashtag);
+
         String date = getCurrentDate();
         tripsList = new TripsList(language,(hashtag==null?date:hashtag).replace('.','_') , this, recyclerView);
     }
@@ -58,7 +66,14 @@ public class TripList extends AppBaseActivity {
         tripsList.removeReader();
     }
     public void findByTag(View view) {
-        tripsList.changeTag(getLanguage(), getCurrentDate().replace('.','_'));
+
+            String edittag = tagField.getText().toString();
+            if(edittag!=null && edittag.toLowerCase().trim().matches("\\w+")) {
+                tripsList.changeTag(getLanguage(), edittag.toLowerCase());
+            }
+
+
+
     }
     private String getLanguage() {
         return languageField.getSelectedItem().toString();

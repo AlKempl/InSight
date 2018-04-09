@@ -126,7 +126,7 @@ public class Trip {
                                                        Toast.makeText(context, R.string.trip_create_success, Toast.LENGTH_LONG).show();
                                                        DatabaseReference triplist = FirebaseDatabase.getInstance().getReference().child("TripLists");
                                                        visitors.addUser(getGuide_id(), null);
-                                                       triplist.child("All").child("All").child(getTrip_id()).setValue(false);
+                                                       triplist.child("All").child("all").child(getTrip_id()).setValue(false);
                                                    } else
                                                        Toast.makeText(context, R.string.trip_edit_successfully, Toast.LENGTH_LONG).show();
                                                } else
@@ -281,6 +281,9 @@ public class Trip {
                 Toast.makeText(getContext(), R.string.trip_create_emptydata, Toast.LENGTH_LONG).show();
                 return false;
             }
+            Trip.this.setAddress(getAddress());
+            Trip.this.setDate(date);
+
             getHashtags();
             HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimaryDark, new HashTagHelper.OnHashTagClickListener() {
                 @Override
@@ -290,11 +293,11 @@ public class Trip {
             });
 
             hashTagHelper.handle(descriptionField);
-            List<String> edithashtags = ConvertHashtags(hashTagHelper.getAllHashTags());
+            List<String> edithashtags = hashTagHelper.getAllHashTags();
             updateHashtags(edithashtags);
 
-            Trip.this.setAddress(getAddress());
-            Trip.this.setDate(date);
+
+
             Trip.this.setDescription(description);
             Trip.this.setName(name);
             Trip.this.setLanguage(language);
@@ -303,6 +306,7 @@ public class Trip {
         }
         @Exclude
         private void getHashtags(){
+            hashtags.add(Trip.this.getDate().replace('.', '_'));
             if(description!=null) {
                 Pattern p = Pattern.compile("#(\\w)+");
 
@@ -313,18 +317,9 @@ public class Trip {
                     hashtags.add(m.group(1));
                 }
             }
+
         }
-        private List<String> ConvertHashtags(List<String> hashtags){
-            for (int i=0;i<hashtags.size();i++) {
-                hashtags.get(i).replace('.',' ').toLowerCase().trim();
-                hashtags.get(i).replace(',',' ').toLowerCase().trim();
-                hashtags.get(i).replace('/',' ').toLowerCase().trim();
-                hashtags.get(i).replace('\\',' ').toLowerCase().trim();
-                hashtags.get(i).replace('[',' ').toLowerCase().trim();
-                hashtags.get(i).replace(']',' ').toLowerCase().trim();
-            }
-            return hashtags;
-        }
+
         public void updateHashtags(List<String> edithashtags){
             HashSet<String> past = new HashSet<>(hashtags);
             HashSet<String> now = new HashSet<>(edithashtags);
