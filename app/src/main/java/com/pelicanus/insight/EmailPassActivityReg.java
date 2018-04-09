@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.pelicanus.insight.model.User;
 
 public class EmailPassActivityReg extends AppCompatActivity {
 
@@ -115,7 +116,7 @@ public class EmailPassActivityReg extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //checking if success
                         if (task.isSuccessful()) {
-                            //User user = new User(task.getResult().getUser());
+                            new User(task.getResult().getUser(), login);
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {

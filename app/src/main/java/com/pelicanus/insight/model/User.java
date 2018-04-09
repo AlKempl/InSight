@@ -104,6 +104,17 @@ public class User {
         this.setPhoneNumber(user.getPhoneNumber());
     }
 
+    @SuppressLint("RestrictedApi")
+    public User(FirebaseUser user, String name) {
+        this.current = true;
+        this.setId(user.getUid());
+        this.setName(name);
+        this.setDisplayName(user.getDisplayName());
+        this.setEmail(user.getEmail());
+        this.setFbProvider(user.getProviders().get(0));
+        this.setPhoneNumber(user.getPhoneNumber());
+        writeUserData();
+    }
     public User(String id) {
         this.setId(id);
         readUserData();
