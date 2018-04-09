@@ -45,11 +45,7 @@ public class TripsList {
     private ArrayList<String> getIds() {
         return this.ids;
     }
-    public ArrayList<String> get() {
-        if (ids.size() == 0)
-            download();
-        return getIds();
-    }
+
     public void download() {
         root.child(parent).child(tag).addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,10 +74,6 @@ public class TripsList {
             }
         });
     }
-    public boolean isVisitor(String user_id) {
-        return getIds().contains(user_id);
-    }
-
     public int size() {
         if (ids.size() == 0) {
             download();

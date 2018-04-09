@@ -218,7 +218,7 @@ public class Trip {
             return languageField.getSelectedItem().toString();
         }
         public String getDate() {
-            return ConvertDate(dateField.getDayOfMonth())+"."+ConvertDate(dateField.getMonth())+"."+ConvertDate(dateField.getYear());
+            return ConvertDate(dateField.getDayOfMonth())+"."+ConvertDate(dateField.getMonth()+1)+"."+ConvertDate(dateField.getYear());
         }
         private String ConvertDate(int date){
             if(date<10)
@@ -532,15 +532,14 @@ public class Trip {
         Date date;
         Date ex_date;
         try {
-            date= dateFormat.parse(new Date().toString());
+            date= dateFormat.parse(dateFormat.format(new Date()));
             ex_date = dateFormat.parse(curr_date);
 
         }
         catch (ParseException e){
             return false;
         }
-
-        if(date.compareTo(ex_date)>=0)
+        if(date.compareTo(ex_date)>0)
             return true;
         return false;
     }

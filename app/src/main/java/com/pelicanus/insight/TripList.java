@@ -43,7 +43,7 @@ public class TripList extends AppBaseActivity {
         String hashtag = getIntent().getStringExtra("hashtag");
 
         SimpleDateFormat dateFormat= new SimpleDateFormat("dd.MM.yyyy");
-        String date =dateFormat.format(new Date());
+        String date = dateFormat.format(new Date());
 
         TripsList tripsList = new TripsList(language,(hashtag==null?date:hashtag).replace('.','_') , this, recyclerView);
     }
