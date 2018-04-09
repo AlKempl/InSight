@@ -191,7 +191,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     public void OpenTripList(View view) {
         Intent intent = (new Intent(this, TripList.class));
         intent.putExtra("hashtag","all");
-        intent.putExtra("language","all");
+        intent.putExtra("language","All");
         startActivity(intent);
     }
 
