@@ -287,12 +287,12 @@ public class Trip {
         }
         private List<String> ConvertHashtags(List<String> hashtags){
             for (int i=0;i<hashtags.size();i++) {
-                hashtags.get(i).replace('.',' ').trim();
-                hashtags.get(i).replace(',',' ').trim();
-                hashtags.get(i).replace('/',' ').trim();
-                hashtags.get(i).replace('\\',' ').trim();
-                hashtags.get(i).replace('[',' ').trim();
-                hashtags.get(i).replace(']',' ').trim();
+                hashtags.get(i).replace('.',' ').toLowerCase().trim();
+                hashtags.get(i).replace(',',' ').toLowerCase().trim();
+                hashtags.get(i).replace('/',' ').toLowerCase().trim();
+                hashtags.get(i).replace('\\',' ').toLowerCase().trim();
+                hashtags.get(i).replace('[',' ').toLowerCase().trim();
+                hashtags.get(i).replace(']',' ').toLowerCase().trim();
             }
             return hashtags;
         }
@@ -302,11 +302,11 @@ public class Trip {
 
             past.removeAll(now);
             for (String h:past) {
-                FirebaseDatabase.getInstance().getReference().child("TripList").child(getLanguage()).child(h).child(Trip.this.genTrip_id()).setValue(null);
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.genTrip_id()).setValue(null);
             }
            now.removeAll(hashtags);
             for (String h:now) {
-                FirebaseDatabase.getInstance().getReference().child("TripList").child(getLanguage()).child(h).child(Trip.this.genTrip_id()).setValue(false);
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.genTrip_id()).setValue(false);
             }
             hashtags=(ArrayList)edithashtags;
         }
