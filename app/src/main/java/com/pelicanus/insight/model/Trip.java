@@ -31,10 +31,14 @@ import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -68,6 +72,8 @@ public class Trip {
 
     @NonNull
     String trip_id;
+
+    ArrayList<String> hashtags=new ArrayList<String>();
 
     @Setter
     @Getter
@@ -197,7 +203,6 @@ public class Trip {
         public void setDescriptionField(EditText descriptionField) {
             this.descriptionField = descriptionField;
             descriptionField.setText(Trip.this.getDescription());
-
         }
         public void setMaxVisitorsField(EditText maxVisitorsField) {
             this.maxVisitorsField = maxVisitorsField;
@@ -245,8 +250,19 @@ public class Trip {
                 Toast.makeText(getContext(), R.string.trip_create_emptydata, Toast.LENGTH_LONG).show();
                 return false;
             }
+            getHashtags();
+            HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimaryDark, new HashTagHelper.OnHashTagClickListener() {
+                @Override
+                public void onHashTagClicked(String hashTag) {
 
-            Trip.this.getDescription();
+                }
+            });
+            hashTagHelper.handle(descriptionField);
+            List<String> edithashtags = ConvertHashtags(hashTagHelper.getAllHashTags());
+            updateHashtags(edithashtags);
+
+            hashtags=(ArrayList)hashTagHelper.getAllHashTags();
+
             Trip.this.setAddress(getAddress());
             Trip.this.setDate(date);
             Trip.this.setDescription(description);
@@ -254,6 +270,44 @@ public class Trip {
             Trip.this.setLanguage(language);
             Trip.this.setMax_visitors(Integer.parseInt(max_visitors));
             return true;
+        }
+        @Exclude
+        private void getHashtags(){
+            if(description!=null) {
+                Pattern p = Pattern.compile("#(\\w)+");
+
+
+                hashtags.add(Trip.this.getDate().replace('.', '_'));
+                Matcher m = p.matcher(description);
+                while (m.find()) {
+                    hashtags.add(m.group(1));
+                }
+            }
+        }
+        private List<String> ConvertHashtags(List<String> hashtags){
+            for (int i=0;i<hashtags.size();i++) {
+                hashtags.get(i).replace('.',' ').toLowerCase().trim();
+                hashtags.get(i).replace(',',' ').toLowerCase().trim();
+                hashtags.get(i).replace('/',' ').toLowerCase().trim();
+                hashtags.get(i).replace('\\',' ').toLowerCase().trim();
+                hashtags.get(i).replace('[',' ').toLowerCase().trim();
+                hashtags.get(i).replace(']',' ').toLowerCase().trim();
+            }
+            return hashtags;
+        }
+        public void updateHashtags(List<String> edithashtags){
+            HashSet<String> past = new HashSet<>(hashtags);
+            HashSet<String> now = new HashSet<>(edithashtags);
+
+            past.removeAll(now);
+            for (String h:past) {
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.getTrip_id()).setValue(null);
+            }
+           now.removeAll(hashtags);
+            for (String h:now) {
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.getTrip_id()).setValue(false);
+            }
+            hashtags=(ArrayList)edithashtags;
         }
     }
     //Отображение
