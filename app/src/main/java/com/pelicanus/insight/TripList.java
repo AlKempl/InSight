@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
+import com.pelicanus.insight.model.TripsList;
 import com.pelicanus.insight.service.TripAdapter;
 
 import java.util.ArrayList;
@@ -23,8 +24,7 @@ import java.util.HashMap;
 
 public class TripList extends AppBaseActivity {
 
-    ArrayList<Trip> listofTrips;
-    private DatabaseReference myRef;
+
     private RecyclerView recyclerView;
     private TripAdapter adapter;
 
@@ -32,21 +32,12 @@ public class TripList extends AppBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_list);
-
-        listofTrips = new ArrayList<>();
-
-        myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
         recyclerView = findViewById(R.id.trip_list);
-
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-
-        adapter = new TripAdapter(this,listofTrips);
-        updateList();
-        recyclerView.setAdapter(adapter);
-
+        TripsList tripsList = new TripsList("English", "9_3_2018", this, recyclerView);
     }
 
 
@@ -90,35 +81,6 @@ public class TripList extends AppBaseActivity {
 
             }
         });*/
-        FirebaseDatabase.getInstance().getReference().child("Test").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //HashMap trips = new HashMap<String, String>();
-                for ( DataSnapshot v:dataSnapshot.getChildren()) { //TODO доделвть realtime
-                    listofTrips.add(new Trip(v.getKey()));
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-    private int getItemIndex(Trip trip){
-        int index =-1;
-        for(int i=0;i<listofTrips.size();i++){
-            if(listofTrips.get(i).getTrip_id().equals(trip.getTrip_id())){
-                index =i;
-                break;
-            }
-        }
-        return index;
-    }
-    public void review_Trip(View view){
-        int position = recyclerView.getChildLayoutPosition(view);
-        Toast.makeText(this,position+"",Toast.LENGTH_LONG).show();
     }
 
 

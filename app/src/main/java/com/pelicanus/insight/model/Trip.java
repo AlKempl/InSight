@@ -76,7 +76,6 @@ public class Trip {
     Visitors visitors = new Visitors();
     public Trip(String id) {
         setTrip_id(id);
-        readTripData(); //TODO должна производиться при подгрузке списка/отображении
     }
     public Integer getMax_visitors() {
         if (max_visitors == null)
@@ -115,7 +114,7 @@ public class Trip {
                                                        Toast.makeText(context, R.string.trip_create_success, Toast.LENGTH_LONG).show();
                                                        //TODO запись в БД список созданных
                                                        DatabaseReference triplist = FirebaseDatabase.getInstance().getReference().child("TripLists");
-                                                       triplist.child("Guide").child(getGuide_id()).child(getTrip_id()).setValue(false);
+                                                       visitors.addUser(getGuide_id(), null);
                                                        triplist.child(getLanguage()).child(getDate().replace('.', '_')).child(getTrip_id()).setValue(false);
                                                        triplist.child(getLanguage()).child(getAddress()).child(getTrip_id()).setValue(false);
 
@@ -328,6 +327,7 @@ public class Trip {
     }
     public void setViewFields(TextView nameField, TextView addressField, TextView descriptionField, TextView visitorsField, TextView dateField, TextView languageField, ImageView imageView) {
         this.viewFields = new ViewFields(nameField, addressField, descriptionField, visitorsField, dateField, languageField, imageView);
+        readTripData();
     }
     public String getGuide_id() {
         if (guide_id == null)
@@ -376,6 +376,7 @@ public class Trip {
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+
                 }
             });
         }
@@ -386,9 +387,10 @@ public class Trip {
             FirebaseDatabase.getInstance().getReference().child("Visitors").child(getTrip_id()).child(user_id).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
-                    if (context != null)
+                    if (getGuide_id().contentEquals(user_id))
+                        FirebaseDatabase.getInstance().getReference().child("TripLists").child("Guide").child(user_id).child(getTrip_id()).setValue(false);
+                    else if (context != null)
                         if (task.isSuccessful()) {
-                            //TODO запись в БД подписанные экс
                             FirebaseDatabase.getInstance().getReference().child("TripLists").child("Participant").child(user_id).child(getTrip_id()).setValue(false);
                             Toast.makeText(context, "Вы записаны на экскурсию", Toast.LENGTH_SHORT).show();
                         }
@@ -403,9 +405,7 @@ public class Trip {
                 public void onComplete(@android.support.annotation.NonNull Task<Void> task) {
                     if (context != null)
                         if (task.isSuccessful()) {
-                            //TODO удаление в БД подписанные экс
                             FirebaseDatabase.getInstance().getReference().child("TripLists").child("Participant").child(user_id).child(getTrip_id()).setValue(null);
-
                             Toast.makeText(context, "Вы отписаны на экскурсию", Toast.LENGTH_SHORT).show();
                         }
                         else
@@ -414,8 +414,9 @@ public class Trip {
             });
         }
         public int getCount() {
-            if (visitors.size() == 0)
+            if (visitors.size() == 0) {
                 download();
+            }
             return visitors.size();
         }
     }
