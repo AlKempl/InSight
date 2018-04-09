@@ -137,4 +137,5 @@
     <string name="crete_trip_maxcount_of_visitors">Макс. число посетителей</string>
     <string name="add_user">Вы записаны на экскурсию</string>
     <string name="security">Безопасность</string>
+    <string name="create_trip_location">Место проведения экскурсии</string>
 </resources>
