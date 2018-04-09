@@ -214,12 +214,12 @@
     <string name="add_user">Вы записаны на экскурсию</string>
     <string name="username">UserName</string>
     <string name="i_m_in">I\'m in</string>
-    <string name="search">Search</string>
+    <!--<string name="search">Search</string>-->
     <string name="preferable_tags">Preferable tags</string>
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
     <string name="repeat_your_new_password">Repeat your new password</string>
-    <string name="confirm">Confirm</string>
+    <!--<string name="confirm">Confirm</string>-->
     <string name="cancel">Cancel</string>
     <string name="date_dots">Date:</string>
     <string name="language_dots">Language:</string>
