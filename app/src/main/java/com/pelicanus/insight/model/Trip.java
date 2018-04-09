@@ -309,9 +309,6 @@ public class Trip {
             hashtags.add(Trip.this.getDate().replace('.', '_'));
             if(description!=null) {
                 Pattern p = Pattern.compile("#(\\w)+");
-
-
-                hashtags.add(Trip.this.getDate().replace('.', '_'));
                 Matcher m = p.matcher(description);
                 while (m.find()) {
                     hashtags.add(m.group(1));
@@ -323,10 +320,12 @@ public class Trip {
         public void updateHashtags(List<String> edithashtags){
             HashSet<String> past = new HashSet<>(hashtags);
             HashSet<String> now = new HashSet<>(edithashtags);
-
+            hashtags.add(Trip.this.getDate().replace('.', '_'));
+            now.add("all");
+            now.add(getDate().replace('.', '_'));
             past.removeAll(now);
             for (String h:past) {
-                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h.toLowerCase()).child(Trip.this.getTrip_id()).setValue(null);
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(Trip.this.getLanguage()).child(h.toLowerCase()).child(Trip.this.getTrip_id()).setValue(null);
             }
            now.removeAll(hashtags);
             for (String h:now) {
