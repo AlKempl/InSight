@@ -49,7 +49,6 @@
                 android:background="@color/white"
                 android:padding="7dp"
                 android:hint="#Tags"
-                android:textColor="@color/white"
                 android:textColorLink="@color/white"/>
 
             <Button
