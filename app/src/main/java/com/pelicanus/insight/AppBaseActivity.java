@@ -155,10 +155,10 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_myexc:
-                //TODO insert link to my excursions activity
+                OpenMyExcursions(null);
                 break;
             case R.id.nav_search:
-                startActivity(new Intent(this, TripList.class));
+                OpenTripList(null);
                 break;
             case R.id.nav_create:
                 DataHolder.getInstance().save("REQUESTED_TRIP", new Trip());
@@ -166,7 +166,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
                 break;
             case R.id.nav_settings:
                 startActivity(new Intent(this, EditProfileActivity.class));
-                //startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.nav_logout:
                 logOut();
@@ -190,8 +189,10 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
     }
 
     public void OpenTripList(View view) {
-
-        startActivity(new Intent(this, TripList.class));
+        Intent intent = (new Intent(this, TripList.class));
+        intent.putExtra("hashtag","all");
+        intent.putExtra("language","All");
+        startActivity(intent);
     }
 
     public void OpenMyExcursions(View view) {

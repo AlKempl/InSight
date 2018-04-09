@@ -190,4 +190,26 @@
     <string name="psswd_dnt_match">Passwords don\'t match</string>
     <string name="registr_pls_wait">Registering Please Wait...</string>
     <string name="reg_err">Registration Error</string>
+    <string name="crete_trip_name">Trip name</string>
+    <string name="create_trip_description">Trip Description</string>
+    <string name="create_trip_meeting_point">Meeting point</string>
+    <string name="create_trip_location">Trip Location</string>
+    <string name="create_trip_max_visitors">Maximum visitors</string>
+    <string name="crete_trip_maxcount_of_visitors">Maximum count of visitors</string>
+    <string name="excursion_name">Excursion Name</string>
+    <string name="confirm">Confirm</string>
+    <string name="security">Security</string>
+    <string name="change_password">Change password</string>
+    <string name="profile">Profile</string>
+    <string name="edit_avatar">Edit avatar</string>
+    <string name="change_name">Change name</string>
+    <string name="change_e_mail">Change e-mail</string>
+    <string name="useremail">UserEmail</string>
+    <string name="view_trip_button_who_is_in">Who is in?</string>
+    <string name="author_name">Author name</string>
+    <string name="title_list_i_m_organizing">I\'m organizing</string>
+    <string name="title_list_i_m_participating">I\'m participating</string>
+    <string name="language_selection">Language selection</string>
+    <string name="del_user">Вы отписаны на экскурсию</string>
+    <string name="add_user">Вы записаны на экскурсию</string>
 </resources>

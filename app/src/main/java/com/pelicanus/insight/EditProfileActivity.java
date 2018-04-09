@@ -37,6 +37,7 @@ public class EditProfileActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_activity);
         user = (User) DataHolder.getInstance().retrieve("CURR_USER");
+        //TODO fix bug конфликт ImageView со шторкой
         user.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
         ed_name = findViewById(R.id.ed_name);
         ed_email = findViewById(R.id.ed_email);
@@ -44,11 +45,11 @@ public class EditProfileActivity extends AppBaseActivity {
 
 
         Button btnChangePass = findViewById(R.id.change_pass);
-        User curr = (User) DataHolder.getInstance().retrieve("CURR_USER");
 
-        Log.i("CURR_INFO", curr.getFbProvider());
 
-        if (!curr.getFbProvider().trim().equals("google.com")) {
+        //Log.i("CURR_INFO", user.getFbProvider());
+
+        if (!user.getFbProvider().trim().equals("google.com")) {
             btnChangePass.setVisibility(View.VISIBLE);
             ed_email.setVisibility(View.VISIBLE);
             ch_em_label.setVisibility(View.VISIBLE);

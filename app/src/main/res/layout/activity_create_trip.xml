@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Trip name"
+                android:hint="@string/crete_trip_name"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Trip Description"
+                android:hint="@string/create_trip_description"
                 android:inputType="textCapSentences|textMultiLine" />
 
         </LinearLayout>
@@ -171,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:orientation="vertical"
-                android:text="Meeting point"
+                android:text="@string/create_trip_meeting_point"
                 android:textAllCaps="true"
                 android:textSize="12sp"/>
 
@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Trip Location"
+                android:hint="@string/create_trip_location"
                 android:inputType="textCapSentences|textMultiLine"
                 android:orientation="vertical" />
 
@@ -201,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:orientation="vertical"
-                android:text="Maximum visitors"
+                android:text="@string/create_trip_max_visitors"
                 android:textAllCaps="true"
                 android:textSize="12sp"/>
 
@@ -211,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Maximum count of visitors"
+                android:hint="@string/crete_trip_maxcount_of_visitors"
                 android:inputType="number"
                 android:numeric="signed"
                 android:orientation="vertical" />

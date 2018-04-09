@@ -4,122 +4,79 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pelicanus.insight.model.Picture;
 import com.pelicanus.insight.model.Trip;
+import com.pelicanus.insight.model.TripsList;
 import com.pelicanus.insight.service.TripAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 
 public class TripList extends AppBaseActivity {
 
-    ArrayList<Trip> listofTrips;
-    private DatabaseReference myRef;
-    private RecyclerView recyclerView;
-    private TripAdapter adapter;
-    private ProgressDialog progressDialog;
 
+    private RecyclerView recyclerView;
+    private TripsList tripsList;
+    private Spinner languageField;
+    private EditText tagField;
+    private String hashtag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_list);
-
-        listofTrips = new ArrayList<>();
-
-        myRef = FirebaseDatabase.getInstance().getReference().child("Trips");
         recyclerView = findViewById(R.id.trip_list);
-
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+        languageField = findViewById(R.id.trip_list_spinner);
+        tagField = findViewById(R.id.tag);
 
-        adapter = new TripAdapter(this,listofTrips);
-        updateList();
-        recyclerView.setAdapter(adapter);
+        String language = getIntent().getStringExtra("language");
+        hashtag = getIntent().getStringExtra("hashtag");
 
+        tagField.setText(hashtag.equals("all")?"":hashtag);
+
+        String date = getCurrentDate();
+        tripsList = new TripsList(language,(hashtag==null?date:hashtag).replace('.','_') , this, recyclerView);
     }
 
-
-    @SuppressWarnings("HardCodedStringLiteral")
-    private void updateList(){
-        /*myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setTrip_id(dataSnapshot.getKey());
-                trip.getVisitors().download();
-                listofTrips.add(trip);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setTrip_id(dataSnapshot.getKey());
-                int index =getItemIndex(trip);
-                listofTrips.set(index,trip);
-                adapter.notifyItemChanged(index);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setTrip_id(dataSnapshot.getKey());
-                int index =getItemIndex(trip);
-                listofTrips.remove(index);
-                adapter.notifyItemRemoved(index);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-        FirebaseDatabase.getInstance().getReference().child("Test").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //HashMap trips = new HashMap<String, String>();
-                for ( DataSnapshot v:dataSnapshot.getChildren()) { //TODO доделвть realtime
-                    listofTrips.add(new Trip(v.getKey()));
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-    private int getItemIndex(Trip trip){
-        int index =-1;
-        for(int i=0;i<listofTrips.size();i++){
-            if(listofTrips.get(i).getTrip_id().equals(trip.getTrip_id())){
-                index =i;
-                break;
-            }
-        }
-        return index;
-    }
-    public void review_Trip(View view){
-        int position = recyclerView.getChildLayoutPosition(view);
-        Toast.makeText(this,position+"",Toast.LENGTH_LONG).show();
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd.MM.yyyy");
+        return dateFormat.format(new Date());
     }
 
+    protected void onDestroy() {
+        super.onDestroy();
+        tripsList.removeReader();
+    }
+    public void findByTag(View view) {
 
+            String edittag = tagField.getText().toString();
+            if(edittag!=null && edittag.toLowerCase().trim().matches("\\w+")) {
+                tripsList.changeTag(getLanguage(), edittag.toLowerCase());
+            }
+
+
+
+    }
+    private String getLanguage() {
+        return languageField.getSelectedItem().toString();
+    }
 }
 
