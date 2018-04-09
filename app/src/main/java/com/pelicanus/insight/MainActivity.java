@@ -88,9 +88,6 @@ public class MainActivity extends AppCompatActivity{
 
         Log.d("DEBUG:", "On start 2");
 
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount ggaccount = GoogleSignIn.getLastSignedInAccount(this);
         FirebaseUser fbaccount = firebaseAuth.getCurrentUser();
 
         //if account does not returns null
@@ -200,7 +197,8 @@ public class MainActivity extends AppCompatActivity{
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("GGLAUTH", "signInWithCredential:failure", task.getException());
-                            updateUI(null);
+                            //updateUI(null);
+                            Toast.makeText(getApplicationContext(), "Something went wrong while connecting to Google. Please, try again.", Toast.LENGTH_LONG).show();
                         }
 
                         // ...
