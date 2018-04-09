@@ -18,7 +18,9 @@ import com.pelicanus.insight.model.Trip;
 import com.pelicanus.insight.model.TripsList;
 import com.pelicanus.insight.service.TripAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -37,7 +39,13 @@ public class TripList extends AppBaseActivity {
         recyclerView.setHasFixedSize(true);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-        TripsList tripsList = new TripsList("English", "9_3_2018", this, recyclerView);
+        String language = getIntent().getStringExtra("language");
+        String hashtag = getIntent().getStringExtra("hashtag");
+
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd.MM.yyyy");
+        String date =dateFormat.format(new Date());
+
+        TripsList tripsList = new TripsList(language,(hashtag==null?date:hashtag).replace('.','_') , this, recyclerView);
     }
 
 
