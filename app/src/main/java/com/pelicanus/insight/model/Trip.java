@@ -124,13 +124,9 @@ public class Trip {
                                                    if (tripButton == null) {
                                                        activity.startActivity(new Intent(context, ExcursionViewActivity.class));
                                                        Toast.makeText(context, R.string.trip_create_success, Toast.LENGTH_LONG).show();
-                                                       //TODO запись в БД список созданных
                                                        DatabaseReference triplist = FirebaseDatabase.getInstance().getReference().child("TripLists");
                                                        visitors.addUser(getGuide_id(), null);
-                                                       triplist.child(getLanguage()).child(getDate().replace('.', '_')).child(getTrip_id()).setValue(false);
-                                                       triplist.child(getLanguage()).child(getAddress()).child(getTrip_id()).setValue(false);
-
-                                                       FirebaseDatabase.getInstance().getReference().child("Test").child(getTrip_id()).setValue(false);
+                                                       triplist.child("All").child("All").child(getTrip_id()).setValue(false);
                                                    } else
                                                        Toast.makeText(context, R.string.trip_edit_successfully, Toast.LENGTH_LONG).show();
                                                } else
@@ -292,11 +288,10 @@ public class Trip {
 
                 }
             });
+
             hashTagHelper.handle(descriptionField);
             List<String> edithashtags = ConvertHashtags(hashTagHelper.getAllHashTags());
             updateHashtags(edithashtags);
-
-            hashtags=(ArrayList)hashTagHelper.getAllHashTags();
 
             Trip.this.setAddress(getAddress());
             Trip.this.setDate(date);
@@ -336,11 +331,11 @@ public class Trip {
 
             past.removeAll(now);
             for (String h:past) {
-                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.getTrip_id()).setValue(null);
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h.toLowerCase()).child(Trip.this.getTrip_id()).setValue(null);
             }
            now.removeAll(hashtags);
             for (String h:now) {
-                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.getTrip_id()).setValue(false);
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h.toLowerCase()).child(Trip.this.getTrip_id()).setValue(false);
             }
             hashtags=(ArrayList)edithashtags;
         }
