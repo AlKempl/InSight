@@ -197,6 +197,7 @@ public class Trip {
         public void setDescriptionField(EditText descriptionField) {
             this.descriptionField = descriptionField;
             descriptionField.setText(Trip.this.getDescription());
+
         }
         public void setMaxVisitorsField(EditText maxVisitorsField) {
             this.maxVisitorsField = maxVisitorsField;
@@ -244,6 +245,8 @@ public class Trip {
                 Toast.makeText(getContext(), R.string.trip_create_emptydata, Toast.LENGTH_LONG).show();
                 return false;
             }
+
+            Trip.this.getDescription();
             Trip.this.setAddress(getAddress());
             Trip.this.setDate(date);
             Trip.this.setDescription(description);

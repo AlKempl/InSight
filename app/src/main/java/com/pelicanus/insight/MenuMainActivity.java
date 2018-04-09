@@ -31,6 +31,7 @@ public class MenuMainActivity extends AppBaseActivity {
         TripsList tripsListPar = new TripsList("Participant", user_id, this, null);
         tripsListPar.setCountView((TextView)findViewById(R.id.excursions_participate_stat));
     }
+
 }
 
 

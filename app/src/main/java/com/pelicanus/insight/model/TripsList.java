@@ -21,7 +21,7 @@ import java.util.Set;
  */
 
 public class TripsList {
-    private ArrayList<String> ids = new ArrayList<>();
+    private HashMap<String, Integer> ids = new HashMap<>();
     private ArrayList<Trip> trips = new ArrayList<>();
     private DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("TripLists");
     private String parent;
@@ -42,26 +42,31 @@ public class TripsList {
         download();
     }
 
-    private ArrayList<String> getIds() {
-        return this.ids;
-    }
 
     public void download() {
         root.child(parent).child(tag).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                HashMap _visitors = new HashMap<String, String>();
+                HashMap _ids = new HashMap<String, String>();
                 for ( DataSnapshot v:dataSnapshot.getChildren()) {
-                    _visitors.put(v.getKey(), v.getValue().toString());
+                    _ids.put(v.getKey(), v.getValue().toString());
                 }
-                Set<String> past =  new HashSet<String>(getIds());
-                Set<String> now = _visitors.keySet();
+                Set<String> past =  new HashSet<String>(ids.keySet());
+                Set<String> now = _ids.keySet();
+
                 past.removeAll(now);
                 for (String k:past) {
+                    int p = ids.get(k);
+                    trips.remove(p);
                     ids.remove(k);
+                    if (adapter!=null)
+                        adapter.notifyItemRemoved(p);
                 }
-                ids.addAll(_visitors.keySet());
-                for (String id:ids) {
+                for (int i = 0; i<trips.size(); i++)
+                    ids.put(trips.get(i).getTrip_id(), i);
+                now.removeAll(ids.keySet());
+                for (String id:now) {
+                    ids.put(id, trips.size());
                     trips.add(new Trip(id));
                 }
                 if (adapter!=null)
@@ -74,13 +79,7 @@ public class TripsList {
             }
         });
     }
-    public int size() {
-        if (ids.size() == 0) {
-            download();
-            return 0;
-        }
-        return ids.size();
-    }
+
     public Trip get(int position) {
         return trips.get(position);
     }
@@ -92,7 +91,7 @@ public class TripsList {
 
     private void loadCountView() {
         if(countView!=null)
-            countView.setText(ids.size()+"");
+            countView.setText(trips.size()+"");
     }
 
     private TextView countView;
