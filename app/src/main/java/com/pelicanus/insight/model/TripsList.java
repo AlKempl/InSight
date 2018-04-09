@@ -35,8 +35,10 @@ public class TripsList {
         this.tag = tag;
         this.recyclerView = recyclerView;
         this.activity = activity;
-        adapter = new TripAdapter(activity, trips);
-        recyclerView.setAdapter(adapter);
+        if (recyclerView != null) {
+            adapter = new TripAdapter(activity, trips);
+            recyclerView.setAdapter(adapter);
+        }
         download();
     }
 
@@ -66,24 +68,10 @@ public class TripsList {
                 for (String id:ids) {
                     trips.add(new Trip(id));
                 }
-                adapter.notifyDataSetChanged();
+                if (adapter!=null)
+                    adapter.notifyDataSetChanged();
                 loadCountView();
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        FirebaseDatabase.getInstance().getReference().child("Test").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //HashMap trips = new HashMap<String, String>();
-                for ( DataSnapshot v:dataSnapshot.getChildren()) { //TODO доделвть realtime
-    //                listofTrips.add(new Trip(v.getKey()));
-                }
-                adapter.notifyDataSetChanged();
-            }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

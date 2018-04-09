@@ -38,6 +38,8 @@ public class ProfileActivity extends AppBaseActivity {
         recyclerViewGuide.setLayoutManager(llm);
         TripsList tripsListOrg = new TripsList("Guide", current.getId(), this, recyclerViewGuide);
         tripsListOrg.setCountView((TextView)findViewById(R.id.profile_count_created));
+        TripsList tripsListPar = new TripsList("Participant", current.getId(), this, null);
+        tripsListPar.setCountView((TextView)findViewById(R.id.profile_count_par));
     }
     protected  void onDestroy() {
         super.onDestroy();
