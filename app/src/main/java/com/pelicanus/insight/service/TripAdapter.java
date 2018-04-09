@@ -27,7 +27,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
 
     public TripAdapter(Context c, List<Trip> list) {
         this.list = list;
-        this.c=c;
+        this.c = c;
     }
 
     @Override
@@ -39,14 +39,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     public void onBindViewHolder(TripViewHolder holder, int position) {
         position = list.size() - position - 1;
         final Trip trp = list.get(position);
-        /*
-        HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimary, new HashTagHelper.OnHashTagClickListener() {
-            @Override
-            public void onHashTagClicked(String hashTag) {
-                Toast.makeText(c,"HashTag",Toast.LENGTH_LONG).show();
-            }
-        });
-        hashTagHelper.handle(holder.exc_description);*/
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +47,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                 c.startActivity(intent);
             }
         });
-
         trp.setViewFields(holder.exc_name, null, holder.exc_description, null, holder.exc_date, holder.exc_lang, holder.exc_image);
     }
 

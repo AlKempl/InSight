@@ -12,13 +12,13 @@ import com.pelicanus.insight.model.TripsList;
 import com.pelicanus.insight.model.User;
 
 public class ProfileActivity extends AppBaseActivity {
-    private RecyclerView recyclerViewGuide;
+    private TripsList tripsListOrg;
+    private TripsList tripsListPar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         loadHeaderUserInfo();
     }
 
@@ -31,19 +31,21 @@ public class ProfileActivity extends AppBaseActivity {
         current.setFieldRating(in_profile_rating_string_label);
         current.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
 
-        recyclerViewGuide = findViewById(R.id.organize_trip_list);
+        RecyclerView recyclerViewGuide = findViewById(R.id.organize_trip_list);
         LinearLayoutManager llm = new LinearLayoutManager(recyclerViewGuide.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewGuide.setHasFixedSize(true);
         recyclerViewGuide.setLayoutManager(llm);
-        TripsList tripsListOrg = new TripsList("Guide", current.getId(), this, recyclerViewGuide);
+        tripsListOrg = new TripsList("Guide", current.getId(), this, recyclerViewGuide);
         tripsListOrg.setCountView((TextView)findViewById(R.id.profile_count_created));
-        TripsList tripsListPar = new TripsList("Participant", current.getId(), this, null);
+        tripsListPar = new TripsList("Participant", current.getId(), this, null);
         tripsListPar.setCountView((TextView)findViewById(R.id.profile_count_par));
     }
     protected  void onDestroy() {
         super.onDestroy();
         DataHolder.getInstance().remove("PROFILE_USER");
         finish();
+        tripsListOrg.removeReader();
+        tripsListPar.removeReader();
     }
 }

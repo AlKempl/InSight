@@ -13,6 +13,8 @@ import com.pelicanus.insight.service.TripAdapter;
 public class MyExcursionsActivity extends AppCompatActivity {
     private RecyclerView recyclerViewGuide;
     private RecyclerView recyclerViewParc;
+    TripsList tripsListOrg;
+    TripsList tripsListPar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,12 @@ public class MyExcursionsActivity extends AppCompatActivity {
         recyclerViewParc.setHasFixedSize(true);
         recyclerViewParc.setLayoutManager(llm2);
         User user = (User) DataHolder.getInstance().retrieve("CURR_USER");
-        TripsList tripsListOrg = new TripsList("Guide", user.getId(), this, recyclerViewGuide);
-        TripsList tripsListPar = new TripsList("Participant", user.getId(), this, recyclerViewParc);
+        tripsListOrg = new TripsList("Guide", user.getId(), this, recyclerViewGuide);
+        tripsListPar = new TripsList("Participant", user.getId(), this, recyclerViewParc);
+    }
+    protected void onDestroy() {
+        super.onDestroy();
+        tripsListOrg.removeReader();
+        tripsListPar.removeReader();
     }
 }

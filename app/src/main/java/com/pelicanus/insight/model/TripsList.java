@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pelicanus.insight.service.TripAdapter;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,14 +28,12 @@ public class TripsList {
     private String parent;
     private String tag;
     private TripAdapter adapter;
-    private RecyclerView recyclerView;
-    private Activity activity;
+    private TextView countView;
 
     public TripsList(String parent, String tag, Activity activity, RecyclerView recyclerView) {
         this.parent = parent;
         this.tag = tag;
-        this.recyclerView = recyclerView;
-        this.activity = activity;
+        RecyclerView recyclerView1 = recyclerView;
         if (recyclerView != null) {
             adapter = new TripAdapter(activity, trips);
             recyclerView.setAdapter(adapter);
@@ -42,46 +41,26 @@ public class TripsList {
         download();
     }
 
-
-    public void download() {
-        root.child(parent).child(tag).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                HashMap _ids = new HashMap<String, String>();
-                for ( DataSnapshot v:dataSnapshot.getChildren()) {
-                    _ids.put(v.getKey(), v.getValue().toString());
-                }
-                Set<String> past =  new HashSet<String>(ids.keySet());
-                Set<String> now = _ids.keySet();
-
-                past.removeAll(now);
-                for (String k:past) {
-                    int p = ids.get(k);
-                    trips.remove(p);
-                    ids.remove(k);
-                    if (adapter!=null)
-                        adapter.notifyItemRemoved(p);
-                }
-                for (int i = 0; i<trips.size(); i++)
-                    ids.put(trips.get(i).getTrip_id(), i);
-                now.removeAll(ids.keySet());
-                for (String id:now) {
-                    ids.put(id, trips.size());
-                    trips.add(new Trip(id));
-                }
-                if (adapter!=null)
-                    adapter.notifyDataSetChanged();
-                loadCountView();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    private DatabaseReference getReference() {
+        if (parent != null)
+            return root.child(parent).child(tag);
+        else
+            return null;
+    }
+    public void changeTag(String parent, String tag) {
+        removeReader();
+        this.parent = parent;
+        this.tag = tag;
+        download();
     }
 
-    public Trip get(int position) {
-        return trips.get(position);
+    public void removeReader() {
+        if (getReference()!=null)
+            getReference().removeEventListener(reader);
+    }
+
+    private void download() {
+        getReference().addValueEventListener(reader);
     }
 
     public void setCountView(TextView countView) {
@@ -93,6 +72,38 @@ public class TripsList {
         if(countView!=null)
             countView.setText(trips.size()+"");
     }
+    private ValueEventListener  reader = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            HashMap _ids = new HashMap<String, String>();
+            for ( DataSnapshot v:dataSnapshot.getChildren()) {
+                _ids.put(v.getKey(), v.getValue().toString());
+            }
+            Set<String> past =  new HashSet<String>(ids.keySet());
+            Set<String> now = _ids.keySet();
 
-    private TextView countView;
+            past.removeAll(now);
+            for (String k:past) {
+                int p = ids.get(k);
+                trips.remove(p);
+                ids.remove(k);
+                if (adapter!=null)
+                    adapter.notifyItemRemoved(p);
+            }
+            for (int i = 0; i<trips.size(); i++)
+                ids.put(trips.get(i).getTrip_id(), i);
+            now.removeAll(ids.keySet());
+            for (String id:now) {
+                ids.put(id, trips.size());
+                trips.add(new Trip(id));
+            }
+            if (adapter!=null)
+                adapter.notifyDataSetChanged();
+            loadCountView();
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 }

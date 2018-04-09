@@ -28,8 +28,7 @@ public class TripList extends AppBaseActivity {
 
 
     private RecyclerView recyclerView;
-    private TripAdapter adapter;
-
+    private TripsList tripsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,52 +44,11 @@ public class TripList extends AppBaseActivity {
         SimpleDateFormat dateFormat= new SimpleDateFormat("dd.MM.yyyy");
         String date = dateFormat.format(new Date());
 
-        TripsList tripsList = new TripsList(language,(hashtag==null?date:hashtag).replace('.','_') , this, recyclerView);
+        tripsList = new TripsList(language,(hashtag==null?date:hashtag).replace('.','_') , this, recyclerView);
     }
-
-
-    private void updateList(){
-        /*myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setTrip_id(dataSnapshot.getKey());
-                trip.getVisitors().download();
-                listofTrips.add(trip);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setTrip_id(dataSnapshot.getKey());
-                int index =getItemIndex(trip);
-                listofTrips.set(index,trip);
-                adapter.notifyItemChanged(index);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setTrip_id(dataSnapshot.getKey());
-                int index =getItemIndex(trip);
-                listofTrips.remove(index);
-                adapter.notifyItemRemoved(index);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
+    protected void onDestroy() {
+        super.onDestroy();
+        tripsList.removeReader();
     }
-
-
 }
 
