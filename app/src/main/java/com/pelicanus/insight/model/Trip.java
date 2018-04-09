@@ -371,7 +371,8 @@ public class Trip {
         }
         public void setDescriptionField(final TextView descriptionField) {
             this.descriptionField = descriptionField;
-            HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimaryDark, new HashTagHelper.OnHashTagClickListener() {
+            //TODO разобраться с цветом хештегов
+            HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.cardview_dark_background, new HashTagHelper.OnHashTagClickListener() {
                 @Override
                 public void onHashTagClicked(String hashTag) {
                     Intent intent = new Intent(descriptionField.getContext(), TripList.class);
@@ -538,7 +539,7 @@ public class Trip {
             setButton(button);
         }
         private void modeUpdate() {
-            if (CheckDate(Trip.this.getDate())) //TODO проверка, "Время экскурсии в прошлом?"
+            if (CheckDate(Trip.this.getDate()))
                 setMode(ButtonMode.CloseTrip);
             else if (getUser().contentEquals(getGuide_id()))
                 setMode(ButtonMode.EditTrip);

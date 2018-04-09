@@ -37,7 +37,6 @@ public class EditProfileActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_activity);
         user = (User) DataHolder.getInstance().retrieve("CURR_USER");
-        //TODO fix bug конфликт ImageView со шторкой
         user.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
         ed_name = findViewById(R.id.ed_name);
         ed_email = findViewById(R.id.ed_email);
@@ -73,7 +72,6 @@ public class EditProfileActivity extends AppBaseActivity {
         }
 
         if (ed_email.getText().length() > 0) {
-            //TODO смена почты и отправка письма(?)
             if (!user.getEmail().equals(ed_email.getText().toString())) {
                 FirebaseAuth.getInstance().getCurrentUser().updateEmail(ed_email.getText().toString());
                 user.setEmail(ed_email.getText().toString());
@@ -123,5 +121,9 @@ public class EditProfileActivity extends AppBaseActivity {
     public void setAvatar(View view) {
         user.getAvatar().Set(this);
         avatar_edited = true;
+    }
+    protected void onResume() {
+        super.onResume();
+        user.getAvatar().setImageView((ImageView) findViewById(R.id.user_photo));
     }
 }

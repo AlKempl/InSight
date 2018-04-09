@@ -42,14 +42,6 @@ public class ExcursionViewActivity extends AppBaseActivity {
                 );
 
         TextView ex_author = findViewById(R.id.view_author_name);
-        HashTagHelper hashTagHelper = HashTagHelper.Creator.create(R.color.colorPrimaryDark, new HashTagHelper.OnHashTagClickListener() {
-            @Override
-            public void onHashTagClicked(String hashTag) {
-                Toast.makeText(getApplicationContext(), hashTag,Toast.LENGTH_LONG).show();//TODO Перенаправить на активити списка экскурсии по этому хештегу
-
-            }
-        });
-//        hashTagHelper.handle(ex_description);
         User usr = (User) DataHolder.getInstance().retrieve("CURR_USER");
         user_id = usr.getId();
         guide = new User(trip.getGuide_id());
