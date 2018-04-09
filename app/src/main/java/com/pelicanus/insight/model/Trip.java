@@ -302,11 +302,11 @@ public class Trip {
 
             past.removeAll(now);
             for (String h:past) {
-                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.genTrip_id()).setValue(null);
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.getTrip_id()).setValue(null);
             }
            now.removeAll(hashtags);
             for (String h:now) {
-                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.genTrip_id()).setValue(false);
+                FirebaseDatabase.getInstance().getReference().child("TripLists").child(getLanguage()).child(h).child(Trip.this.getTrip_id()).setValue(false);
             }
             hashtags=(ArrayList)edithashtags;
         }
