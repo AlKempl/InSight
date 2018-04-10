@@ -138,4 +138,5 @@
     <string name="add_user">Вы записаны на экскурсию</string>
     <string name="security">Безопасность</string>
     <string name="create_trip_location">Место проведения экскурсии</string>
+    <string name="version">final1</string>
 </resources>
