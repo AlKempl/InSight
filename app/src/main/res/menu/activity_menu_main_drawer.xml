@@ -25,10 +25,6 @@
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/drawer_settings" />
             <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_info_black_24dp"
-                android:title="@string/drawer_info" />
-            <item
                 android:id="@+id/nav_how_to"
                 android:icon="@drawable/ic_info_black_24dp"
                 android:title="How To" />

@@ -140,7 +140,7 @@
         <item>English</item>
         <item>Русский</item>
         <item>Ukraine</item>
-        <item>German</item>
+        <item>Deutsch</item>
     </string-array>
     <string name="repeat_password">Repeat password</string>
     <string name="date">Date</string>
