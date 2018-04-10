@@ -40,12 +40,8 @@ class HowToData {
         List<Integer> how_to_search = new ArrayList<>();
         how_to_search.add(R.layout.activity_how_to_search);
 
-        List<Integer> after_trip = new ArrayList<>();
-//        after_trip.add(R.layout.activity_how_to_after_trip); // TODO ЗАМЕНИТЬ на activity_how_to_after_trip!!!!!!!!!!!(если оно будет вообще)
-
         expDetails.put("How to create", how_to_create);
         expDetails.put("How to search", how_to_search);
-//        expDetails.put("What to do after", after_trip);
 
         return expDetails;
     }

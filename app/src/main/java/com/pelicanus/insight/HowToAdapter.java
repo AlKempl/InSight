@@ -48,8 +48,6 @@ public class HowToAdapter extends BaseExpandableListAdapter {
             convertView  = mInflater.inflate(R.layout.activity_how_to_create, null);
         else if (expLayoutId == R.layout.activity_how_to_search)
             convertView = mInflater.inflate(R.layout.activity_how_to_search, null);
-//        else if (expLayoutId == R.layout.activity_how_to_main)
-//            convertView = mInflater.inflate(R.layout.activity_how_to_main, null); // TODO ЗАМЕНИТЬ на activity_how_to_after_trip!!!!!!!!!!!
         return convertView;
     }
 
