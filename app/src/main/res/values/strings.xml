@@ -224,4 +224,6 @@
     <string name="date_dots">Date:</string>
     <string name="language_dots">Language:</string>
     <string name="name_dots">Name:</string>
+    <string name="del_user">You are out</string>
+    <string name="add_user">You are in</string>
 </resources>
