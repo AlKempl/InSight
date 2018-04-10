@@ -40,7 +40,7 @@
                 android:layout_marginTop="10dp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:text="Preferable tags"/>
+                android:text="@string/preferable_tags"/>
 
             <EditText
                 android:id="@+id/tag"
@@ -60,7 +60,7 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:text="Search"
+                android:text="@string/search"
                 android:textColor="@color/colorPrimary"/>
 
         </LinearLayout>
